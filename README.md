@@ -18,8 +18,8 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
    - docker image [web-master](https://github.com/mrazjava/booklink/packages/141719?version=latest) deployed via [task-definition](https://github.com/mrazjava/booklink/blob/master/.aws/web-pre.json) as [frontend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com/)
    - docker image [backend-master](https://github.com/mrazjava/booklink/packages/130548?version=latest) deployed via [task-definition](https://github.com/mrazjava/booklink/blob/master/.aws/backend-pre.json) as [backend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com:8888/actuator/info)
    - QA testing, live demos
-   - backend deploy [triggered](https://github.com/mrazjava/booklink/blob/master/.github/workflows/backend-master.yml) automatically upon push/merge to [booklink-backend](https://github.com/mrazjava/booklink/tree/master/booklink-backend) @ `master`
-   - frontend deploy [triggered](https://github.com/mrazjava/booklink/blob/master/.github/workflows/web-master.yml) automatically upon push/merge to [booklink-web](https://github.com/mrazjava/booklink/tree/master/booklink-web) @ `master`
+   - backend deploy triggered by github action upon push to `master`
+   - frontend deploy triggered by github action upon push to `master`
    - also available via sandbox
 * `stg`
    - staged feature changes and bug fixes in `develop`
