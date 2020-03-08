@@ -7,7 +7,7 @@ Actual components live in their own repos. This is a root project with overview 
 * Java based [backend](https://github.com/mrazjava/booklink-backend)
 
 ## Environments
-Booklink is deployed in AWS. In the cloud, it has a `live` and `pre`-release environments. There is also a `stg` 
+Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` and `pre`-release environments. There is also a `stg` 
 (staging) environment but it is only available in sandbox locally.
 * `live`
    - AWS, not setup yet
