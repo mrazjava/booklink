@@ -89,30 +89,3 @@ Merge to `master` triggers release CI pipeline which:
 
 `master` version of `booklink/docker-compose.yml` (project root) bootstraps app from release ready images (`-master:latest`). 
 As such, image changes to this file from `develop` branch should not be merged.
-
-## -WIP-
-
-booklink
-* master (the only branch)
-- sandbox.sh
-.. live [BE=latest|FE=latest]
-    - default, runs most recent master tag
-.. pre
-    - runs :latest master
-.. staging
-    - runs :latest develop
-
-booklink-backend
-* master
-- merge/push pushes latest master image and deploys pre-release with it
-- tag pushes a final, version-tagged image to dockerhub and AWS ECR (no deployment)
-* develop
-- merge/push pushes latest develop image to dockerhub (no deployment)
-* feature
-- unit tests only
-
-booklink-frontend-vue
-* master
-- merge pushes latest image and deploys pre-release (w/ latest)
-- tag pushes final image (tagged) to dockerhub
-* develop
