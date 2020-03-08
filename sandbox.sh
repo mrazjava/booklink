@@ -10,6 +10,9 @@ they are started. For local environment there is nothing to pull as sandbox
 expects the images have been built directly from the sources (see frontend/backend
 project Dockerfile).
 
+To get a list of deployed live tags which are needed as additional arguments to
+the [live] parameter, run booklinktags.sh script.
+
 EXAMPLE:
   live 0.1.4 0.2.8   : pulls tagged master images and runs them
   pre                : pulls latest master images and runs them
