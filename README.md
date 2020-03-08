@@ -2,7 +2,7 @@
 Cross reference of books.
 
 ## Components
-Actual components live in their own repos. This is a root project with overview and high level utilities.
+Actual components live in their own repos. This is an overview project which aggregates common documentation and high level utilities.
 * Vue.js based [frontend](https://github.com/mrazjava/booklink-frontend-vue)
 * Java based [backend](https://github.com/mrazjava/booklink-backend)
 
