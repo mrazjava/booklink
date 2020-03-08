@@ -38,7 +38,6 @@ fi
 
 if [ $SOURCE == 'live' ]
 then
- echo "$2 .... $3"
  export FE_IMG_TAG=$2
  export BE_IMG_TAG=$3
  echo "--------------------------------------------------"
