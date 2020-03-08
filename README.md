@@ -12,6 +12,7 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
 * `live`
    - AWS, not setup yet
    - manual deploy (from pre-release tested AWS ECR docker image)
+   - also available via sandbox
 * `pre`
    - stable candidate releases (pre-release), hosted on AWS free tier [T2.micro](https://aws.amazon.com/ec2/instance-types/t2/)
    - docker image [web-master](https://github.com/mrazjava/booklink/packages/141719?version=latest) deployed via [task-definition](https://github.com/mrazjava/booklink/blob/master/.aws/web-pre.json) as [frontend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com/)
@@ -19,20 +20,22 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
    - QA testing, live demos
    - backend deploy [triggered](https://github.com/mrazjava/booklink/blob/master/.github/workflows/backend-master.yml) automatically upon push/merge to [booklink-backend](https://github.com/mrazjava/booklink/tree/master/booklink-backend) @ `master`
    - frontend deploy [triggered](https://github.com/mrazjava/booklink/blob/master/.github/workflows/web-master.yml) automatically upon push/merge to [booklink-web](https://github.com/mrazjava/booklink/tree/master/booklink-web) @ `master`
-* `playground`
-   - local machine, scripted docker-compose
+   - also available via sandbox
+* `stg`
+   - staged feature changes and bug fixes in `develop`
    - requires: git, docker, docker-compose
-   - safe environment for experimentation, offline demo
-   - can run either a stable release, staged snapshot or custom build off any branch
+   - testing, safe environment for experimentation
+   - sandbox only
 * `development`
    - local machine development environment w/ Maven, Git, Docker, IDE, etc.
    - requires: git, maven, jdk 11, docker, docker-compose
    - programming of new features, bug fixing, depending on branch may be unstable
+   - can built docker images and run them with sandbox
 
 ## Sandbox
 The fastest way to try booklink:
 ```
-./booklink.sh [live | pre | stg | local | help]
+./sandbox.sh [live | pre | stg | local | help]
 ```
 Sandbox is based on `docker-compose` and so if you prefer to work with docker directly see `docker-compose` section.
 
