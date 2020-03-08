@@ -1,0 +1,18 @@
+# Bootstraps entire app, frontend, backend and supporting artifacts (persistence, etc)
+# from images built for a production release
+#
+version: '3.3'
+services:
+  frontend:
+    image: docker.io/mrazjava/booklink-web-master:${FE_IMG_TAG}
+    ports:
+      - "8090:80"
+    environment:
+      VUE_APP_BACKEND_HOST: http://localhost:8080
+      VUE_APP_ENV: live
+  backend:
+    image: docker.io/mrazjava/booklink-backend-master:${BE_IMG_TAG}
+    ports:
+    - "8080:8080"
+    environment:
+      APP_ENV: live

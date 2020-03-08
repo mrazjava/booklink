@@ -1,0 +1,18 @@
+# Bootstraps entire app, frontend, backend and supporting artifacts (persistence, etc)
+# from images built for a production release
+#
+version: '3.3'
+services:
+  frontend:
+    image: docker.io/mrazjava/booklink-frontend-vue-develop:latest
+    ports:
+      - "8090:80"
+    environment:
+      VUE_APP_BACKEND_HOST: http://localhost:8080
+      VUE_APP_ENV: stg
+  backend:
+    image: docker.io/mrazjava/booklink-backend-develop:latest
+    ports:
+    - "8080:8080"
+    environment:
+      APP_ENV: stg
