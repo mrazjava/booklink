@@ -38,8 +38,9 @@ fi
 
 if [ $SOURCE == 'live' ]
 then
- FE_IMG_TAG=$2
- BE_IMG_TAG=$3
+ echo "$2 .... $3"
+ export FE_IMG_TAG=$2
+ export BE_IMG_TAG=$3
  echo "--------------------------------------------------"
  echo "+ validating *live* docker images"
  echo "--------------------------------------------------"
