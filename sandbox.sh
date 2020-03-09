@@ -3,6 +3,7 @@
 if [ $# -eq 0 ] || [ $1 == 'help' ]
 then
 cat << HELP
+
 sandbox  --  run Booklink locally simulating desired environment
 
 Pulls docker images from dockerhub for the desired environment. Once pulled,
@@ -19,6 +20,7 @@ EXAMPLE:
   stg                : pulls latest develop images and runs them
   local              : runs latest local images built from sources
   help               : this message
+
 HELP
 exit
 fi
