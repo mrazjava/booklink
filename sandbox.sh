@@ -6,26 +6,21 @@ cat << HELP
 
 sandbox  --  run Booklink locally simulating desired environment
 
-Pulls docker images from dockerhub for the desired environment. Once pulled,
-they are started. For local environment there is nothing to pull as sandbox
-expects the images have been built directly from the sources (see frontend/backend
-project Dockerfile).
-
-To get a list of deployed live tags which are needed as additional arguments to
+Pulls most recent docker images from dockerhub for the desired environment, and starts 
+them. To get a list of deployed live tags which are needed as additional arguments to 
 the [live] parameter, run booklinktags.sh script.
 
 EXAMPLE:
-  live 0.1.4 0.2.8   : pulls tagged master images and runs them
-  pre                : pulls latest master images and runs them
-  stg                : pulls latest develop images and runs them
-  local              : runs latest local images built from sources
-  help               : this message
+  live v0.1.4 v0.2.8 : run tagged live (or archived) images (eg: v0.1.4 frontend-vue, v0.2.8 backend)
+  pre                : run master images which are pre-release candidates
+  stg                : run develop imagess which are staging snapshots
+  help               : show this message
 
 HELP
 exit
 fi
 
-if [ $1 == 'live' ] || [ $1 == 'pre' ] || [ $1 == 'stg' ] || [ $1 == 'local' ]
+if [ $1 == 'live' ] || [ $1 == 'pre' ] || [ $1 == 'stg' ]
 then
  SOURCE=$1
  if [ $1 == 'live' ] && [ $# -lt 3 ]
@@ -34,7 +29,7 @@ then
    exit
  fi
 else
- echo "INVALID PARAMETER. Allowed values are [live <FE_IMG> <BE_IMG>|pre|stg|local|help]. DEFAULT: pre"
+ echo "INVALID PARAMETER. Allowed values are [live <FE_IMG> <BE_IMG>|pre|stg|help]"
  exit
 fi
 
@@ -74,12 +69,4 @@ then
  echo "+ starting STAGING environment"
  echo "--------------------------------------------------"
  docker-compose -f docker-compose/stg.yml up
-fi
-
-if [ $SOURCE == 'local' ]
-then
- echo "--------------------------------------------------"
- echo "+ starting LOCAL environment"
- echo "--------------------------------------------------"
- docker-compose -f docker-compose/local.yml up
 fi

@@ -7,15 +7,15 @@ Actual components live in their own repos. This is an overview project which agg
 * Java based [backend](https://github.com/mrazjava/booklink-backend)
 
 ## Environments
-Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` and `pre`-release environments.
+Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` and `pre` release environments.
 
 * `live` aws not setup yet
    - manual deploy from pre-release tested aws [ecr](https://aws.amazon.com/ecr/) docker image
    - requires: internet connection only (or more if using sandbox)
 * `pre` [frontend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com/) | [backend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com:8888/actuator/info)
    - stable candidate releases hosted on aws free tier [T2.micro](https://aws.amazon.com/ec2/instance-types/t2/)
-   - docker image [booklink-frontend-vue-master](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue-master) auto deployed via ci [workflow](https://github.com/mrazjava/booklink-frontend-vue/blob/master/.github/workflows/pre-release.yml) and aws [task-definition](https://github.com/mrazjava/booklink/blob/master/.aws/web-pre.json)
-   - docker image [booklink-backend-master](https://hub.docker.com/repository/docker/mrazjava/booklink-backend-master) auto deployed via ci [workflow](https://github.com/mrazjava/booklink-backend/blob/master/.github/workflows/pre-release.yml) and aws [task-definition](https://github.com/mrazjava/booklink/blob/master/.aws/backend-pre.json)
+   - docker image [booklink-frontend-vue](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue) auto deployed via ci [workflow](https://github.com/mrazjava/booklink-frontend-vue/blob/master/.github/workflows/pre-release.yml) and aws [task-definition](https://github.com/mrazjava/booklink-frontend-vue/blob/master/.aws/pre-release.json)
+   - docker image [booklink-backend](https://hub.docker.com/repository/docker/mrazjava/booklink-backend) auto deployed via ci [workflow](https://github.com/mrazjava/booklink-backend/blob/master/.github/workflows/pre-release.yml) and aws [task-definition](https://github.com/mrazjava/booklink-backend/blob/master/.aws/pre-release.json)
    - QA testing, live demos
    - requires: internet connection only (or more if using sandbox)
 * `stg`
@@ -30,12 +30,13 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
 ## Sandbox
 The fastest way to try booklink locally:
 ```
-./sandbox.sh [live | pre | stg | local | help]
+./sandbox.sh [live | pre | stg | help]
 ```
-Frontend will run on port `8090`, backend on `8080`. Sandbox is based on `docker-compose` and so if you prefer to work with docker directly see `docker-compose` section.
+Frontend will run on port `8090`, backend on `8080`. Sandbox is based on `docker-compose` and so if you prefer to work 
+with docker directly see `docker-compose` section.
 
-As sandbox always attempts to pull latest `live` and `pre` images, it may leave previously overriden 
-image in the dangling state. This will happen frequently with pre-release and staging images as they run off a `latest` tag. You 
+As sandbox always attempts to pull latest `live` and `pre` images, it may leave previously overridden image in the 
+dangling state. This will happen frequently with pre-release and staging images as they run off a `latest` tag. You 
 may want to clean dangling images after running sandbox:
 ```
 docker image prune -f
@@ -47,7 +48,7 @@ application instance. In case of booklink, mainly frontend and backend tuned for
 manually build images or setup anything:
 ```
 cd docker-compose/
-docker-compose [-f live.yml | pre.yml] | stg.yml | local.yml] up
+docker-compose -f [live.yml | pre.yml] | stg.yml] up
 ```
 Candidate release image is built off `master` branch. It should be solid, well tested, and is the same as what runs in the 
 AWS cloud. However, it may not have the latest features. To try the latest stable version, tell docker-compose to run off a 
@@ -59,7 +60,10 @@ Compose does not pull latest images once cached. To make sure compose always run
 docker-compose [-f pre.yml | stg.yml] pull [backend | frontend]
 ```
 
-Compose files within project repos are designed to bootstrap dependencies for that project only without the project itself. For example, `docker-compose.yml` in `booklink-frontend-vue` will bootstrap the backend, database and everything else necessary for the frontend to operate, but without the frontend which for development purposes should be started via `yarn serve`.
+Compose files within project repos are designed to bootstrap dependencies for that project only without the project 
+itself. For example, `docker-compose.yml` in `booklink-frontend-vue` will bootstrap the backend, database and 
+everything else necessary for the frontend to operate, but without the frontend which for development purposes should 
+be started via `yarn serve`.
 
 <sup>1</sup> | Requires [docker](https://docs.docker.com/install/) + [docker-compose](https://docs.docker.com/compose/install/) 
 installation. On Ubuntu for example, this can be done with `sudo apt install docker-compose`, which installs 
@@ -75,7 +79,7 @@ Merge to `develop` triggers a release CI pipeline which:
 
 * runs a full test suite (unit/integration)
 * builds latest **snapshot** docker image(s) based on project source which triggered commit
-* pushes generated images to dockerhub: [`booklink-backend-develop`](https://hub.docker.com/repository/docker/mrazjava/booklink-backend-develop) & [`booklink-frontend-vue-develop`](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue-develop)
+* pushes snapshot images to dockerhub: [`booklink-backend:develop`](https://hub.docker.com/repository/docker/mrazjava/booklink-backend) & [`booklink-frontend-vue:develop`](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue)
 * sandbox `stg` will immediately use these new images on next run
 
 Release is made by merging `develop` into `master`.
@@ -87,9 +91,9 @@ Merge to `master` triggers release CI pipeline which:
 
 * builds application from `master` sources
 * builds latest **release** docker image(s) based on project source which triggered commit
-* pushes generated images to dockerhub: [`booklink-backend-master`](https://hub.docker.com/repository/docker/mrazjava/booklink-backend-master) & [`booklink-frontend-vue-master`](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue-master)
-* pushes same dockerhub image copies, tagged as `latest` pre-release candidates to AWS ECR
-* AWS `pre` release environment will be automatically re-deployed
+* pushes candidate release images to dockerhub: [`booklink-backend:master`](https://hub.docker.com/repository/docker/mrazjava/booklink-backend) & [`booklink-frontend-vue:master`](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue)
+* pushes same dockerhub image copies, tagged as `master` to aws ecr
+* AWS `pre` release environment will be automatically re-deployed using `master` image just pushed
 * sandbox `pre` will immediately use these new images on next run
 
 ## Versioning
@@ -98,4 +102,21 @@ Versions are bumped up manually, in `develop`, immediately after tagging `master
 * for `booklink-backend` in `pom.xml`
 * for `booklink-frontend-vue` in `package.json`
 
-A bump by default occurs to the minor number, eg: `X.Y.Z` where `X` would have been a major release, `Y` a minor release, and `Z` a hotfix/patch release. If the scope of release changes, version can be adjusted later on. Tagging master does not necessailry imply live deploy which is done manually and therefore may bypass specific tagged release. Therefore it is possibly to have a tagged, versioned release without it ever being deployed live to the AWS cloud. Such release would still be available in the `live` sandbox environment though. In anycase, for these reasons we bump versions **after** tagging master.
+A bump by default occurs to the minor number, eg: `X.Y.Z` where `X` would have been a major release, `Y` a minor 
+release, and `Z` a hotfix/patch release. If the scope of release changes, version can be adjusted later on. Tagging 
+master does not necessailry imply live deploy which is done manually and therefore may bypass specific tagged release. 
+Therefore it is possibly to have a tagged, versioned release without it ever being deployed live to the AWS cloud. Such 
+release would still be available in the `live` sandbox environment though. In anycase, for these reasons we bump 
+versions **after** tagging master.
+
+## Release
+Source code release is made by drafting a new release off `master` on github: 
+ * [frontend](https://github.com/mrazjava/booklink-frontend-vue/releases) 
+ * [backend](https://github.com/mrazjava/booklink-backend/releases)
+Version is always prefixed with a `v` just as github and versioning semantics suggest. Once release is published, a 
+release workflow CI pipeline executes which:
+ * builds the finalized version of application
+ * builds the finalized docker image tagged with a version defined in the release (eg: `v0.1.0`)
+ * pushes the finalized release docker image to dockerhub
+ * pushes the finalized release docker image to amazon ecr
+ * NOTE: release IS NOT deployed automatically, however, it will be immediately available via `sandbox`
