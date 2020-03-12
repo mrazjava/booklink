@@ -36,11 +36,15 @@ Frontend will run on port `8090`, backend on `8080`. Sandbox is based on `docker
 with docker directly see `docker-compose` section.
 
 As sandbox always attempts to pull latest `live` and `pre` images, it may leave previously overridden image in the 
-dangling state. This will happen frequently with pre-release and staging images as they run off a `latest` tag. You 
-may want to clean dangling images after running sandbox:
+dangling state. This will happen frequently with pre-release and staging images as they run off fixed tags which are simply overriden. You may want to clean dangling images after running sandbox:
 ```
 docker image prune -f
 ```
+Perhaps the nicest feature of sandbox is the ability to easily run archived<sup>2</sup> releases or combine<sup>3</sup> archived frontend and backend releases which were never deployed together.
+
+<sup>2</sup> | Archived release is a version tagged docker image which at some point in the past was deployed live but it was displaced by newer version and no longer runs in any environment. Archived release could also be a version tagged release which for whatever reason was never deployed live (last minute skip, etc).
+
+<sup>3</sup> | At any point there is always one specific version of frontend and backend deployed together (eg: 0.5.0 FE and 0.8.0 BE). As releases grow there will be many versions of both that were never deployed or even tested together. While running such combinations will often be impractical, it may be a lot of fun!
 
 ## docker-compose<sup>1</sup>
 Composition is used as a convenience feature to quickly run (or try out) multiple docker images tuned for the desired 
@@ -75,26 +79,34 @@ docker as root, immediately after the installation, main user account should be 
 Work is done on a `feature/*` or `bug/*` branch. Push to such branch triggers unit tests only. These branches are merged 
 to `develop`.
 
-Merge to `develop` triggers a release CI pipeline which:
+* Direct commits to `develop` should be avoided.
+
+Merge to `develop` triggers CI pipeline which:
 
 * runs a full test suite (unit/integration)
-* builds latest **snapshot** docker image(s) based on project source which triggered commit
-* pushes snapshot images to dockerhub: [`booklink-backend:develop`](https://hub.docker.com/repository/docker/mrazjava/booklink-backend) & [`booklink-frontend-vue:develop`](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue)
-* sandbox `stg` will immediately use these new images on next run
+* builds latest **snapshot** docker image tagged as `:develop` and pushes it to [dockerhub](https://hub.docker.com/search?q=mrazjava%2Fbooklink&type=image) only
+* sandbox `stg` will immediately use the new dockerhub image on next run
 
-Release is made by merging `develop` into `master`.
+When staged changes are ready for general QA, merge from `develop` into `master` occurs.
 
-* Direct commits to `develop` should be avoided.
-* Direct commits to `master` should never happen except for hotfixes. If hotfix is applied to master, it is immediately backported to develop.
+* Direct commits to `master` should never happen except for hotfixes. If hotfix is applied to `master`, it is immediately backported to `develop`.
 
 Merge to `master` triggers release CI pipeline which:
 
 * builds application from `master` sources
-* builds latest **release** docker image(s) based on project source which triggered commit
-* pushes candidate release images to dockerhub: [`booklink-backend:master`](https://hub.docker.com/repository/docker/mrazjava/booklink-backend) & [`booklink-frontend-vue:master`](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue)
-* pushes same dockerhub image copies, tagged as `master` to aws ecr
-* AWS `pre` release environment will be automatically re-deployed using `master` image just pushed
-* sandbox `pre` will immediately use these new images on next run
+* builds latest **release** docker image tagged as `:master` and pushes it to [dockerhub](https://hub.docker.com/search?q=mrazjava%2Fbooklink&type=image) and Amazon ECR
+* AWS `pre` release environment is automatically re-deployed using the `master` image just pushed
+* sandbox `pre` will immediately use the new dockerhub image on next run
+
+Github [release](https://help.github.com/en/github/administering-a-repository/about-releases) triggers CI pipeline which:
+
+ * builds the finalized version of application
+ * builds the finalized docker image tagged with a version defined in the release (eg: `v0.1.0`)
+ * pushes the finalized release docker image to dockerhub
+ * pushes the finalized release docker image to amazon ecr
+ * IS NOT deployed automatically, however, it will be immediately available via `sandbox`
+
+While technically release could be made off any branch, it is always done off `master`. Version is always prefixed with a `v` just as github and versioning semantics suggest.
 
 ## Versioning
 Versions are bumped up manually, in `develop`, immediately after tagging `master` branch:
@@ -108,15 +120,3 @@ master does not necessailry imply live deploy which is done manually and therefo
 Therefore it is possibly to have a tagged, versioned release without it ever being deployed live to the AWS cloud. Such 
 release would still be available in the `live` sandbox environment though. In anycase, for these reasons we bump 
 versions **after** tagging master.
-
-## Release
-Source code release is made by drafting a new release off `master` on github: 
- * [frontend](https://github.com/mrazjava/booklink-frontend-vue/releases) 
- * [backend](https://github.com/mrazjava/booklink-backend/releases)
-Version is always prefixed with a `v` just as github and versioning semantics suggest. Once release is published, a 
-release workflow CI pipeline executes which:
- * builds the finalized version of application
- * builds the finalized docker image tagged with a version defined in the release (eg: `v0.1.0`)
- * pushes the finalized release docker image to dockerhub
- * pushes the finalized release docker image to amazon ecr
- * NOTE: release IS NOT deployed automatically, however, it will be immediately available via `sandbox`
