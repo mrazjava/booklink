@@ -33,7 +33,7 @@ The fastest way to try booklink locally:
 ./sandbox.sh [live | pre | stg | help]
 ```
 Frontend will run on port `8090`, backend on `8080`. Sandbox is based on [docker compose](https://docs.docker.com/compose/) and so if you prefer to work 
-with docker directly see `docker-compose` [section](https://github.com/mrazjava/booklink#docker-compose1).
+with docker directly see the docker-compose [section](https://github.com/mrazjava/booklink#docker-compose1).
 
 As sandbox always attempts to pull from dockerhub every time, it may leave previously overridden image in the dangling state. This will happen frequently with pre-release and staging images as they run off fixed tags which are simply overriden. You may want to clean dangling images after running sandbox:
 ```
