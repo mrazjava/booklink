@@ -39,13 +39,13 @@ As sandbox always attempts to pull from dockerhub every time, it may leave previ
 ```
 docker image prune -f
 ```
-Perhaps the nicest feature of sandbox is the ability to easily run archived<sup>2</sup> releases or combine<sup>3</sup> archived frontend and backend releases which were never deployed together.
+Perhaps the nicest feature of sandbox is the ability to easily run archived<sup>1</sup> releases or combine<sup>2</sup> archived frontend and backend releases which were never deployed together.
 
-<sup>2</sup> | Archived release is a version tagged docker image which at some point in the past was deployed live but it was displaced by newer version and no longer runs in any environment. Archived release could also be a version tagged release which for whatever reason was never deployed live (last minute skip, etc).
+<sup>1</sup> | Archived release is a version tagged docker image which at some point in the past was deployed live but it was displaced by newer version and no longer runs in any environment. Archived release could also be a version tagged release which for whatever reason was never deployed live (last minute skip, etc).
 
-<sup>3</sup> | At any point there is always one specific version of frontend and backend deployed together (eg: 0.5.0 FE and 0.8.0 BE). As releases grow there will be many versions of both that were never deployed or even tested together. While running such combinations will often be impractical, it may be a lot of fun!
+<sup>2</sup> | At any point there is always one specific version of frontend and backend deployed together (eg: 0.5.0 FE and 0.8.0 BE). As releases grow there will be many versions of both that were never deployed or even tested together. While running such combinations will often be impractical, it may be a lot of fun!
 
-## docker-compose<sup>1</sup>
+## docker-compose<sup>3</sup>
 Composition is used as a convenience feature to quickly run (or try out) multiple docker images tuned for the desired 
 application instance. In case of booklink, mainly frontend and backend tuned for localhost. No need to compile sources, 
 manually build images or setup anything:
@@ -68,7 +68,7 @@ itself. For example, `docker-compose.yml` in `booklink-frontend-vue` will bootst
 everything else necessary for the frontend to operate, but without the frontend which for development purposes should 
 be started via `yarn serve`.
 
-<sup>1</sup> | Requires [docker](https://docs.docker.com/install/) + [docker-compose](https://docs.docker.com/compose/install/) 
+<sup>3</sup> | Requires [docker](https://docs.docker.com/install/) + [docker-compose](https://docs.docker.com/compose/install/) 
 installation. On Ubuntu for example, this can be done with `sudo apt install docker-compose`, which installs 
 docker-compose directly, and docker (`docker.io` package) indirectly since compose depends on docker. To avoid running 
 docker as root, immediately after the installation, main user account should be added to `docker` group: 
