@@ -1,8 +1,9 @@
 # Booklink
 Cross reference of books.
 
-## Components
-Actual components live in their own repos. This is an overview project which aggregates common documentation and high level utilities.
+## Sources
+Component sources that make up Booklink live in their own repos. This is just an overview project which aggregates common 
+documentation and high level utilities.
 * Vue.js based [frontend](https://github.com/mrazjava/booklink-frontend-vue)
 * Java based [backend](https://github.com/mrazjava/booklink-backend)
 

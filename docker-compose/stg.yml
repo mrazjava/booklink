@@ -4,15 +4,16 @@
 version: '3.3'
 services:
   frontend:
-    image: docker.io/mrazjava/booklink-frontend-vue-develop:latest
+    image: docker.io/mrazjava/booklink-frontend-vue:develop
     ports:
       - "8090:80"
     environment:
       VUE_APP_BACKEND_HOST: http://localhost:8080
       VUE_APP_ENV: stg
   backend:
-    image: docker.io/mrazjava/booklink-backend-develop:latest
+    image: docker.io/mrazjava/booklink-backend:develop
     ports:
     - "8080:8080"
     environment:
+      CORS_ALLOW_ORIGINS: http://localhost:8090
       APP_ENV: stg
