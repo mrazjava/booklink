@@ -10,7 +10,7 @@ documentation and high level utilities.
 ## Environments
 Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` and `pre` release environments.
 
-* `live` aws not setup yet
+* `live` frontend | backend .. (not setup yet)
    - manual deploy from pre-release tested aws [ecr](https://aws.amazon.com/ecr/) docker image
    - requires: internet connection only (or more if using sandbox)
 * `pre` [frontend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com/) | [backend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com:8888/actuator/info)
@@ -19,11 +19,11 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
    - docker image [booklink-backend](https://hub.docker.com/repository/docker/mrazjava/booklink-backend) auto deployed via ci [workflow](https://github.com/mrazjava/booklink-backend/blob/master/.github/workflows/pre-release.yml) and aws [task-definition](https://github.com/mrazjava/booklink-backend/blob/master/.aws/pre-release.json)
    - QA testing, live demos
    - requires: internet connection only (or more if using sandbox)
-* `stg`
+* `stg` @[sandbox](https://github.com/mrazjava/booklink#sandbox)
    - staged feature changes and bug fixes in `develop` branch (candidate for merge to `master`), validation of new features for pre-release
-   - requires: docker, docker-compose (@sandbox)
+   - requires: docker, docker-compose
 * `dev`
-   - local machine, active development environment w/ Vue CLI (+Node), Maven, Git, Docker, IDE, etc.
+   - local machine, active development environment w/ Vue CLI (+Node), Maven, Git, Docker, JDK, IDE, etc.
    - requires full set of dev tools (see respective project repo for details)
    - programming of new features, bug fixing, depending on branch may be unstable
    - `yarn serve` (frontend), `mvn clean spring-boot:run` (backend)
@@ -34,7 +34,7 @@ The fastest way to try booklink locally:
 ./sandbox.sh [live | pre | stg | help]
 ```
 Frontend will run on port `8090`, backend on `8080`. Sandbox is based on [docker compose](https://docs.docker.com/compose/) and so if you prefer to work 
-with docker directly see the docker-compose [section](https://github.com/mrazjava/booklink#docker-compose1).
+with docker directly see the docker-compose [section](https://github.com/mrazjava/booklink#docker-compose3).
 
 As sandbox always attempts to pull from dockerhub every time, it may leave previously overridden image in the dangling state. This will happen frequently with pre-release and staging images as they run off fixed tags which are simply overriden. You may want to clean dangling images after running sandbox:
 ```
@@ -76,10 +76,9 @@ docker as root, immediately after the installation, main user account should be 
 `sudo usermod -aG docker ${USER}`.
 
 ## Branching / CI Pipeline
-Work is done on a `feature/*` or `bug/*` branch. Push to such branch triggers unit tests only. These branches are merged 
-to `develop`.
+Work is typically done on a `feature/*` or `bug/*` branch. Push to such branch does not trigger a CI pipeline. It is responsibility of a committer to ensure that branch is clean and ready to pass CI pipeline after merge. Custom branches are tested locally in the development environment. They are eventually merged to `develop`.
 
-* Direct commits to `develop` should be avoided.
+* Direct commits to `develop` should be avoided. Exceptions could be version bumps, minor documentation updates, etc.
 
 Merge to `develop` triggers CI pipeline which:
 
@@ -94,14 +93,14 @@ When staged changes are ready for general QA, merge from `develop` into `master`
 Merge to `master` triggers release CI pipeline which:
 
 * builds application from `master` sources
-* builds latest **release** docker image tagged as `:master` and pushes it to [dockerhub](https://hub.docker.com/search?q=mrazjava%2Fbooklink&type=image) and Amazon ECR
+* assembles latest **release** docker image tagged as `:master` and pushes it to [dockerhub](https://hub.docker.com/search?q=mrazjava%2Fbooklink&type=image) and Amazon ECR
 * AWS `pre` release environment is automatically re-deployed using the `master` image just pushed
 * sandbox `pre` will immediately use the new dockerhub image on next run
 
 Github [release](https://help.github.com/en/github/administering-a-repository/about-releases) triggers CI pipeline which:
 
  * builds the finalized version of application
- * builds the finalized docker image tagged with a version defined in the release (eg: `v0.1.0`)
+ * assembles the finalized docker image tagged with a version defined in the release (eg: `v0.1.0`)
  * pushes the finalized release docker image to dockerhub
  * pushes the finalized release docker image to amazon ecr
  * IS NOT deployed automatically, however, it will be immediately available via `sandbox`
