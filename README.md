@@ -102,7 +102,7 @@ Github [release](https://help.github.com/en/github/administering-a-repository/ab
  * builds the finalized version of application
  * assembles the finalized docker image tagged with a version defined in the release (eg: `v0.1.0`)
  * pushes the finalized release docker image to dockerhub and amazon ecr
- * IS NOT deployed automatically, however, it will be immediately available via `sandbox`
+ * IS NOT deployed to Amazon LIVE env automatically; however, it will be immediately available via `sandbox`
 
 While technically release could be made off any branch, it is always done off `master`. Version is always prefixed with a `v` just as github and versioning semantics suggest.
 
