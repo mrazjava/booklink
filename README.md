@@ -76,7 +76,7 @@ docker as root, immediately after the installation, main user account should be 
 `sudo usermod -aG docker ${USER}`.
 
 ## Branching / CI Pipeline
-Work is typically done on a `feature/*` or `bug/*` branch. Push to such branch does not trigger a CI pipeline. It is responsibility of a committer to ensure that branch is clean and ready to pass CI pipeline after merge. Custom branches are tested locally in the development environment. They are eventually merged to `develop`.
+Work is typically done on a `feature/*` or `bug/*` branch. Push to such branch does not trigger a CI pipeline. It is responsibility of a committer to ensure that branch is clean and ready to pass CI pipeline after merge. Custom branches are tested locally on the developer's workstation. They are eventually merged to `develop`.
 
 * Direct commits to `develop` should be avoided. Exceptions could be version bumps, minor documentation updates, etc.
 
