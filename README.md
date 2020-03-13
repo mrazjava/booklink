@@ -20,7 +20,7 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
    - QA testing, live demos
    - requires: internet connection only (or more if using sandbox)
 * `stg` @[sandbox](https://github.com/mrazjava/booklink#sandbox)
-   - staged feature changes and bug fixes in `develop` branch (candidate for merge to `master`), validation of new features for pre-release
+   - staged feature changes and bug fixes in `develop` branch (candidate for merge to `master`)
    - requires: docker, docker-compose
 * `dev`
    - local machine, active development environment w/ Vue CLI (+Node), Maven, Git, Docker, JDK, IDE, etc.
