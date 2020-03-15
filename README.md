@@ -131,5 +131,9 @@ versions **after** tagging master.
 ## Useful Commands
 Get IP of a running docker container from the host:
 ```
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 93d82a155414
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <CONTAINER_ID>
+```
+Connect to sandbox PostgreSQL via command line client:
+```
+psql -h localhost -d booklink -U bookworm -p 5433
 ```
