@@ -35,14 +35,17 @@ The fastest way to try booklink locally:
 ```
 Frontend will run on port `8090`, backend on `8080` and PostgreSQL on port `5433`.
 
-On the sandbox, the database does not run on a default port (5432) because it is reserved for local development making 
+On sandbox, the database does not run on a default port (5432) because it is reserved for local development, making 
 it possible to run a sandbox db at the same time as development db. Running dev db and sandbox db at the same time 
 allows to compute schema differences and all other kinds of useful troubleshooting.
 
-Sandbox is based on [docker compose](https://docs.docker.com/compose/) and so if you prefer to work 
-with docker directly see the docker-compose [section](https://github.com/mrazjava/booklink#docker-compose3).
+Sandbox is based on [docker compose](https://docs.docker.com/compose/) so everything that sandbox does, can be done  
+with docker directly at a cost of less automation. See the docker-compose [section](https://github.com/mrazjava/booklink#docker-compose3) if you 
+prefer to work that way.
 
-As sandbox always attempts to pull from dockerhub every time, it may leave previously overridden image in the dangling state. This will happen frequently with pre-release and staging images as they run off fixed tags which are simply overriden. You may want to clean dangling images after running sandbox:
+As sandbox always attempts to pull from dockerhub every time, it may leave previously overridden image in the dangling 
+state. This will happen frequently with pre-release and staging images as they run off fixed tags which are simply 
+overriden. You may want to clean dangling images after running sandbox:
 ```
 docker image prune -f
 ```
