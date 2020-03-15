@@ -16,4 +16,14 @@ services:
     - "8080:8080"
     environment:
       CORS_ALLOW_ORIGINS: http://localhost:8090
+      APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink
       APP_ENV: stg
+  pg:
+    image: postgres:12.2
+    restart: always
+    environment:
+      POSTGRES_DB: booklink
+      POSTGRES_USER: bookworm
+      POSTGRES_PASSWORD: BL
+    ports:
+      - 127.0.0.1:5433:5432
