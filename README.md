@@ -39,8 +39,8 @@ On sandbox, the database does not run on a default port (5432) because it is res
 it possible to run a sandbox db at the same time as development db. Running dev db and sandbox db at the same time 
 allows to compute schema differences and all other kinds of useful troubleshooting.
 
-Sandbox is based on [docker compose](https://docs.docker.com/compose/) so everything that sandbox does, can be done  
-with docker directly at a cost of less automation. See the docker-compose [section](https://github.com/mrazjava/booklink#docker-compose3) if you 
+Sandbox is based on [docker compose](https://docs.docker.com/compose/) so everything that sandbox does, can be done 
+with docker directly at a cost of less automation. See docker-compose [section](https://github.com/mrazjava/booklink#docker-compose3) if you 
 prefer to work that way.
 
 As sandbox always attempts to pull from dockerhub every time, it may leave previously overridden image in the dangling 
