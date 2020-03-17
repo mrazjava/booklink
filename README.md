@@ -137,3 +137,10 @@ Connect to sandbox PostgreSQL via command line client:
 ```
 psql -h localhost -d booklink -U bookworm -p 5433
 ```
+Delete volume used by specific docker container:
+```
+docker ps -a # get container id
+docker inspect -f '{{ .Mounts }}' <CONTAINER_ID> # get volume id
+docker rm <CONTAINER_ID> # remove container otherwise rm volume fails
+docker volume rm <VOLUME_ID>
+```

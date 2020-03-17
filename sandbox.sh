@@ -118,5 +118,5 @@ then
  echo "--------------------------------------------------"
  echo "+ starting DEV environment (frotnend=$FE_IMG_TAG, backend=$BE_IMG_TAG)"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/local.yml up
+ docker-compose -f docker-compose/cust.yml up
 fi
