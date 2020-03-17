@@ -49,13 +49,11 @@ overriden. You may want to clean dangling images after running sandbox:
 ```
 docker image prune -f
 ```
-Perhaps the nicest feature of sandbox is the ability to easily run archived<sup>1</sup> releases or combine<sup>2</sup> archived frontend and backend releases which were never deployed together.
+Perhaps the nicest feature of sandbox is the ability to easily run releases never officially deployed or even tested together before. Such are the archives<sup>1</sup>. While running archived combinations will often be impractical, it may be a lot of fun! On the other hand, `cust` mode (for developers) is quite practical. In custom mode it's possible to run experimental (cutting edge) branch of one component (say the backend) against a live, pre-release or staged version of another (eg: the frontend). 
 
 <sup>1</sup> | Archived release is a version tagged docker image which at some point in the past was deployed live but it was displaced by newer version and no longer runs in any environment. Archived release could also be a version tagged release which for whatever reason was never deployed live (last minute skip, etc).
 
-<sup>2</sup> | At any point there is always one specific version of frontend and backend deployed together (eg: 0.5.0 FE and 0.8.0 BE). As releases grow there will be many versions of both that were never deployed or even tested together. While running such combinations will often be impractical, it may be a lot of fun!
-
-## docker-compose<sup>3</sup>
+## docker-compose<sup>2</sup>
 Composition is used as a convenience feature to quickly run (or try out) multiple docker images tuned for the desired 
 application instance. In case of booklink, mainly frontend and backend tuned for localhost. No need to compile sources, 
 manually build images or setup anything:
