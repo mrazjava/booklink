@@ -137,6 +137,10 @@ psql -h localhost -d booklink -U bookworm -p 5433
 ```
 Delete volume used by specific docker container:
 ```
+docker rm -v <CONTAINER_ID>
+```
+A more manual way of doing the above:
+```
 docker ps -a # get container id
 docker inspect -f '{{ .Mounts }}' <CONTAINER_ID> # get volume id
 docker rm <CONTAINER_ID> # remove container otherwise rm volume fails
