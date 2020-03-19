@@ -5,7 +5,8 @@ set -u
 
 function create_database() {
 	local database=$1
-	echo "  Creating database '$database' w/ for user '$POSTGRES_USER'"
+	echo "- CREATE DATABASE $database;"
+	echo "- GRANT ALL PRIVILEGES ON DATABASE $database TO $POSTGRES_USER;"
 	psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
 	    CREATE DATABASE $database;
 	    GRANT ALL PRIVILEGES ON DATABASE $database TO $POSTGRES_USER;

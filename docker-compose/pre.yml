@@ -16,4 +16,19 @@ services:
     - "8080:8080"
     environment:
       CORS_ALLOW_ORIGINS: http://localhost:8090
+      APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink_sndbx_pre
       APP_ENV: pre
+  pg:
+    image: mrazjava/booklink-persistence:pg.12.2
+    restart: always
+    ports:
+      - 127.0.0.1:5432:5432
+  admin:
+    image: dpage/pgadmin4 # https://hub.docker.com/r/dpage/pgadmin4/
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pg@docker # used as a login id
+      PGADMIN_DEFAULT_PASSWORD: admin
+      GUNICORN_ACCESS_LOGFILE: /tmp/pgadmin4.log
+    ports:
+      - 127.0.0.1:5500:80

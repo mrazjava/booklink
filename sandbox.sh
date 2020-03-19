@@ -6,21 +6,27 @@ cat << HELP
 
 sandbox  --  simulate Booklink environment on a localhost
 
-Pulls most recent docker images from dockerhub for the desired environment, and starts
-them (except for [cust] mode). To get a list of deployed live tags, run booklinktags.sh
+Pulls most recent docker images from dockerhub for the desired environment,
+and starts them. To get a list of deployed live tags, run booklinktags.sh
 script.
 
-SYNTAX:
-  MODE [-f] [-b]
+FLAGS:
 
--f --frontend : image tag for frontend-vue, required for [live], optional for [cust]
--b --backend  : image tag for the backend, required for [live], optional for [cust]
+-f --frontend : image tag for frontend-vue
+  Required for [live], optional for [local]. If provided for [local] without
+  the backend, then backend is ran regardless with a :local tag.
+
+-b --backend  : image tag for the backend
+  Required for [live], optional for [local]. If provided for [local] without
+  the frontend, then frontend is ran regardless with a :local tag.
 
 EXAMPLE:
-  live -f v0.1.4 -b v0.2.8    : run tagged live (or archived) images (eg: v0.1.4 frontend-vue, v0.2.8 backend)
-  pre                         : run pre-release candidate images (master branch)
-  stg                         : run staging snapshot images (develop branch)
-  cust [-f local] [-b local]  : run custom built images; defaults to :local tag (custom branch)
+  live -f v0.1.4 -b v0.2.8    : run tagged live (or archived) images (example:
+                                v0.1.4 frontend-vue, v0.2.8 backend)
+  pre                         : run pre-release candidate images (:master)
+  stg                         : run staging snapshot images (:develop)
+  local [-f] [-b]             : run custom built images if at least one tag is
+                                provided, otherwise launch DB only
   help                        : show this message
 
 HELP
@@ -52,8 +58,7 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-echo "[$RUNENV]"
-if [ "$1" = "live" ] || [ "$1" = "pre" ] || [ "$1" = "stg" ] || [ "$1" = "cust" ]
+if [ "$1" = "live" ] || [ "$1" = "pre" ] || [ "$1" = "stg" ] || [ "$1" = "local" ]
 then
  SOURCE=$1
  if [[ "$RUNENV" = "live" && (-z "$FE_IMG_TAG" || -z "$BE_IMG_TAG") ]];
@@ -61,19 +66,19 @@ then
    echo "[live] parameter requires frontend and backend tags - see help"
    exit
  fi
- if [ "$RUNENV" = "cust" ]
+ if [ "$RUNENV" = "local" ]
  then
-   if [ -z "$FE_IMG_TAG" ]
+   if [[ -z "$FE_IMG_TAG" && (! -z "$BE_IMG_TAG") ]];
    then
      export FE_IMG_TAG=local
    fi
-   if [ -z "$BE_IMG_TAG" ]
+   if [[ -z "$BE_IMG_TAG" && (! -z "$FE_IMG_TAG") ]];
    then
      export BE_IMG_TAG=local
    fi
  fi
 else
- echo "INVALID INPUT. Expecting: live -f -b | pre | stg | cust [-f][-b] | help"
+ echo "INVALID INPUT. Expecting: live -f -b | pre | stg | local [-f][-b] | help"
  exit
 fi
 
@@ -113,10 +118,21 @@ then
  docker-compose -f docker-compose/stg.yml up
 fi
 
-if [ $RUNENV = "cust" ]
+if [ $RUNENV = "local" ]
 then
  echo "--------------------------------------------------"
- echo "+ starting DEV environment (frotnend=$FE_IMG_TAG, backend=$BE_IMG_TAG)"
+ echo "+ starting LOCAL dev environment"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/cust.yml up
+ if [[ (! -z "$BE_IMG_TAG") && (! -z "$FE_IMG_TAG") ]];
+ then
+   echo "* w/ frotnend=$FE_IMG_TAG, backend=$BE_IMG_TAG"
+   echo "--------------------------------------------------"
+   docker-compose -f docker-compose/local.yml up pg admin frontend backend
+ else
+   echo "* persistence only"
+   echo "--------------------------------------------------"
+   export FE_IMG_TAG=
+   export BE_IMG_TAG=
+   docker-compose -f docker-compose/local.yml up pg admin
+ fi
 fi
