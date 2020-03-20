@@ -22,7 +22,7 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
 * `stg` @[sandbox](https://github.com/mrazjava/booklink#sandbox)
    - staged feature changes and bug fixes in `develop` branch (candidate for merge to `master`)
    - requires: docker, docker-compose
-* `dev`
+* `local`
    - local machine, active development environment w/ Vue CLI (+Node), Maven, Git, Docker, JDK, IDE, etc.
    - requires full set of dev tools (see respective project repo for details)
    - programming of new features, bug fixing, depending on branch may be unstable
@@ -31,13 +31,9 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
 ## Sandbox
 The fastest way to try booklink locally:
 ```
-./sandbox.sh [live | pre | stg | help]
+./sandbox.sh [live | pre | stg | local | help]
 ```
-Frontend will run on port `8090`, backend on `8080` and PostgreSQL on port `5433`.
-
-On sandbox, the database does not run on a default port (5432) because it is reserved for local development, making 
-it possible to run a sandbox db at the same time as development db. Running dev db and sandbox db at the same time 
-allows to compute schema differences and all other kinds of useful troubleshooting.
+Frontend will run on port `8090`, backend on `8080`, PostgreSQL on `5432` and pgAdmin4 on port `5500`.
 
 Sandbox is based on [docker compose](https://docs.docker.com/compose/) so everything that sandbox does, can be done 
 with docker directly at a cost of less automation. See docker-compose [section](https://github.com/mrazjava/booklink#docker-compose3) if you 
@@ -49,7 +45,9 @@ overriden. You may want to clean dangling images after running sandbox:
 ```
 docker image prune -f
 ```
-Perhaps the nicest feature of sandbox is the ability to easily run releases never officially deployed or even tested together before. Such are the archives<sup>1</sup>. While running archived combinations will often be impractical, it may be a lot of fun! On the other hand, `cust` mode (for developers) is quite practical. In custom mode it's possible to run experimental (cutting edge) branch of one component (say the backend) against a live, pre-release or staged version of another (eg: the frontend). 
+Perhaps the nicest feature of sandbox is the ability to easily run releases never officially deployed or even tested together before. Such are the archives<sup>1</sup>. While running archived combinations will often be impractical, it may be a lot of fun! On the other hand, `local` mode (for developers) is quite practical. In local mode it's possible to run experimental (cutting edge) branch of one component (say the backend) against a live, pre-release or staged version of another (eg: the frontend). 
+
+Regardless of environment chosen, sandbox will always start PostgreSQL persistence layer along with the pg4Admin. All PostgreSQL environment databases are always available regardless of which sandbox environment is launched.
 
 <sup>1</sup> | Archived release is a version tagged docker image which at some point in the past was deployed live but it was displaced by newer version and no longer runs in any environment. Archived release could also be a version tagged release which for whatever reason was never deployed live (last minute skip, etc).
 
@@ -59,7 +57,7 @@ application instance. In case of booklink, mainly frontend and backend tuned for
 manually build images or setup anything:
 ```
 cd docker-compose/
-docker-compose -f [live.yml | pre.yml] | stg.yml] up
+docker-compose -f [live.yml | pre.yml] | stg.yml | local.yml] up
 ```
 Candidate release image is built off `master` branch. It should be solid, well tested, and is the same as what runs in the 
 AWS cloud. However, it may not have the latest features. To try the latest stable version, tell docker-compose to run off a 
@@ -74,7 +72,8 @@ docker-compose [-f pre.yml | stg.yml] pull [backend | frontend]
 Compose files within project repos are designed to bootstrap dependencies for that project only without the project 
 itself. For example, `docker-compose.yml` in `booklink-frontend-vue` will bootstrap the backend, database and 
 everything else necessary for the frontend to operate, but without the frontend which for development purposes should 
-be started via `yarn serve`.
+be started via `yarn serve`. Alternatively, dependencies can be bootstrapped with slim `local` sandbox mode (no frontend 
+or backedn) - see sandbox help for details.
 
 <sup>3</sup> | Requires [docker](https://docs.docker.com/install/) + [docker-compose](https://docs.docker.com/compose/install/) 
 installation. On Ubuntu for example, this can be done with `sudo apt install docker-compose`, which installs 
