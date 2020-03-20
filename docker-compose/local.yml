@@ -17,6 +17,7 @@ services:
     environment:
       CORS_ALLOW_ORIGINS: http://localhost:8090
       APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink_sndbx_local
+      APP_BE_HIBERNATE_DDL_AUTO: create
       APP_ENV: local
   pg:
     image: mrazjava/booklink-persistence:pg.12.2
