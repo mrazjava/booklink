@@ -13,20 +13,21 @@ script.
 FLAGS:
 
 -f --frontend : image tag for frontend-vue
-  Required for [live], optional for [local]. If provided for [local] without
-  the backend, then backend is ran regardless with a :local tag.
+  Required for live, ignored for pre and stg, optional for local.
+  If provided to local without the -b, then -b is forced with :develop tag.
 
 -b --backend  : image tag for the backend
-  Required for [live], optional for [local]. If provided for [local] without
-  the frontend, then frontend is ran regardless with a :local tag.
+  Required for live, ignored for pre and stg, optional for local.
+  If provided to local without the -f, then frontend is skipped.
 
 EXAMPLE:
   live -f v0.1.4 -b v0.2.8    : run tagged live (or archived) images (example:
                                 v0.1.4 frontend-vue, v0.2.8 backend)
   pre                         : run pre-release candidate images (:master)
   stg                         : run staging snapshot images (:develop)
-  local [-f] [-b]             : run custom built images if at least one tag is
-                                provided, otherwise launch DB only
+  local -b                    : run custom built backend only (:local), skip frontend
+  local -b foo -f             : run custom built backend (:foo), frontend (:local)
+  local -f                    : run custom built frontend (:local), staged backend (:develop)
   help                        : show this message
 
 HELP
@@ -41,14 +42,24 @@ key="$1"
 
 case $key in
     -f|--frontend)
-    export FE_IMG_TAG="$2"
+    if [[ -z "$2" || ("$2" = "-b") ]];
+    then
+      export FE_IMG_TAG=local
+    else
+      export FE_IMG_TAG="$2"
+    fi
     shift # past argument
-    shift # past value
+#    shift # past value
     ;;
     -b|--backend)
-    export BE_IMG_TAG="$2"
+    if [[ -z "$2" || ("$2" = "-f") ]];
+    then
+      export BE_IMG_TAG=local
+    else
+      export BE_IMG_TAG="$2"
+    fi
     shift # past argument
-    shift # past value
+#    shift # past value
     ;;
     *)    # non-flagged option
     POSITIONAL+=("$1") # save it in an array for later
@@ -70,11 +81,14 @@ then
  then
    if [[ -z "$FE_IMG_TAG" && (! -z "$BE_IMG_TAG") ]];
    then
-     export FE_IMG_TAG=local
+     export FE_IMG_TAG=
    fi
    if [[ -z "$BE_IMG_TAG" && (! -z "$FE_IMG_TAG") ]];
    then
-     export BE_IMG_TAG=local
+     # FE developer that builds a local image will probably not be interested in running off a
+     # local backend image (which implies building one) - so a sensible default here is staging
+     # backend image
+     export BE_IMG_TAG=develop
    fi
  fi
 else
@@ -128,6 +142,11 @@ then
    echo "* w/ frotnend=$FE_IMG_TAG, backend=$BE_IMG_TAG"
    echo "--------------------------------------------------"
    docker-compose -f docker-compose/local.yml up pg admin frontend backend
+ elif [[ (! -z "$BE_IMG_TAG") && (-z "$FE_IMG_TAG") ]];
+ then
+   echo "* w/ backend=$BE_IMG_TAG (no frontend)"
+   echo "--------------------------------------------------"
+   docker-compose -f docker-compose/local.yml up pg admin backend
  else
    echo "* persistence only"
    echo "--------------------------------------------------"

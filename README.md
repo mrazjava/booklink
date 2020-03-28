@@ -45,7 +45,7 @@ overriden. You may want to clean dangling images after running sandbox:
 ```
 docker image prune -f
 ```
-Perhaps the nicest feature of sandbox is the ability to easily run releases never officially deployed or even tested together before. Such are the archives<sup>1</sup>. While running archived combinations will often be impractical, it may be a lot of fun! On the other hand, `local` mode (for developers) is quite practical. In local mode it's possible to run experimental (cutting edge) branch of one component (say the backend) against a live, pre-release or staged version of another (eg: the frontend). 
+Perhaps the nicest feature of sandbox is the ability to easily run releases never officially deployed or even tested together before. Such are the archives<sup>1</sup>. While running archived combinations will often be impractical, it may be a lot of fun! On the other hand, `local` mode (for developers) is quite useful. In local mode it's possible to run experimental (cutting edge) branch of one component (say the backend) against a live, pre-release or staged version of another (eg: the frontend). 
 
 Regardless of environment chosen, sandbox will always start PostgreSQL persistence layer along with the pg4Admin. All PostgreSQL environment databases are always available regardless of which sandbox environment is launched.
 

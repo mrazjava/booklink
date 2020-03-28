@@ -9,7 +9,7 @@ services:
       - "8090:80"
     environment:
       VUE_APP_BACKEND_HOST: http://localhost:8080
-      VUE_APP_ENV: stg
+      VUE_APP_ENV: local
   backend:
     image: docker.io/mrazjava/booklink-backend:${BE_IMG_TAG}
     ports:
@@ -17,6 +17,9 @@ services:
     environment:
       CORS_ALLOW_ORIGINS: http://localhost:8090
       APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink_sndbx_local
+      APP_BE_HIBERNATE_DDL_AUTO: validate
+      APP_SPRING_DATA_INIT: never
+      APP_FLYWAY_ENABLED: 'true'
       APP_ENV: local
   pg:
     image: mrazjava/booklink-persistence:pg.12.2
