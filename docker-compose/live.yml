@@ -18,6 +18,7 @@ services:
       CORS_ALLOW_ORIGINS: http://localhost:8090
       APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink_sndbx_live
       APP_BE_HIBERNATE_DDL_AUTO: validate
+      APP_SPRING_DATA_INIT: never
       APP_FLYWAY_ENABLED: 'true'
       APP_ENV: live
   pg:
