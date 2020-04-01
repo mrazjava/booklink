@@ -21,6 +21,20 @@ services:
       APP_SPRING_DATA_INIT: never
       APP_FLYWAY_ENABLED: 'true'
       APP_ENV: pre
+#
+# To run pre-release sandbox against AWS pre-release database, use environment values
+# below overwriting defined ones above. Optionally, we can comment out the 'pg' service
+# since we wouldn't need a sandbox db. <REPLACE_ME> values are sensitive credentials
+# that must be manually provided.
+#
+#      AWS_ACCESS_KEY_ID: <REPLACE_ME>
+#      AWS_SECRET_ACCESS_KEY: <REPLACE_ME>
+#      AWS_REGION: eu-central-1
+#      APP_BE_DB_URL: jdbc-secretsmanager:postgresql://pre-1.cnzxipfrf9ok.eu-central-1.rds.amazonaws.com:5432/booklink
+#      APP_BE_DB_USERNAME: pre1/postgres
+#      APP_SPRING_DATA_DRIVER: com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver
+#      APP_FLYWAY_ENABLED: 'false'
+
   pg:
     image: mrazjava/booklink-persistence:pg.12.2
     ports:
