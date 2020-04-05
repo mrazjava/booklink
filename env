@@ -1,0 +1,17 @@
+#
+# config to use if running image w/o compose
+# docker run -p8888:8080 --env-file=env mrazjava/booklink-backend:master
+#
+APP_ENV=pre
+CORS_ALLOW_ORIGINS=http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com
+AWS_ACCESS_KEY_ID= # REQUIRED
+AWS_SECRET_ACCESS_KEY= # REQUIRED
+AWS_REGION=eu-central-1
+APP_BASE_URL=http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com:8888
+APP_HIKARI_CON_TIMEOUT=4000
+APP_BE_DB_URL=jdbc-secretsmanager:postgresql://pre-1.cnzxipfrf9ok.eu-central-1.rds.amazonaws.com:5432/booklink
+APP_SPRING_DATA_DRIVER=com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver
+APP_BE_DB_USERNAME=pre1/postgres
+APP_BE_HIBERNATE_DDL_AUTO=validate
+APP_SPRING_DATA_INIT=never
+#SERVER_PORT=8888 # start Tomcat on different port

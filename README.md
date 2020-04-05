@@ -81,6 +81,13 @@ docker-compose directly, and docker (`docker.io` package) indirectly since compo
 docker as root, immediately after the installation, main user account should be added to `docker` group: 
 `sudo usermod -aG docker ${USER}`.
 
+## No Sandbox
+Use included `env` file to drive config of an image you want to spin. For example, here we run a `pre` image reachable 
+on port `8888`:
+```
+docker run -p8888:8080 --env-file=env mrazjava/booklink-backend:master
+```
+
 ## Branching / CI Pipeline
 Work is typically done on a `feature/*` or `bug/*` branch. Push to such branch does not trigger a CI pipeline. It is responsibility of a committer to ensure that branch is clean and ready to pass CI pipeline after merge. Custom branches are tested locally on the developer's workstation. They are eventually merged to `develop`.
 
