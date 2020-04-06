@@ -51,6 +51,25 @@ Regardless of environment chosen, sandbox will always start PostgreSQL persisten
 
 <sup>1</sup> | Archived release is a version tagged docker image which at some point in the past was deployed live but it was displaced by newer version and no longer runs in any environment. Archived release could also be a version tagged release which for whatever reason was never deployed live (last minute skip, etc).
 
+### healthcheck
+Just as in AWS where Amazon cloud is configured for pre-release with healthcheck monitors, sandbox has a similar 
+setup. Once started, you can monitor sandbox with:
+```
+docker events --filter event=health_status
+```
+If we shut down persistence container to simulate database outage, docker would start logging health errors similar 
+to this one:
+```
+2020-04-06T10:26:57.476218502+02:00 container health_status: unhealthy 9c8c59523f46d583e1043b460590b4c407fb1c829874af04d56a1b23e98ae816 (com.docker.compose.config-hash=696c78526debb2cfe9011743066e99f6d35c8e28374abe13258e5627791487ee, com.docker.compose.container-number=1, com.docker.compose.oneoff=False, com.docker.compose.project=dockercompose, com.docker.compose.service=backend, com.docker.compose.version=1.15.0, image=docker.io/mrazjava/booklink-backend:develop, name=dockercompose_backend_1)
+```
+
+## No Sandbox
+Use included `env` file to drive config of an image you want to spin. For example, here we run a `pre` image reachable 
+on port `8888`:
+```
+docker run -p8888:8080 --env-file=env mrazjava/booklink-backend:master
+```
+
 ## docker-compose<sup>2</sup>
 Composition is used as a convenience feature to quickly run (or try out) multiple docker images tuned for the desired 
 application instance. In case of booklink, mainly frontend and backend tuned for localhost. No need to compile sources, 
@@ -80,25 +99,6 @@ installation. On Ubuntu for example, this can be done with `sudo apt install doc
 docker-compose directly, and docker (`docker.io` package) indirectly since compose depends on docker. To avoid running 
 docker as root, immediately after the installation, main user account should be added to `docker` group: 
 `sudo usermod -aG docker ${USER}`.
-
-### sandbox health
-Just as in AWS where Amazon cloud is configured for pre-release with healthcheck monitors, sandbox has a similar 
-setup. Once started, you can monitor sandbox with:
-```
-docker events --filter event=health_status
-```
-If we shut down persistence container to simulate database outage, docker would start logging health errors similar 
-to this one:
-```
-2020-04-06T10:26:57.476218502+02:00 container health_status: unhealthy 9c8c59523f46d583e1043b460590b4c407fb1c829874af04d56a1b23e98ae816 (com.docker.compose.config-hash=696c78526debb2cfe9011743066e99f6d35c8e28374abe13258e5627791487ee, com.docker.compose.container-number=1, com.docker.compose.oneoff=False, com.docker.compose.project=dockercompose, com.docker.compose.service=backend, com.docker.compose.version=1.15.0, image=docker.io/mrazjava/booklink-backend:develop, name=dockercompose_backend_1)
-```
-
-## No Sandbox
-Use included `env` file to drive config of an image you want to spin. For example, here we run a `pre` image reachable 
-on port `8888`:
-```
-docker run -p8888:8080 --env-file=env mrazjava/booklink-backend:master
-```
 
 ## Branching / CI Pipeline
 Work is typically done on a `feature/*` or `bug/*` branch. Push to such branch does not trigger a CI pipeline. It is responsibility of a committer to ensure that branch is clean and ready to pass CI pipeline after merge. Custom branches are tested locally on the developer's workstation. They are eventually merged to `develop`.
