@@ -81,6 +81,18 @@ docker-compose directly, and docker (`docker.io` package) indirectly since compo
 docker as root, immediately after the installation, main user account should be added to `docker` group: 
 `sudo usermod -aG docker ${USER}`.
 
+### sandbox health
+Just as in AWS where Amazon cloud is configured for pre-release with healthcheck monitors, sandbox has a similar 
+setup. Once started, you can monitor sandbox with:
+```
+docker events --filter event=health_status
+```
+If we shut down persistence container to simulate database outage, docker would start logging health errors similar 
+to this one:
+```
+2020-04-06T10:26:57.476218502+02:00 container health_status: unhealthy 9c8c59523f46d583e1043b460590b4c407fb1c829874af04d56a1b23e98ae816 (com.docker.compose.config-hash=696c78526debb2cfe9011743066e99f6d35c8e28374abe13258e5627791487ee, com.docker.compose.container-number=1, com.docker.compose.oneoff=False, com.docker.compose.project=dockercompose, com.docker.compose.service=backend, com.docker.compose.version=1.15.0, image=docker.io/mrazjava/booklink-backend:develop, name=dockercompose_backend_1)
+```
+
 ## No Sandbox
 Use included `env` file to drive config of an image you want to spin. For example, here we run a `pre` image reachable 
 on port `8888`:
