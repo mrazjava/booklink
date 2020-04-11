@@ -25,6 +25,7 @@ EXAMPLE:
                                 v0.1.4 frontend-vue, v0.2.8 backend)
   pre                         : run pre-release candidate images (:master)
   stg                         : run staging snapshot images (:develop)
+  local                       : enable all persistence environments, no backend, no frontend
   local -b                    : run custom built backend only (:local), skip frontend
   local -b foo -f             : run custom built backend (:foo), frontend (:local)
   local -f                    : run custom built frontend (:local), staged backend (:develop)
