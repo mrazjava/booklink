@@ -7,7 +7,7 @@ cat << HELP
 booklinktags  --  list all booklink docker images posted to dockerhub registry.
 
 EXAMPLE: 
-  booklinktags fronted-vue   # list vue.js frontend images
+  booklinktags frontend-vue  # list vue.js frontend images
   booklinktags backend       # list backend images
 HELP
 fi
