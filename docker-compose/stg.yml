@@ -8,6 +8,9 @@ services:
     ports:
       - "8090:80"
     environment:
+      FE_DEPLOY_ENV: stg
+      FE_DEPLOY_BE_HOST: http://localhost:8080
+      # backward-compatibility: <= v0.2.0
       VUE_APP_BACKEND_HOST: http://localhost:8080
       VUE_APP_ENV: stg
   backend:
