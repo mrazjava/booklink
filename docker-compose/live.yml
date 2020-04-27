@@ -10,6 +10,8 @@ services:
     environment:
       FE_DEPLOY_ENV: live
       FE_DEPLOY_BE_HOST: http://localhost:8080
+      FE_FB_APPID: 1662925783847528
+      FE_SANDBOX: 1
       # backward-compatibility: <= v0.2.0
       VUE_APP_BACKEND_HOST: http://localhost:8080
       VUE_APP_ENV: stg
