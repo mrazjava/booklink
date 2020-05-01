@@ -93,7 +93,7 @@ then
    fi
  fi
 else
- echo "INVALID INPUT. Expecting: live -f -b | pre | stg | local [-f][-b] | help"
+ echo "INVALID INPUT. Expecting: live [-f][-b] | pre | stg | local [-f][-b] | help"
  exit
 fi
 
@@ -140,7 +140,7 @@ then
  echo "--------------------------------------------------"
  if [[ (! -z "$BE_IMG_TAG") && (! -z "$FE_IMG_TAG") ]];
  then
-   echo "* w/ frotnend=$FE_IMG_TAG, backend=$BE_IMG_TAG"
+   echo "* w/ frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG"
    echo "--------------------------------------------------"
    docker-compose -f docker-compose/local.yml up pg admin frontend backend
  elif [[ (! -z "$BE_IMG_TAG") && (-z "$FE_IMG_TAG") ]];
