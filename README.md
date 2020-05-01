@@ -12,19 +12,15 @@ Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` 
 
 * `live` frontend | backend .. (not setup yet)
    - manual deploy from pre-release tested aws [ecr](https://aws.amazon.com/ecr/) docker image
-   - requires: internet connection only (or more if using sandbox)
 * `pre` [frontend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com/) | [backend](http://ec2-3-124-3-167.eu-central-1.compute.amazonaws.com:8888/actuator/info)
    - stable candidate releases hosted on aws free tier [T2.micro](https://aws.amazon.com/ec2/instance-types/t2/)
    - docker image [booklink-frontend-vue](https://hub.docker.com/repository/docker/mrazjava/booklink-frontend-vue) auto deployed via ci [workflow](https://github.com/mrazjava/booklink-frontend-vue/blob/master/.github/workflows/pre-release.yml) and aws [task-definition](https://github.com/mrazjava/booklink-frontend-vue/blob/master/.aws/pre-release.json)
    - docker image [booklink-backend](https://hub.docker.com/repository/docker/mrazjava/booklink-backend) auto deployed via ci [workflow](https://github.com/mrazjava/booklink-backend/blob/master/.github/workflows/pre-release.yml) and aws [task-definition](https://github.com/mrazjava/booklink-backend/blob/master/.aws/pre-release.json)
    - QA testing, live demos
-   - requires: internet connection only (or more if using sandbox)
 * `stg` @[sandbox](https://github.com/mrazjava/booklink#sandbox)
    - staged feature changes and bug fixes in `develop` branch (candidate for merge to `master`)
-   - requires: docker, docker-compose
 * `local`
-   - local machine, active development environment w/ Vue CLI (+Node), Maven, Git, Docker, JDK, IDE, etc.
-   - requires full set of dev tools (see respective project repo for details)
+   - active development environment w/ Vue CLI (+Node), Maven, Git, Docker, JDK, IDE, etc.
    - programming of new features, bug fixing, depending on branch may be unstable
    - `yarn serve` (frontend), `mvn clean spring-boot:run` (backend)
 
