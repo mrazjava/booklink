@@ -11,6 +11,7 @@ services:
       FE_DEPLOY_ENV: pre
       FE_DEPLOY_BE_HOST: http://localhost:8080
       FE_FB_APPID: 1662925783847528
+      FE_GL_APPID: 1022797606973-5j5ppvnp01qbqcqhqn1p6umh6n84kvpf.apps.googleusercontent.com
       FE_SANDBOX: 1
       # backward-compatibility: <= v0.2.0
       VUE_APP_BACKEND_HOST: http://localhost:8080
