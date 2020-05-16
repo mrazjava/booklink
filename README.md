@@ -6,7 +6,7 @@ This is an overview project which aggregates common documentation and high level
 ## Sub Projects
 General utilities are maintaned here as sub projects.
 
-**booklink-data-openlibrary**
+##### booklink-data-openlibrary
 Default data source for books and authors based on [openlibrary](http://openlibrary.org).
 
 ## Application Sources
