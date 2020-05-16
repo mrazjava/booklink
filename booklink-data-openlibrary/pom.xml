@@ -67,8 +67,8 @@
 				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
 				<version>1.0.2</version>
 				<configuration>
-					<sourceDirectory>${basedir}/src/main/resources/openlibrary</sourceDirectory>
-					<targetPackage>com.github.mrazjava.booklink.data.openlibrary.model</targetPackage>
+					<sourceDirectory>${basedir}/src/main/resources/openlibrary/schema</sourceDirectory>
+					<targetPackage>com.github.mrazjava.booklink.data.openlibrary.codegen</targetPackage>
 				</configuration>
 				<executions>
 					<execution>
