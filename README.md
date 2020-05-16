@@ -4,7 +4,7 @@ Cross reference of books.
 This is an overview project which aggregates common documentation and high level utilities.
 
 ## Sub Projects
-General utilities are maintaned here as sub projects.
+Utilities and other non-app processes are maintained here as sub projects.
 
 ##### booklink-data-openlibrary
 Default data source for books and authors based on [openlibrary](http://openlibrary.org).
