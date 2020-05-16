@@ -5,7 +5,7 @@ This is an overview project which aggregates common documentation and high level
 
 ## Sub Projects
 General utilities are maintaned here as sub projects.
-### booklink-data-openlibrary
+> booklink-data-openlibrary
 Booklink has its own data source drawn from [openlibrary](http://openlibrary.org). This project manages the import 
 process. 
 
@@ -13,10 +13,6 @@ process.
 Component sources that make up Booklink live in their own repos.
 * Vue.js based [frontend](https://github.com/mrazjava/booklink-frontend-vue)
 * Java based [backend](https://github.com/mrazjava/booklink-backend)
-
-## Sub Projects
-* 
-
 
 ## Environments
 Booklink is deployed in [AWS](https://aws.amazon.com/) where it lives in `live` and `pre` release environments.
