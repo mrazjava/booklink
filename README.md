@@ -5,9 +5,9 @@ This is an overview project which aggregates common documentation and high level
 
 ## Sub Projects
 General utilities are maintaned here as sub projects.
-> booklink-data-openlibrary
-Booklink has its own data source drawn from [openlibrary](http://openlibrary.org). This project manages the import 
-process. 
+
+**booklink-data-openlibrary**
+Default data source for books and authors based on [openlibrary](http://openlibrary.org).
 
 ## Application Sources
 Component sources that make up Booklink live in their own repos.
