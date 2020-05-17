@@ -24,6 +24,6 @@ public class ImporterApp implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
-		gsonImporter.runImport(new File(getClass().getResource("/openlibrary/samples/authors-n20.json").getFile()));
+		gsonImporter.runImport(new File(getClass().getResource("/openlibrary/samples/authors-head-n20.json").getFile()));
 	}
 }
