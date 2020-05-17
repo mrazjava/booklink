@@ -15,7 +15,7 @@ Component sources that make up Booklink live in their own repos.
 * Java based [backend](https://github.com/mrazjava/booklink-backend)
 
 ## Sandbox
-The fastest way to try booklink locally:
+The most helpful utility in this project is the sandbox. It's the fastest way to try booklink locally:
 ```
 ./sandbox.sh [live | pre | stg | local | help]
 ```
