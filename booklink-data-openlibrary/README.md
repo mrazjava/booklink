@@ -2,20 +2,6 @@
 Booklink exposes API for external source lookup. This is a default implementation of an external source based on 
 openlibrary. This implementation is hosted by booklink and is the primary lookup source
 
-## Overview
-Since Openlibrary JSON pojos are auto created off schemas provided by them, by default they don't exist and project 
-will show compilation errors until models are created. There are usually two ways to generate models. Command line:
-```
-mvn clean generate-sources
-```
-Or with an IDE. With IntelliJ for instance, right click `booklin-data-openlibrary`, choose _Maven_, then 
-_Generate Sources and Update Folders_.
- 
-JSON POJO models will be available in:
-```
-target/generated-sources/
-```
-
 ## Datasources
 Raw [data](https://openlibrary.org/data/) [dumps](https://archive.org/details/ol_exports?sort=-publicdate) are pulled from [openlibrary](https://openlibrary.org/developers/dumps). 
 These are large downloads (authors ~320mb, works ~1.7gb, editions 6.1gb) and big files once uncompressed (authors ~2.5gb, works ~10.6gb, editions ~29gb); 
@@ -75,7 +61,22 @@ We must add a prefix `[` to the beginning of a file and a suffix `]` to the end 
 
 ## Importing Dumps
 Once data dumps are processed and in correct JSON format, we can import them using [GSON](https://github.com/google/gson) 
-and the openlibrary JSON pojos we generated earlier.
+and the JSON pojo models.
+
+## JSON POJOs
+Java models are auto created off schemas provided by [openlibrary-client](https://github.com/internetarchive/openlibrary-client/tree/master/olclient/schemata). 
+By default they don't exist and project will show compilation errors until models are created. There are usually two ways 
+to generate models. Command line:
+```
+mvn clean generate-sources
+```
+Or with an IDE. With IntelliJ for instance, right click `booklin-data-openlibrary`, choose _Maven_, then 
+_Generate Sources and Update Folders_.
+ 
+JSON POJO models will be available in:
+```
+target/generated-sources/
+```
 
 # Notes
 To create short samples with specific content use `fgrep` as explained [here](https://stackoverflow.com/questions/13913014/grepping-a-huge-file-80gb-any-way-to-speed-it-up):
