@@ -45,16 +45,16 @@ Full samples are available in `src/main/resources/openlibrary/samples/`.
 
 To make data dumps ready for import, we must convert each dump to an array of JSON elements.
 
-### Remove line metadata
+#### Remove line metadata
 We must drop metadata types from each line and leave JSON only
 ```
 sed 's/^[^{]*//' ol_dump_authors_latest.txt > authors.txt
 ```
-### Append Comma
+#### Append Comma
 We must at a comma to the end of each JSON line
 ```
 ```
-### Add Array Brackets
+#### Add Array Brackets
 We must add a prefix `[` to the beginning of a file and a suffix `]` to the end of a file.
 ```
 ```
@@ -63,7 +63,7 @@ We must add a prefix `[` to the beginning of a file and a suffix `]` to the end 
 Once data dumps are processed and in correct JSON format, we can import them using [GSON](https://github.com/google/gson) 
 and the JSON pojo models.
 
-### JSON POJOs
+#### JSON POJOs
 Java models are auto created off schemas provided by [openlibrary-client](https://github.com/internetarchive/openlibrary-client/tree/master/olclient/schemata). 
 By default they don't exist and project will show compilation errors until models are created. There are usually two ways 
 to generate models. Command line:
