@@ -63,7 +63,7 @@ We must add a prefix `[` to the beginning of a file and a suffix `]` to the end 
 Once data dumps are processed and in correct JSON format, we can import them using [GSON](https://github.com/google/gson) 
 and the JSON pojo models.
 
-## JSON POJOs
+### JSON POJOs
 Java models are auto created off schemas provided by [openlibrary-client](https://github.com/internetarchive/openlibrary-client/tree/master/olclient/schemata). 
 By default they don't exist and project will show compilation errors until models are created. There are usually two ways 
 to generate models. Command line:
