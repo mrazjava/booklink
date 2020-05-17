@@ -18,7 +18,7 @@ target/generated-sources/
 
 ## Datasources
 Raw [data](https://openlibrary.org/data/) [dumps](https://archive.org/details/ol_exports?sort=-publicdate) are pulled from [openlibrary](https://openlibrary.org/developers/dumps). 
-These are big downloads (authors ~320mb, works ~1.7gb, editions 6.1gb) and huge files once uncompressed (authors ~2.5gb, works ~10.6gb, editions ~29gb); 
+These are large downloads (authors ~320mb, works ~1.7gb, editions 6.1gb) and big files once uncompressed (authors ~2.5gb, works ~10.6gb, editions ~29gb); 
 sizes as of May 2020.
 > !!! Avoid working these files in a text editor.
 ```
