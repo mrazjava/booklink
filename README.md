@@ -50,8 +50,9 @@ to this one:
 ```
 
 ## No Sandbox
-More adventurous souls can run booklink images directly with docker. The included `env` file drives the config of an 
-image we spin. For example, here we run a `pre` image reachable on port `8888`:
+More adventurous souls can run booklink images via [docker-compose](https://github.com/mrazjava/booklink#docker-compose) 
+or even directly with docker. The included `env` file drives the config of an image we spin. For example, here we run a 
+`pre` image reachable on port `8888`:
 ```
 docker run -p8888:8080 --env-file=env mrazjava/booklink-backend:master
 ```
