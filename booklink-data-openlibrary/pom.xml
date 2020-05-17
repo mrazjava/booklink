@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.mrazjava.booklink.data</groupId>
-	<artifactId>openlibrary</artifactId>
+	<artifactId>booklink-data-openlibrary</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>openlibrary</name>
+	<name>Booklink Data (openlibrary.org)</name>
 	<description>Data Import based on Openlibrary.org</description>
 
 	<properties>
