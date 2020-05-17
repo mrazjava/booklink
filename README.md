@@ -56,7 +56,7 @@ image we spin. For example, here we run a `pre` image reachable on port `8888`:
 docker run -p8888:8080 --env-file=env mrazjava/booklink-backend:master
 ```
 
-## docker-compose<sup>2</sup>
+## docker-compose
 Composition is used as a convenience feature to quickly run (or try out) multiple docker images tuned for the desired 
 application instance. In case of booklink, mainly frontend and backend tuned for localhost. No need to compile sources, 
 manually build images or setup anything:
