@@ -1,5 +1,5 @@
 ## Sandbox
-The most helpful utility in this project is the sandbox. It's the fastest way to try booklink locally:
+Run booklink locally with ability to simulate any environment.
 ```
 ./sandbox.sh [live | pre | stg | local | help]
 ```
