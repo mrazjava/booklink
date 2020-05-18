@@ -6,8 +6,11 @@ This is an overview project which aggregates common documentation and high level
 ## Sub Projects
 Utilities and other non-app processes are maintained here as sub projects.
 
+##### booklink-import-openlibrary
+Import process for data sources provided by [openlibrary](http://openlibrary.org).
+
 ##### booklink-data-openlibrary
-Default data source for books and authors based on [openlibrary](http://openlibrary.org).
+Booklink implementation of openlibrary - data source JPA definitions.
 
 ## Application Sources
 Component sources that make up Booklink live in their own repos.
