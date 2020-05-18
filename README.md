@@ -1,21 +1,13 @@
 # Booklink
 Cross reference of books.
 
-This is an overview project which aggregates common documentation and high level utilities.
-
-## Sub Projects
-Utilities and other non-app processes are maintained here as sub projects.
-
-##### booklink-import-openlibrary
-Import process for data sources provided by [openlibrary](http://openlibrary.org).
-
-##### booklink-data-openlibrary
-Booklink implementation of openlibrary - data source JPA definitions.
+## Overview
+This project aggregates common documentation and high level utilities.
 
 ## Application Sources
-Component sources that make up Booklink live in their own repos.
-* Vue.js based [frontend](https://github.com/mrazjava/booklink-frontend-vue)
-* Java based [backend](https://github.com/mrazjava/booklink-backend)
+Application sources live in their own repos.
+* Browser [frontend](https://github.com/mrazjava/booklink-frontend-vue) based on Vue.js 
+* Java [backend](https://github.com/mrazjava/booklink-backend)
 
 ## Sandbox
 The most helpful utility in this project is the sandbox. It's the fastest way to try booklink locally:
