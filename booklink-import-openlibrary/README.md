@@ -1,6 +1,5 @@
-# Booklink Data: openlibrary.org
-Booklink exposes API for external source lookup. This is a default implementation of an external source based on 
-openlibrary. This implementation is hosted by booklink and is the primary lookup source
+# Booklink Import: openlibrary.org
+Import process for migrating raw data dumps from [openlibrary.org](https://openlibrary.org) into [booklink-data-openlibrary](../booklink-data-openlibrary).
 
 ## Datasources
 Raw [data](https://openlibrary.org/data/) [dumps](https://archive.org/details/ol_exports?sort=-publicdate) are pulled from [openlibrary](https://openlibrary.org/developers/dumps). 
