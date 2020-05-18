@@ -9,7 +9,7 @@
   <name>Booklink Utils</name>
   <description>Utilities and support tools for Booklink</description>
   <modules>
-    <module>booklink-data-openlibrary</module>
+    <module>booklink-import-openlibrary</module>
   </modules>
   <developers>
     <developer>
