@@ -45,16 +45,19 @@ Full samples are available in `src/main/resources/openlibrary/samples/`.
 To make data dumps ready for import, we must convert each dump to an array of JSON elements.
 
 #### Remove line metadata
-We must drop metadata types from each line and leave JSON only
+The metadata in openlibrary raw dumps preceeds each JSON line. It must be removed for GSON to properly recognize each 
+line as JSON:
 ```
 sed 's/^[^{]*//' ol_dump_authors_latest.txt > authors.txt
 ```
 #### Append Comma
-We must at a comma to the end of each JSON line
+Since we will import one huge JSON array, each individual JSON line is an object in the array. As such, we must format 
+all records as JSON array. We start by appending a comma to the end of each JSON line (except the last one):
 ```
+sed -i '$!s/$/,/' authors.txt
 ```
 #### Add Array Brackets
-We must add a prefix `[` to the beginning of a file and a suffix `]` to the end of a file.
+Finally, we need to append a prefix `[` to the beginning of a file and a suffix `]` to the end of a file.
 ```
 ```
 
