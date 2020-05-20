@@ -77,7 +77,7 @@ _Generate Sources and Update Folders_.
  
 JSON POJO models will be available in:
 ```
-target/generated-openlibrary JSON pojos we generated earliersources/
+target/generated-sources/jsonschema2pojo/
 ```
 
 ## Notes
