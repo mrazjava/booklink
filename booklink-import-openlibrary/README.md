@@ -75,10 +75,7 @@ mvn clean generate-sources
 Or with an IDE. With IntelliJ for instance, right click `booklink-import-openlibrary`, choose _Maven_, then 
 _Generate Sources and Update Folders_.
  
-JSON POJO models will be available in:
-```
-target/generated-sources/jsonschema2pojo/
-```
+JSON POJO models will be available in `target/generated-sources/jsonschema2pojo/`
 
 ## Notes
 To create short samples with specific content use `fgrep` as explained [here](https://stackoverflow.com/questions/13913014/grepping-a-huge-file-80gb-any-way-to-speed-it-up):
