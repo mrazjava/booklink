@@ -45,7 +45,7 @@ Full samples are available in `src/main/resources/openlibrary/samples/`.
 To make data dumps ready for import, we must convert each dump to an array of JSON elements.
 
 #### Remove line metadata
-The metadata in openlibrary raw dumps preceeds each JSON line. It must be removed for GSON to properly recognize each 
+openlibrary raw dumps have metadata which precedes each JSON line. It must be removed for GSON to properly recognize each 
 line as JSON:
 ```
 sed 's/^[^{]*//' ol_dump_authors_latest.txt > authors.txt
@@ -72,7 +72,7 @@ There are usually two ways to generate models. Command line:
 ```
 mvn clean generate-sources
 ```
-Or with an IDE. With IntelliJ for instance, right click `booklin-data-openlibrary`, choose _Maven_, then 
+Or with an IDE. With IntelliJ for instance, right click `booklink-import-openlibrary`, choose _Maven_, then 
 _Generate Sources and Update Folders_.
  
 JSON POJO models will be available in:
