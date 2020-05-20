@@ -64,12 +64,11 @@ Finally, we need to append a prefix `[` to the beginning of a file and a suffix 
 ## Importing Dumps
 Once data dumps are processed and in correct JSON format, we can import them using our custom import process based on 
 [GSON](https://github.com/google/gson). Our import app uses the JSON pojo models auto generated off the schemas 
-provided by openlibrary.org.
+provided by [openlibrary-client](https://github.com/internetarchive/openlibrary-client/tree/master/olclient/schemata).
 
 #### JSON POJOs
-Java models are auto created off schemas provided by [openlibrary-client](https://github.com/internetarchive/openlibrary-client/tree/master/olclient/schemata). 
-By default they don't exist and project will show compilation errors until models are created. There are usually two ways 
-to generate models. Command line:
+By default openlibrary java models don't exist and so our project will show compilation errors until models are created. 
+There are usually two ways to generate models. Command line:
 ```
 mvn clean generate-sources
 ```
