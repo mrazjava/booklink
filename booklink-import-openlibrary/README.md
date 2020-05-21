@@ -59,6 +59,7 @@ sed -i '$!s/$/,/' authors.txt
 #### Add Array Brackets
 Finally, we need to append a prefix `[` to the beginning of a file and a suffix `]` to the end of a file.
 ```
+sed -i -e '1i[' -e '$a]' authors.txt
 ```
 
 ## Importing Dumps
