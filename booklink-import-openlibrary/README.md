@@ -42,6 +42,15 @@ Edition sample:
 ```
 Full samples are available in `src/main/resources/openlibrary/samples/`.
 
+#### Line count
+To get an idea how many records we deal with we can count number of lines in each dump file:
+```
+wc -l authors.txt
+wc -l works.txt
+wc -l editions.txt
+```
+Line count is important for verification count once data is imported into the database.
+
 To make data dumps ready for import, we must convert each dump to an array of JSON elements.
 
 #### Remove line metadata
