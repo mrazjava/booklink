@@ -57,7 +57,7 @@ Line count is important for final verification once data is imported into the da
 openlibrary raw dumps have metadata which precedes each JSON line. It must be removed for GSON to properly recognize each 
 line as JSON:
 ```
-sed 's/^[^{]*//' ol_dump_authors_latest.txt > authors.txt
+sed 's/^[^{]*//' authors.txt
 ```
 #### Append Comma
 Since we will import one huge JSON array, each individual JSON line is an object in the array. As such, we must format 
