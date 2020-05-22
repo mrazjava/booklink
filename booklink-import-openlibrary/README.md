@@ -19,6 +19,19 @@ pv ol_dump_works_latest.txt.gz | gunzip > works.txt
 pv ol_dump_editions_latest.txt.gz | gunzip > editions.txt
 ```
 
+## Import Strategy
+Since each dump is a huge file, import must stream though rather than reading entire file into memory as is typically 
+done. With streaming, there are few ways to do this.
+
+#### JSON array
+We could prepare entire file as one huge JSON array and import it with stream friendly GSON.
+
+#### JSON element
+WE could prepare dump file as list of individual JSON records (not an array) which technically speaking would render the 
+content of a file invalid JSON. Essentially all we would do is [remove line metadata](https://github.com/mrazjava/booklink/tree/master/booklink-import-openlibrary#remove-line-metadata). 
+Then, we could use something like [Apache Commons IO](https://commons.apache.org/proper/commons-io/) to stream though the import line by line and use object mapper 
+to produce individual json record off each line. There are plenty examples about this approach. Here is [one](https://www.baeldung.com/java-read-lines-large-file).
+
 ## Dump Processing
 Once uncompressed, data dumps must be prepared for GSON consumption as they are not in JSON ready import format. They are 
 JSON exports, but they contain additional metadata which must be stripped.
