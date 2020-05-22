@@ -49,7 +49,7 @@ wc -l authors.txt
 wc -l works.txt
 wc -l editions.txt
 ```
-Line count is important for verification count once data is imported into the database.
+Line count is important for final verification once data is imported into the database.
 
 To make data dumps ready for import, we must convert each dump to an array of JSON elements.
 
