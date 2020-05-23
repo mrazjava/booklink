@@ -2,8 +2,8 @@
 Import process for migrating raw data dumps from [openlibrary.org](https://openlibrary.org) into [booklink-data-openlibrary](../booklink-data-openlibrary).
 
 ## Tech Stack
-* Apache Spark w/ Scala implementation
-* Apache Kafka w/ Java implementation
+* [Apache Spark](https://spark.apache.org/) (Scala implementation)
+* [Apache Kafka](https://kafka.apache.org/) (Java implementation)
 
 ## Datasources
 Raw [data](https://openlibrary.org/data/) [dumps](https://archive.org/details/ol_exports?sort=-publicdate) are pulled from [openlibrary](https://openlibrary.org/developers/dumps). 
