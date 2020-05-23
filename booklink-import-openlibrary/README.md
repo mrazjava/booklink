@@ -38,6 +38,7 @@ friendly GSON.
 #### list of elements (preferred)
 We could prepare dump file as list of individual JSON records (not an array) which technically speaking would render the 
 content of a file invalid JSON. Essentially all we would do is [remove line metadata](https://github.com/mrazjava/booklink/tree/master/booklink-import-openlibrary#remove-line-metadata). 
+
 Then again, we could use a custom java app with:
  
  * something like [Apache Commons IO](https://commons.apache.org/proper/commons-io/) to stream though the import line 
