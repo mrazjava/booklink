@@ -1,6 +1,10 @@
 # Booklink Import: openlibrary.org
 Import process for migrating raw data dumps from [openlibrary.org](https://openlibrary.org) into [booklink-data-openlibrary](../booklink-data-openlibrary).
 
+## Tech Stack
+* Apache Spark w/ Scala implementation
+* Apache Kafka w/ Java implementation
+
 ## Datasources
 Raw [data](https://openlibrary.org/data/) [dumps](https://archive.org/details/ol_exports?sort=-publicdate) are pulled from [openlibrary](https://openlibrary.org/developers/dumps). 
 These are large downloads (authors ~320mb, works ~1.7gb, editions 6.1gb) and big files once uncompressed (authors ~2.5gb, works ~10.6gb, editions ~29gb); 
@@ -19,18 +23,25 @@ pv ol_dump_works_latest.txt.gz | gunzip > works.txt
 pv ol_dump_editions_latest.txt.gz | gunzip > editions.txt
 ```
 
-## Import Strategy
-Since each dump is a huge file, import must stream though rather than reading entire file into memory as is typically 
-done. With streaming, there are few ways to do this.
+## Architecture
+JSON file source is handled by Spark stream and fed into Kafka. From there, actual data implementation will consume 
+kafka events. Import is completely decoupled from actual data source.
 
-#### JSON array
+## JSON dump format
+Since each dump is a huge file, import must stream though rather than reading entire file into memory as is typically 
+done. With streaming, there are several ways to do this. We will work off of _JSON element_ strategy.
+
+#### array
 We could prepare entire file as one huge JSON array and import it with stream friendly GSON.
 
-#### JSON element
-WE could prepare dump file as list of individual JSON records (not an array) which technically speaking would render the 
+#### list of elements (preferred)
+We could prepare dump file as list of individual JSON records (not an array) which technically speaking would render the 
 content of a file invalid JSON. Essentially all we would do is [remove line metadata](https://github.com/mrazjava/booklink/tree/master/booklink-import-openlibrary#remove-line-metadata). 
 Then, we could use something like [Apache Commons IO](https://commons.apache.org/proper/commons-io/) to stream though the import line by line and use object mapper 
 to produce individual json record off each line. There are plenty examples about this approach. Here is [one](https://www.baeldung.com/java-read-lines-large-file).
+
+* Example: [Consume list of json elements file w/ Apache Spark](https://aseigneurin.github.io/2018/08/14/kafka-tutorial-8-spark-structured-streaming.html)
+* Example: [Spark structured streaming](https://medium.com/knoldus/basic-example-for-spark-structured-streaming-kafka-integration-a6d0b3ffc3bd)
 
 ## Dump Processing
 Once uncompressed, data dumps must be prepared for GSON consumption as they are not in JSON ready import format. They are 
