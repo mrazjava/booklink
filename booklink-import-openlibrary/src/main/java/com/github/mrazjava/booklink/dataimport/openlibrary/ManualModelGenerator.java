@@ -1,4 +1,4 @@
-package com.github.mrazjava.booklink.data.openlibrary;
+package com.github.mrazjava.booklink.dataimport.openlibrary;
 
 import com.sun.codemodel.JCodeModel;
 import org.jsonschema2pojo.*;

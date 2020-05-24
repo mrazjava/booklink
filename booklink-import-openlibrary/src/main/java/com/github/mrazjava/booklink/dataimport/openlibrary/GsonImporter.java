@@ -1,6 +1,6 @@
-package com.github.mrazjava.booklink.data.openlibrary;
+package com.github.mrazjava.booklink.dataimport.openlibrary;
 
-import com.github.mrazjava.booklink.data.openlibrary.codegen.AuthorSchema;
+import com.github.mrazjava.booklink.AuthorSchema;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+
 
 /**
  * @see <a href="https://javadeveloperzone.com/java-8/java-parse-large-json-file-gson-example/">Parse Large JSON file</a>

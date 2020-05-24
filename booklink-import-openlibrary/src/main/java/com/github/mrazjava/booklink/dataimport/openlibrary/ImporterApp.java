@@ -1,4 +1,4 @@
-package com.github.mrazjava.booklink.data.openlibrary;
+package com.github.mrazjava.booklink.dataimport.openlibrary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
