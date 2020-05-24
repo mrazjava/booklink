@@ -1,6 +1,5 @@
 package com.github.mrazjava.booklink.data.openlibrary;
 
-import com.fasterxml.jackson.annotation.JacksonInject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

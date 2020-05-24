@@ -8,8 +8,8 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.github.mrazjava.booklink.data</groupId>
-	<artifactId>booklink-data-openlibrary</artifactId>
+	<groupId>com.github.mrazjava.booklink.import</groupId>
+	<artifactId>booklink-import-openlibrary</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Booklink Import (openlibrary.org)</name>
 	<description>Data Import based on Openlibrary.org</description>
@@ -68,7 +68,7 @@
 				<version>1.0.2</version>
 				<configuration>
 					<sourceDirectory>${basedir}/src/main/resources/openlibrary/schema</sourceDirectory>
-					<targetPackage>com.github.mrazjava.booklink.data.openlibrary.codegen</targetPackage>
+					<targetPackage>com.github.mrazjava.booklink.import.openlibrary.codegen</targetPackage>
 				</configuration>
 				<executions>
 					<execution>
