@@ -1,12 +1,15 @@
 version: '3.1'
 
-services:
+networks:
+  app-tier:
+    driver: bridge
 
+services:
   cassandra:
     image: bitnami/cassandra:latest
     networks:
       - app-tier
     environment:
-      - CASSANDRA_TRANSPORT_PORT_NUMBER: 7000
-      - CASSANDRA_USER: cassandra
-      - CASSANDRA_PASSWORD: cassandra
+      CASSANDRA_TRANSPORT_PORT_NUMBER: 7000
+      CASSANDRA_USER: cassandra
+      CASSANDRA_PASSWORD: cassandra
