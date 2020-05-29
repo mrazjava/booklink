@@ -68,10 +68,11 @@
 				<version>1.0.2</version>
 				<configuration>
 					<sourceDirectory>${basedir}/src/main/resources/openlibrary/schema</sourceDirectory>
-					<targetPackage>com.github.mrazjava.booklink.import.openlibrary.codegen</targetPackage>
+					<targetPackage>com.github.mrazjava.booklink.dataimport.openlibrary.codegen</targetPackage>
 				</configuration>
 				<executions>
 					<execution>
+						<id>generate-openlibrary-schema-sources</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>

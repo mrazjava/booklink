@@ -1,6 +1,6 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary;
 
-import com.github.mrazjava.booklink.AuthorSchema;
+import com.github.mrazjava.booklink.dataimport.openlibrary.codegen.AuthorSchema;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
