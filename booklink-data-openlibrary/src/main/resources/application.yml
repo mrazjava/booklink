@@ -1,6 +1,9 @@
-#spring:
-#  data:
-#    cassandra:
-#      keyspace-name: booklink
-#      contact-points: 127.0.0.1
-#      port: 9042
+spring:
+  data:
+    cassandra:
+      keyspaceName: booklink
+      contactPoints: 127.0.0.1
+      username: cassandra
+      password: cassandra
+      port: 9042
+      schemaAction: CREATE_IF_NOT_EXISTS
