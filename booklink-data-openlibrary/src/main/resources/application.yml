@@ -1,9 +1,17 @@
 spring:
   data:
     cassandra:
+      #keyspaceName: "default"
       keyspaceName: booklink
       contactPoints: 127.0.0.1
       username: cassandra
       password: cassandra
       port: 9042
-      schemaAction: CREATE_IF_NOT_EXISTS
+      schemaAction: NONE
+#      schemaAction: CREATE_IF_NOT_EXISTS
+      connect-timeout-millis: 10000ms
+      read-timeout-millis: 10000ms
+      connect-timeout: 10000ms
+      read-timeout: 10000ms
+      pool:
+        pool-timeout: 10000ms
