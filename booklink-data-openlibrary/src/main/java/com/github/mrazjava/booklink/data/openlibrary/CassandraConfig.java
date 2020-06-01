@@ -1,5 +1,7 @@
 package com.github.mrazjava.booklink.data.openlibrary;
 
+import com.datastax.driver.core.AuthProvider;
+import com.datastax.driver.core.PlainTextAuthProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.SchemaAction;
@@ -21,6 +23,13 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     @Value("${spring.data.cassandra.schema-action}")
     private String schemaAction;
 
+    @Value("${spring.data.cassandra.username}")
+    private String username;
+
+    @Value("${spring.data.cassandra.password}")
+    private String password;
+
+
     @Override
     public SchemaAction getSchemaAction() {
         return SchemaAction.valueOf(schemaAction);
@@ -39,5 +48,10 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     @Override
     protected String getKeyspaceName() {
         return keySpace;
+    }
+
+    @Override
+    protected AuthProvider getAuthProvider() {
+        return new PlainTextAuthProvider(username, password);
     }
 }
