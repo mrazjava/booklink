@@ -8,6 +8,7 @@ REST.
 
 ## Notes
 - [basic boot setup](https://bezkoder.com/spring-boot-cassandra-crud/)
-- [docker setup](https://hub.docker.com/r/bitnami/cassandra/)
+- [cassandra docker image](https://hub.docker.com/r/bitnami/cassandra/)
+- cassandra docker image: [create keyspace on startup](https://github.com/docker-library/cassandra/issues/104)
 - [cassandra on minicube + boot](https://medium.com/@aamine/spring-data-for-cassandra-a-complete-example-3c6f7f39fef9)
 - [DBeaver community Cassandra setup](https://medium.com/@raphaelrodrigues_74842/how-to-connect-cassandra-database-using-dbeaver-community-7d7b43a058e2)
