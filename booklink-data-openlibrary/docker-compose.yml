@@ -13,5 +13,6 @@ services:
       CASSANDRA_TRANSPORT_PORT_NUMBER: 7000
       CASSANDRA_USER: cassandra
       CASSANDRA_PASSWORD: cassandra
+      CASSANDRA_CLUSTER_NAME: booklink
     ports:
       - 127.0.0.1:9042:9042
