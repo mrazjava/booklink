@@ -4,6 +4,7 @@ REST.
 
 ## Tech Stack
 * Spring Boot
+* [Apache Kafka](https://kafka.apache.org/)
 * [Apache Cassandra](https://cassandra.apache.org/)
 
 ## Bitnami Cassandra
@@ -22,7 +23,6 @@ cqlsh -u cassandra -p cassandra
 ```
 
 #### CQLSH>
-Some useful CQL commands:
 ```
 CREATE KEYSPACE IF NOT EXISTS cycling WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1 };
 ```
