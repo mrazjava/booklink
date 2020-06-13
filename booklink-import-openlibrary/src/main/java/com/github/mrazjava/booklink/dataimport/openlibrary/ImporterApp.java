@@ -1,6 +1,8 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary;
 
+import com.github.mrazjava.booklink.dataimport.openlibrary.model.work.Work;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,8 +13,12 @@ import java.io.File;
 @SpringBootApplication
 public class ImporterApp implements ApplicationRunner {
 
-	@Autowired
-	private GsonImporter gsonImporter;
+	@Autowired @Qualifier("gson")
+	private FileImporter gsonImporter;
+
+	@Autowired @Qualifier("commons")
+	private FileImporter commonsImporter;
+
 
 
 	public static void main(String[] args) {
@@ -23,6 +29,23 @@ public class ImporterApp implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
-		gsonImporter.runImport(new File(getClass().getResource("/openlibrary/samples/authors-head-n20.json").getFile()));
+		//runGsonImporter("authors-head-n20.json", AuthorSchema.class);
+		runCommonsImporter("works-head-n1000.json", Work.class);
+		//runCommonsImporter("authors-head-n20-1.json", AuthorSchema.class);
+	}
+
+	private void runGsonImporter(String fileName, Class schema) {
+		gsonImporter.runImport(
+				new File(getClass().getResource(String.format("/openlibrary/samples/%s", fileName)).getFile()),
+				schema
+		);
+	}
+
+	private void runCommonsImporter(String fileName, Class schema) {
+
+		commonsImporter.runImport(
+				new File(getClass().getResource(String.format("/openlibrary/samples/%s", fileName)).getFile()),
+				schema
+		);
 	}
 }
