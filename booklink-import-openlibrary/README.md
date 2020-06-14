@@ -99,6 +99,16 @@ Pass `schemaClassName` value according with the dump file being processed: `Auth
 
 The import will read each line into a JSON object and feed it to a Kafka topic. From there it is consumed and processed further.
 
+## Notes
+To create short samples with specific content use `fgrep` as explained [here](https://stackoverflow.com/questions/13913014/grepping-a-huge-file-80gb-any-way-to-speed-it-up):
+```
+fgrep -i -A 5 -B 5 'George Orwell' ol_dump_authors_latest.txt
+```
+Dropping prefix types from dump files to produce JSON only:
+```
+sed 's/^[^{]*//' ol_dump_authors_latest.txt > authors.txt
+```
+
 #### OpenLibrary Schemas
 I found JSON schemas provided by OpenLibrary to be incomplete and error prone and opted to create and use my own. 
 Nonetheless, Java classes can be generated off them, but they are not used by booklink import.
@@ -112,16 +122,6 @@ Or with an IDE. With IntelliJ for instance, right click `booklink-import-openlib
 _Generate Sources and Update Folders_.
  
 JSON POJO models will be available in `target/generated-sources/jsonschema2pojo/`
-
-## Notes
-To create short samples with specific content use `fgrep` as explained [here](https://stackoverflow.com/questions/13913014/grepping-a-huge-file-80gb-any-way-to-speed-it-up):
-```
-fgrep -i -A 5 -B 5 'George Orwell' ol_dump_authors_latest.txt
-```
-Dropping prefix types from dump files to produce JSON only:
-```
-sed 's/^[^{]*//' ol_dump_authors_latest.txt > authors.txt
-```
 
 ## Links
 [Kafka Streams Quickstart](https://docs.confluent.io/current/streams/quickstart.html)
