@@ -95,8 +95,9 @@ Once data dumps are processed, run the import:
 ```
 mvn spring-boot:run -Dspring-boot.run.arguments="--dumpFile=/tmp/ol_dump_works_latest.json --schemaClassName=WorkSchema --frequencyCheck=5000"
 ```
-The import will read each line into a JSON object and feed it to a Kafka topic. From there it is consumed and processed 
-further.
+Pass `schemaClassName` value according with the dump file being processed: `AuthorSchema`, `WorkSchema` or `EditionSchema`. The `frequencyCheck` is the modulo determining how often import will log progress.
+
+The import will read each line into a JSON object and feed it to a Kafka topic. From there it is consumed and processed further.
 
 #### OpenLibrary Schemas
 I found JSON schemas provided by OpenLibrary to be incomplete and error prone and opted to create and use my own. 
