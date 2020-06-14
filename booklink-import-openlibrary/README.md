@@ -52,8 +52,7 @@ In all cases, once individual record is fetched, it is published to kafka. From 
 consume messages and complete the import accordingly.
 
 ## Dump Processing
-Once uncompressed, data dumps must be prepared for GSON consumption as they are not in JSON ready import format. They are 
-JSON exports, but they contain additional metadata which must be stripped.
+Once uncompressed, data dumps must be prepared before parsing as they are not in JSON ready import format. They are JSON exports, but they contain additional metadata which must be stripped.
 
 Author sample:
 ```
@@ -83,11 +82,10 @@ wc -l authors.txt
 wc -l works.txt
 wc -l editions.txt
 ```
-Line count is important for final verification once data is imported into the database.
+Line count is useful for final verification once data is imported into the database.
 
 #### Remove line metadata
-openlibrary raw dumps have metadata which precedes each JSON line. It must be removed for GSON to properly recognize each 
-line as JSON:
+In order to properly parse each line into a JSON object, we must remove a prefix provided by OpenLibrary:
 ```
 sed 's/^[^{]*//' authors.txt
 ```
