@@ -110,8 +110,7 @@ sed 's/^[^{]*//' ol_dump_authors_latest.txt > authors.txt
 ```
 
 #### OpenLibrary Schemas
-I found JSON schemas provided by OpenLibrary to be incomplete and error prone and opted to create and use my own. 
-Nonetheless, Java classes can be generated off them, but they are not used by booklink import.
+I found JSON schemas provided by OpenLibrary to be incomplete and error prone. Consequently I opted to write and use my own. Nonetheless, they are integrated into the project and Java classes can be generated off them. They are not used by booklink import in any way whatsoever.
 
 By default openlibrary java models don't exist and so our project will show compilation errors until models are created. 
 There are usually two ways to generate models. Command line:
