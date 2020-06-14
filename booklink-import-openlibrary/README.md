@@ -3,6 +3,7 @@ Import process for migrating raw data dumps from [openlibrary.org](https://openl
 
 ## Tech Stack
 * Spring Boot
+* [Jackson](https://github.com/FasterXML/jackson-docs)
 * Apache Commons IO
 * Lombok
 * [Apache Kafka](https://kafka.apache.org/)
