@@ -18,6 +18,7 @@ import java.io.File;
  * Sample invocations:
  * mvn spring-boot:run -Dspring-boot.run.arguments="--dumpFile=/tmp/ol_dump_works_latest.json --schemaClassName=WorkSchema --frequencyCheck=5000"
  * mvn spring-boot:run -Dspring-boot.run.arguments="--dumpFile=authors-tail-n1000.json --schemaClassName=AuthorSchema --frequencyCheck=100"
+ * mvn clean spring-boot:run -Dspring-boot.run.arguments="--dumpFile=works-head-n1000.json"
  */
 @Slf4j
 @SpringBootApplication
