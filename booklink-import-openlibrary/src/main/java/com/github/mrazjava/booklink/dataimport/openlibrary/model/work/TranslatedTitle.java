@@ -7,9 +7,11 @@ import lombok.Data;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class TypeValue {
+public class TranslatedTitle {
 
-    private String type;
+    String text;
 
-    private String value;
+    Key type;
+
+    Key language;
 }

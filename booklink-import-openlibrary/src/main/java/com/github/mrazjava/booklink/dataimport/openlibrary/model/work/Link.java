@@ -7,9 +7,11 @@ import lombok.Data;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class TypeValue {
+public class Link {
 
-    private String type;
+    String url;
 
-    private String value;
+    Key type;
+
+    String title;
 }

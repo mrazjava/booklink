@@ -7,9 +7,9 @@ import lombok.Data;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class TypeValue {
+public class RemoteIds {
 
-    private String type;
+    String viaf;
 
-    private String value;
+    String wikidata;
 }

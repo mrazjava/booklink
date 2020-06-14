@@ -1,8 +1,8 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary;
 
-import com.github.mrazjava.booklink.dataimport.openlibrary.model.work.Work;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,14 +10,30 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 
+/**
+ * Read json, row by row, from openlibrary dump file. Assumes file had been prepped to contain
+ * exactly one JSON record per line. The {@code dumpFile} argument can be just the name of a
+ * (sample) file, or a full path to a real import file.
+ *
+ * Sample invocations:
+ * mvn spring-boot:run -Dspring-boot.run.arguments="--dumpFile=/tmp/ol_dump_works_latest.json --schemaClassName=WorkSchema --frequencyCheck=5000"
+ * mvn spring-boot:run -Dspring-boot.run.arguments="--dumpFile=authors-tail-n1000.json --schemaClassName=AuthorSchema --frequencyCheck=100"
+ */
+@Slf4j
 @SpringBootApplication
 public class ImporterApp implements ApplicationRunner {
 
-	@Autowired @Qualifier("gson")
-	private FileImporter gsonImporter;
+	@Autowired
+	private FileImporter importer;
 
-	@Autowired @Qualifier("commons")
-	private FileImporter commonsImporter;
+	@Value("${dumpFile:works-tail-n30.json}")
+	private String dumpFile;
+
+	@Value("${schemaClassName:WorkSchema}")
+	private String schemaClassName;
+
+	@Value("${frequencyCheck:10}")
+	private int frequencyCheck;
 
 
 
@@ -29,23 +45,28 @@ public class ImporterApp implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
-		//runGsonImporter("authors-head-n20.json", AuthorSchema.class);
-		runCommonsImporter("works-head-n1000.json", Work.class);
-		//runCommonsImporter("authors-head-n20-1.json", AuthorSchema.class);
-	}
+		log.debug("OpenLibrary dump import. INPUTS:\n\n- dumpFile: {}\n- schemaClassName: {}\n- frequencyCheck: {}\n", dumpFile, schemaClassName, frequencyCheck);
 
-	private void runGsonImporter(String fileName, Class schema) {
-		gsonImporter.runImport(
-				new File(getClass().getResource(String.format("/openlibrary/samples/%s", fileName)).getFile()),
-				schema
+		Class schemaClass = Class.forName(
+				schemaClassName.contains(".") ?
+				schemaClassName :
+				String.format("com.github.mrazjava.booklink.dataimport.openlibrary.model.%s", schemaClassName)
 		);
-	}
 
-	private void runCommonsImporter(String fileName, Class schema) {
+		File importFile = null;
 
-		commonsImporter.runImport(
-				new File(getClass().getResource(String.format("/openlibrary/samples/%s", fileName)).getFile()),
-				schema
-		);
+		if(dumpFile.contains("/") || dumpFile.contains("\\")) {
+			importFile = new File(dumpFile);
+		}
+
+		if(importFile == null) {
+			String sampleFilePath = String.format("/openlibrary/samples/%s", dumpFile);
+			importFile = new File(getClass().getResource(sampleFilePath).getFile());
+		}
+
+		log.info("starting...\n\n- importFile: {}\n- schemaClass: {}\n- frequencyCheck: {}\n", importFile.getAbsolutePath(), schemaClass.getCanonicalName(), frequencyCheck);
+
+		importer.setFrequencyCheck(frequencyCheck);
+		importer.runImport(importFile, schemaClass);
 	}
 }

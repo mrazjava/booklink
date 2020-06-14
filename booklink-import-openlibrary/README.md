@@ -8,7 +8,7 @@ Import process for migrating raw data dumps from [openlibrary.org](https://openl
 ## Datasources
 Raw [data](https://openlibrary.org/data/) [dumps](https://archive.org/details/ol_exports?sort=-publicdate) are pulled from [openlibrary](https://openlibrary.org/developers/dumps). 
 These are large downloads (authors ~320mb, works ~1.7gb, editions 6.1gb) and big files once uncompressed (authors ~2.5gb, works ~10.6gb, editions ~29gb); 
-sizes as of May 2020.
+sizes as of May 2020. Row counts: works ~20M
 > !!! Avoid working these files in a text editor.
 ```
 wget https://openlibrary.org/data/ol_dump_authors_latest.txt.gz
@@ -91,24 +91,19 @@ line as JSON:
 ```
 sed 's/^[^{]*//' authors.txt
 ```
-#### Append Comma
-Since we will import one huge JSON array, each individual JSON line is an object in the array. As such, we must format 
-all records as JSON array. We start by appending a comma to the end of each JSON line (except the last one):
-```
-sed -i '$!s/$/,/' authors.txt
-```
-#### Add Array Brackets
-Finally, we need to append a prefix `[` to the beginning of a file and a suffix `]` to the end of a file.
-```
-sed -i -e '1i[' -e '$a]' authors.txt
-```
 
 ## Importing Dumps
-Once data dumps are processed and in correct JSON format, we can import them using our custom import process based on 
-[GSON](https://github.com/google/gson). Our import app uses the JSON pojo models auto generated off the schemas 
-provided by [openlibrary-client](https://github.com/internetarchive/openlibrary-client/tree/master/olclient/schemata).
+Once data dumps are processed, run the import:
+```
+mvn spring-boot:run -Dspring-boot.run.arguments="--dumpFile=/tmp/ol_dump_works_latest.json --schemaClassName=WorkSchema --frequencyCheck=5000"
+```
+The import will read each line into a JSON object and feed it to a Kafka topic. From there it is consumed and processed 
+further.
 
-#### JSON POJOs
+#### OpenLibrary Schemas
+I found JSON schemas provided by OpenLibrary to be incomplete and error prone and opted to create and use my own. 
+Nonetheless, Java classes can be generated off them, but they are not used by booklink import.
+
 By default openlibrary java models don't exist and so our project will show compilation errors until models are created. 
 There are usually two ways to generate models. Command line:
 ```
