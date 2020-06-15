@@ -26,6 +26,11 @@ pv ol_dump_works_latest.txt.gz | gunzip > works.txt
 pv ol_dump_editions_latest.txt.gz | gunzip > editions.txt
 ```
 
+#### Covers
+Book records contain references to covers which are by far the largest download. Covers are available in three sizes, 
+small, medium and large. Details explained on [this](https://openlibrary.org/dev/docs/api/covers) openlibrary page 
+(towards the bottom). 
+
 ## Architecture
 JSON file source is handled by Spark stream and fed into Kafka. From there, actual data implementation will consume 
 kafka events. Import is completely decoupled from actual data source.
