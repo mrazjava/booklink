@@ -1,4 +1,4 @@
-package com.github.mrazjava.booklink.dataimport.openlibrary.model.work;
+package com.github.mrazjava.booklink.dataimport.openlibrary.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -7,11 +7,11 @@ import lombok.Data;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class TranslatedTitle {
+public class Link {
 
-    String text;
+    String url;
 
     Key type;
 
-    Key language;
+    String title;
 }

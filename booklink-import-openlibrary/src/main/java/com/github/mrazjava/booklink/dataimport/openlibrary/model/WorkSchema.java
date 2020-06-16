@@ -2,7 +2,6 @@ package com.github.mrazjava.booklink.dataimport.openlibrary.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.mrazjava.booklink.dataimport.openlibrary.model.work.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
