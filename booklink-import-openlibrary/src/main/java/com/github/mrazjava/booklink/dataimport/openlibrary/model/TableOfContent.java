@@ -1,13 +1,13 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class TableOfContent {
 
+    @JsonIgnore
     Key type;
 
     String pagenum;
@@ -18,4 +18,9 @@ public class TableOfContent {
 
     @JsonProperty("class")
     String clazz;
+
+    @JsonSetter("value")
+    void setValue(String value) {
+        title = value;
+    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class WorkSchema {
+public class WorkSchema extends BaseSchema {
 
     TypeValue created;
 
@@ -28,8 +28,6 @@ public class WorkSchema {
 
     @JsonProperty("latest_revision")
     Integer latestRevision;
-
-    String key;
 
     List<Author> authors;
 
@@ -74,9 +72,6 @@ public class WorkSchema {
     Integer revision;
 
     List<Link> links;
-
-    @JsonProperty("lc_classifications")
-    List<String> classifications;
 
     @JsonProperty("dewey_number")
     List<String> dweyNumbers;
