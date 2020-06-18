@@ -17,6 +17,28 @@ public class Identifiers {
     @JsonProperty("isbn_10")
     private List<String> isbn10;
 
+    private List<String> wikidata;
+
+    private List<String> amazon;
+
+    private List<String> google;
+
+    private List<String> dnb;
+
+    @JsonProperty("project_gutenberg")
+    private List<String> projectGutenberg;
+
+    @JsonProperty("depósito_legal")
+    private List<String> depositoLegal;
+
+    @JsonProperty("hathi_trust")
+    private List<String> hathiTrust;
+
+    @JsonProperty("alibris_id")
+    private List<String> alibrisId;
+
+    private List<String> bcid;
+
     @JsonProperty("publish_date")
     private String publishDate;
 

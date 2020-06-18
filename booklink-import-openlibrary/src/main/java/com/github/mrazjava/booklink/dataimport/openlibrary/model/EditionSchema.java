@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -33,6 +35,9 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("last_modified")
     private TypeValue lastModified;
 
+    @JsonProperty("copyright_date")
+    private String copyrightDate;
+
     private Object classifications;
 
     private List<String> contributions;
@@ -56,8 +61,7 @@ public class EditionSchema extends BaseSchema {
 
     private String description;
 
-    @JsonProperty("first_sentence")
-    private TypeValue firstSentence;
+    private String firstSentence;
 
     @JsonProperty("ia_loaded_id")
     private List<String> iaLoadedId;
@@ -67,6 +71,8 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("local_id")
     private List<String> localId;
+
+    private List<String> location;
 
     private String weight;
 
@@ -99,16 +105,31 @@ public class EditionSchema extends BaseSchema {
 
     private String title;
 
+    @JsonProperty("full_title")
+    private String fullTitle;
+
+    @JsonProperty("work_titles")
+    private List<String> workTitles;
+
     @JsonProperty("title_prefix")
     private String titlePrefix;
-
-    @JsonProperty("other_titles")
-    private List<String> otherTitles;
 
     @JsonProperty("work_title")
     private List<String> workTitle;
 
+    @JsonProperty("other_titles")
+    private List<String> otherTitles;
+
     private String subtitle;
+
+    @JsonProperty("coverimage")
+    private String coverImage;
+
+    @JsonProperty("scan_records")
+    private List<Key> scanRecords;
+
+    @JsonProperty("scan_on_demand")
+    private Boolean scanOnDemand;
 
     private String notes;
 
@@ -120,10 +141,19 @@ public class EditionSchema extends BaseSchema {
 
     private List<Long> covers;
 
+    @JsonProperty("translated_from")
+    private List<Key> translatedFrom;
+
+    @JsonProperty("translation_of")
+    private String translationOf;
+
     private List<String> series;
 
     @JsonProperty("oclc_numbers")
     private List<String> oclcNumbers;
+
+    @JsonProperty("oclc_number")
+    private List<String> oclcNumber;
 
     private List<Key> works;
 
@@ -167,5 +197,61 @@ public class EditionSchema extends BaseSchema {
             }
             description = text;
         }
+    }
+
+    @JsonSetter("first_sentence")
+    public void setJsonFirstSentence(JsonNode json) {
+        if(json != null) {
+            String text;
+            if (json.isTextual()) {
+                text = json.asText();
+            } else {
+                text = json.get("value").asText();
+            }
+            firstSentence = text;
+        }
+    }
+
+    @JsonSetter("toc")
+    public void setJsonExcerpts(JsonNode json) {
+        if(json != null) {
+            if(CollectionUtils.isEmpty(toc)) {
+                toc = new LinkedList<>();
+            }
+            for (JsonNode jn : json) {
+                toc.add(jn.isTextual() ? new TableOfContent(jn.asText()) : produceToc(jn));
+            }
+        }
+    }
+
+    private TableOfContent produceToc(JsonNode json) {
+
+        TableOfContent toc = new TableOfContent();
+
+        if(json.has("class")) {
+            toc.setClazz(json.get("class").asText());
+        }
+        if(json.has("label")) {
+            toc.setLabel(json.get("label").asText());
+        }
+        if(json.has("label")) {
+            toc.setLevel(Integer.valueOf(json.get("label").asText()));
+        }
+        if(json.has("pagenum")) {
+            toc.setLabel(json.get("pagenum").asText());
+        }
+        if(json.has("title")) {
+            toc.setLabel(json.get("title").asText());
+        }
+        if(json.has("key")) {
+            Key type = new Key();
+            type.setKey(json.get("title").asText());
+            toc.setType(type);
+        }
+        if(json.has("value")) {
+            toc.setValue(json.get("value").asText());
+        }
+
+        return toc;
     }
 }
