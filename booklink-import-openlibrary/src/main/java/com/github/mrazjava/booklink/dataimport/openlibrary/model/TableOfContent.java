@@ -10,18 +10,21 @@ import lombok.NoArgsConstructor;
 public class TableOfContent {
 
     @JsonIgnore
-    Key type;
+    private Key type;
 
-    String pagenum;
+    private String pagenum;
 
-    String title;
+    private String title;
 
-    String label;
+    private String label;
 
     @JsonProperty("class")
-    String clazz;
+    private String clazz;
 
-    Integer level;
+    private Integer level;
+
+    @JsonProperty("tocpage")
+    private Integer tocPage;
 
     @JsonSetter("value")
     void setValue(String value) {

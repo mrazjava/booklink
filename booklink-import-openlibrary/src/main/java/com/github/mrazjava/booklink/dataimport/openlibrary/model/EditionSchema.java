@@ -1,8 +1,6 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import org.springframework.util.CollectionUtils;
@@ -10,8 +8,12 @@ import org.springframework.util.CollectionUtils;
 import java.util.LinkedList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class EditionSchema extends BaseSchema {
+
+    @JsonProperty("openlibrary")
+    private String openLibrary;
 
     private List<String> publishers;
 
@@ -22,6 +24,9 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("isbn_13")
     private List<String> isbn13;
+
+    @JsonProperty("original_isbn")
+    private String originalIsbn;
 
     @JsonProperty("isbn_invalid")
     private List<String> isbnInvalid;
@@ -49,6 +54,13 @@ public class EditionSchema extends BaseSchema {
 
     private List<String> url;
 
+    @JsonProperty("download_url")
+    private List<String> downloadUrl;
+
+    private String name;
+
+    private String create;
+
     private String ocaid;
 
     private String pagination;
@@ -56,18 +68,17 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("publish_date")
     private String publishDate;
 
-    @JsonProperty("subject_time")
-    private List<String> subjectTime;
+    @JsonAlias("subject_time")
+    @JsonProperty("subject_times")
+    private List<String> subjectTimes;
 
     private String description;
 
     private String firstSentence;
 
-    @JsonProperty("ia_loaded_id")
-    private List<String> iaLoadedId;
+    private List<String> iaLoadedIds;
 
-    @JsonProperty("ia_box_id")
-    private List<String> iaBoxId;
+    private List<String> iaBoxIds;
 
     @JsonProperty("local_id")
     private List<String> localId;
@@ -82,8 +93,12 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("by_statement")
     private String byStatement;
 
-    @JsonProperty("subject_place")
-    private List<String> subjectPlace;
+    @JsonAlias("subject_place")
+    @JsonProperty("subject_places")
+    private List<String> subjectPlaces;
+
+    @JsonProperty("subject_people")
+    private List<String> subjectPeople;
 
     @JsonProperty("publish_places")
     private List<String> publishPlaces;
@@ -103,19 +118,19 @@ public class EditionSchema extends BaseSchema {
 
     private List<Key> authors;
 
+    private List<Link> links;
+
     private String title;
 
     @JsonProperty("full_title")
     private String fullTitle;
 
+    @JsonAlias("work_title")
     @JsonProperty("work_titles")
     private List<String> workTitles;
 
     @JsonProperty("title_prefix")
     private String titlePrefix;
-
-    @JsonProperty("work_title")
-    private List<String> workTitle;
 
     @JsonProperty("other_titles")
     private List<String> otherTitles;
@@ -149,15 +164,14 @@ public class EditionSchema extends BaseSchema {
 
     private List<String> series;
 
+    @JsonAlias("oclc_number")
     @JsonProperty("oclc_numbers")
     private List<String> oclcNumbers;
 
-    @JsonProperty("oclc_number")
-    private List<String> oclcNumber;
-
     private List<Key> works;
 
-    private List<Key> languages;
+    @JsonAlias("language")
+    private List<String> languages;
 
     private List<String> subjects;
 
@@ -172,6 +186,29 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("table_of_contents")
     private List<TableOfContent> toc;
+
+
+    @JsonSetter("languages")
+    public void setLanguages(JsonNode json) {
+        if(json != null) {
+            if(CollectionUtils.isEmpty(languages)) {
+                languages = new LinkedList<>();
+            }
+            if(!json.isArray()) {
+                languages.add(fetchLanguage(json));
+            }
+            else {
+                for(JsonNode jn : json) {
+                    languages.add(fetchLanguage(jn));
+                }
+            }
+        }
+    }
+
+    private String fetchLanguage(JsonNode json) {
+        String text = json.has("key") ? json.get("key").asText() : json.asText();
+        return text.contains("/") ? text.substring(text.lastIndexOf("/") + 1) : text;
+    }
 
     @JsonSetter("notes")
     public void setJsonNotes(JsonNode json) {
@@ -209,6 +246,40 @@ public class EditionSchema extends BaseSchema {
                 text = json.get("value").asText();
             }
             firstSentence = text;
+        }
+    }
+
+    @JsonSetter("ia_loaded_id")
+    public void setIaLoadedIds(JsonNode json) {
+        if(json != null) {
+            if(CollectionUtils.isEmpty(iaLoadedIds)) {
+                iaLoadedIds = new LinkedList<>();
+            }
+            if(json.isTextual()) {
+                iaLoadedIds.add(json.asText());
+            }
+            else {
+                for (JsonNode jn : json) {
+                    iaLoadedIds.add(jn.asText());
+                }
+            }
+        }
+    }
+
+    @JsonSetter("ia_box_id")
+    public void setIaBoxIds(JsonNode json) {
+        if(json != null) {
+            if(CollectionUtils.isEmpty(iaBoxIds)) {
+                iaBoxIds = new LinkedList<>();
+            }
+            if(json.isTextual()) {
+                iaBoxIds.add(json.asText());
+            }
+            else {
+                for (JsonNode jn : json) {
+                    iaBoxIds.add(jn.asText());
+                }
+            }
         }
     }
 

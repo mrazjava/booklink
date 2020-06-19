@@ -40,6 +40,7 @@ public class CommonsLineIteratorImporter implements FileImporter {
                 counter++;
                 Object pojo = objectMapper.readValue(line, schema);
                 if(counter % frequencyCheck == 0) {
+                    //log.debug("raw JSON #{}:\n{}", counter, line);
                     log.info("JSON #{}:\n{}", counter, objectMapper.writeValueAsString(pojo));
                 }
                 //log.info("raw JSON #{}:\n{}", counter, line);
