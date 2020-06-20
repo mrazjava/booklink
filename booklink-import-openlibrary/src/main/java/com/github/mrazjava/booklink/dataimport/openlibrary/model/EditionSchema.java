@@ -12,12 +12,26 @@ import java.util.List;
 @Data
 public class EditionSchema extends BaseSchema {
 
+    private String price;
+
+    private Key edition;
+
     @JsonProperty("openlibrary")
     private String openLibrary;
 
     private List<String> publishers;
 
     private TypeValue created;
+
+    private Dimensions dimensions;
+
+    @JsonProperty("bookweight")
+    private Weight bookWeight;
+
+    @JsonProperty("coverid")
+    private String coverId;
+
+    private List<String> isbn;
 
     @JsonProperty("isbn_10")
     private List<String> isbn10;
@@ -30,6 +44,12 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("isbn_invalid")
     private List<String> isbnInvalid;
+
+    @JsonProperty("isbn_odd_length")
+    private List<String> isbnOddLength;
+
+    @JsonProperty("purchase_url")
+    private List<String> purchaseUrl;
 
     @JsonProperty("number_of_pages")
     private Integer numberOfPages;
@@ -46,6 +66,8 @@ public class EditionSchema extends BaseSchema {
     private Object classifications;
 
     private List<String> contributions;
+
+    private List<String> collections;
 
     @JsonProperty("uri_descriptions")
     private List<String> uriDescriptions;
@@ -82,6 +104,9 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("local_id")
     private List<String> localId;
+
+    @JsonProperty("ia_id")
+    private String iaId;
 
     private List<String> location;
 
@@ -173,6 +198,9 @@ public class EditionSchema extends BaseSchema {
     @JsonAlias("language")
     private List<String> languages;
 
+    @JsonProperty("language_code")
+    private String languageCode;
+
     private List<String> subjects;
 
     private Identifiers identifiers;
@@ -186,6 +214,11 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("table_of_contents")
     private List<TableOfContent> toc;
+
+    private List<Volume> volumes;
+
+    @JsonProperty("volume_number")
+    private Integer volumeNumber;
 
 
     @JsonSetter("languages")
