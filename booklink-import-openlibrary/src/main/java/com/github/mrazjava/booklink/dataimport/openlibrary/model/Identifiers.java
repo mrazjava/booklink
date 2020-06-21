@@ -14,6 +14,9 @@ public class Identifiers {
     @JsonProperty("barcode")
     private List<String> barCode;
 
+    @JsonProperty("limited_edition_book_number")
+    private List<String> limitedEditionBookNumber;
+
     private List<String> oclc;
 
     private List<String> goodreads;
@@ -126,11 +129,28 @@ public class Identifiers {
     @JsonProperty("taideteollisen_korkeakoulun_julkaisusarja")
     private List<String> taideteollisenKorkeakolunJulkaisusarija;
 
+    @JsonProperty("abwa_talking_book_number")
+    private List<String> abwaTalkingBookNumber;
+
+    @JsonProperty("niedersächsische_staats-_und_universitätsbibliothek_göttingen")
+    private List<String> bibliothekGottingen;
+
     @JsonProperty("bestell-nr._(ddr)")
     private List<String> bestellNr;
 
     @JsonProperty("archive.org")
     private List<String> archiveOrg;
+
+    @JsonProperty("registro_autoral")
+    private List<String> registroAutoral;
+
+    @JsonProperty("ebooks_libres_et_gratuits")
+    private List<String> ebooksLibresGratuits;
+
+    private List<String> fennica;
+
+    @JsonProperty("bibliografia_selecionada")
+    private List<String> bibliografiaSelecionada;
 
     @JsonProperty("canadian_national_library_archive")
     private List<String> canadianNationalLibraryArchive;
@@ -155,6 +175,9 @@ public class Identifiers {
 
     private List<String> lulu;
 
+    @JsonProperty("barnes_&_noble")
+    private List<String> barnsAndNoble;
+
     private List<String> amazon;
 
     @JsonProperty("amazon.de_asin")
@@ -178,11 +201,15 @@ public class Identifiers {
 
     private List<String> nla;
 
+    private List<String> uri;
+
     private List<String> doi;
 
     private List<String> issn;
 
     private List<String> etsc;
+
+    private List<String> ilmiolibro;
 
     private List<String> isbn;
 
@@ -198,6 +225,9 @@ public class Identifiers {
 
     @JsonProperty("w._w._norton")
     private List<String> wwNorton;
+
+    @JsonProperty("booklocker.com")
+    private List<String> booklocker;
 
     private List<String> ean;
 

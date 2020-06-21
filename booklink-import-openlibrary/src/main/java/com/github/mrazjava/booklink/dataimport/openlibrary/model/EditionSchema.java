@@ -16,6 +16,8 @@ public class EditionSchema extends BaseSchema {
 
     private Key edition;
 
+    private String code;
+
     @JsonProperty("openlibrary")
     private String openLibrary;
 
