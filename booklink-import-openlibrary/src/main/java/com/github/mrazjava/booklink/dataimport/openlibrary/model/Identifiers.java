@@ -23,6 +23,7 @@ public class Identifiers {
     @JsonAlias({
             "library_of_congress",
             "library_of_congress_classification_(lcc)",
+            "library_of_congress_catalog_no.",
             "library_of_congress_catalogue_number"})
     private List<String> lccn;
 
@@ -61,6 +62,9 @@ public class Identifiers {
     @JsonProperty("british_library")
     private List<String> britishLibrary;
 
+    @JsonProperty("national_library_of_australia")
+    private List<String> nationalLibraryOfAustralia;
+
     @JsonProperty("bayerische_staatsbibliothek")
     private List<String> bayerischeBibliothek;
 
@@ -69,6 +73,9 @@ public class Identifiers {
 
     @JsonProperty("staats-_und_universitätsbibliothek_hamburg")
     private List<String> universitatBibliothekHamburg;
+
+    @JsonProperty("university_library_of_the_ludwig-maximilian_university_of_munich")
+    private List<String> munichUniversityLibrary;
 
     @JsonAlias("bibliothèque_nationale_de_france_(bnf)")
     @JsonProperty("bibliothèque_nationale_de_france")
@@ -106,6 +113,12 @@ public class Identifiers {
     @JsonProperty("magcloud")
     private List<String> magCloud;
 
+    @JsonProperty("publisher_catalog")
+    private List<String> publisherCatalog;
+
+    @JsonProperty("publishamerica")
+    private List<String> publishAmerica;
+
     private List<String> flipkart;
 
     private List<String> upc;
@@ -115,6 +128,9 @@ public class Identifiers {
 
     @JsonProperty("bestell-nr._(ddr)")
     private List<String> bestellNr;
+
+    @JsonProperty("archive.org")
+    private List<String> archiveOrg;
 
     @JsonProperty("canadian_national_library_archive")
     private List<String> canadianNationalLibraryArchive;
@@ -134,6 +150,9 @@ public class Identifiers {
     @JsonProperty("booksforyou")
     private List<String> booksForYou;
 
+    @JsonProperty("apple_ibook_store")
+    private List<String> appleIbookStore;
+
     private List<String> lulu;
 
     private List<String> amazon;
@@ -150,13 +169,20 @@ public class Identifiers {
     @JsonProperty("amazon.it_asin")
     private List<String> amazonIt;
 
+    @JsonProperty("amazon.co.jp")
+    private List<String> amazonJp;
+
     private List<String> google;
 
     private List<String> dnb;
 
     private List<String> nla;
 
+    private List<String> doi;
+
     private List<String> issn;
+
+    private List<String> etsc;
 
     private List<String> isbn;
 
@@ -170,6 +196,9 @@ public class Identifiers {
 
     private List<String> shelfari;
 
+    @JsonProperty("w._w._norton")
+    private List<String> wwNorton;
+
     private List<String> ean;
 
     private List<String> bhl;
@@ -179,11 +208,23 @@ public class Identifiers {
     @JsonProperty("choosebooks")
     private List<String> choseBooks;
 
+    @JsonProperty("idealbooks")
+    private List<String> idealBooks;
+
+    @JsonProperty("dc_books")
+    private List<String> dbBooks;
+
+    @JsonProperty("better_world_books")
+    private List<String> betterWorldBooks;
+
     @JsonProperty("project_gutenberg")
     private List<String> projectGutenberg;
 
     @JsonProperty("hathi_trust")
     private List<String> hathiTrust;
+
+    @JsonProperty("gallica_(bnf)")
+    private List<String> gallica;
 
     @JsonProperty("alibris_id")
     private List<String> alibrisId;

@@ -23,6 +23,9 @@ public class EditionSchema extends BaseSchema {
 
     private TypeValue created;
 
+    @JsonProperty("remote_ids")
+    private RemoteIds remoteIds;
+
     private Dimensions dimensions;
 
     @JsonProperty("bookweight")
@@ -143,6 +146,9 @@ public class EditionSchema extends BaseSchema {
 
     private List<Key> authors;
 
+    @JsonProperty("author_names")
+    private List<String> authorNames;
+
     private List<Link> links;
 
     private String title;
@@ -204,6 +210,9 @@ public class EditionSchema extends BaseSchema {
     private List<String> subjects;
 
     private Identifiers identifiers;
+
+    @JsonProperty("by_statements")
+    private String byStatements;
 
     @JsonIgnore
     private Object type;
