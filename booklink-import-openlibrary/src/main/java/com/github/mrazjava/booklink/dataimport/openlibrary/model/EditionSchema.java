@@ -146,7 +146,7 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("source_records")
     private List<String> sourceRecords;
 
-    private List<Key> authors;
+    private List<String> authors;
 
     @JsonProperty("author_names")
     private List<String> authorNames;
@@ -239,17 +239,34 @@ public class EditionSchema extends BaseSchema {
                 languages = new LinkedList<>();
             }
             if(!json.isArray()) {
-                languages.add(fetchLanguage(json));
+                languages.add(fetchKey(json));
             }
             else {
                 for(JsonNode jn : json) {
-                    languages.add(fetchLanguage(jn));
+                    languages.add(fetchKey(jn));
                 }
             }
         }
     }
 
-    private String fetchLanguage(JsonNode json) {
+    @JsonSetter("authors")
+    public void setAuthors(JsonNode json) {
+        if(json != null) {
+            if(CollectionUtils.isEmpty(authors)) {
+                authors = new LinkedList<>();
+            }
+            if(!json.isArray()) {
+                authors.add(fetchKey(json));
+            }
+            else {
+                for(JsonNode jn : json) {
+                    authors.add(fetchKey(jn));
+                }
+            }
+        }
+    }
+
+    private String fetchKey(JsonNode json) {
         String text = json.has("key") ? json.get("key").asText() : json.asText();
         return text.contains("/") ? text.substring(text.lastIndexOf("/") + 1) : text;
     }

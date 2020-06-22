@@ -27,6 +27,7 @@ public class Identifiers {
             "library_of_congress",
             "library_of_congress_classification_(lcc)",
             "library_of_congress_catalog_no.",
+            "library_of_congress_catalog_card_no.",
             "library_of_congress_catalogue_number"})
     private List<String> lccn;
 
@@ -169,6 +170,9 @@ public class Identifiers {
 
     @JsonProperty("booksforyou")
     private List<String> booksForYou;
+
+    @JsonProperty("books_on_demand")
+    private List<String> booksOnDemand;
 
     @JsonProperty("apple_ibook_store")
     private List<String> appleIbookStore;
