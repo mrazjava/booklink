@@ -78,6 +78,9 @@ public class Identifiers {
     @JsonProperty("staats-_und_universitätsbibliothek_hamburg")
     private List<String> universitatBibliothekHamburg;
 
+    @JsonProperty("número_de_incripción_de_la_obra")
+    private List<String> numeroDeIncripcion;
+
     @JsonProperty("university_library_of_the_ludwig-maximilian_university_of_munich")
     private List<String> munichUniversityLibrary;
 
