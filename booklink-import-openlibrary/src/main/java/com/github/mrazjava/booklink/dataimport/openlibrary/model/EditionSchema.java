@@ -30,6 +30,8 @@ public class EditionSchema extends BaseSchema {
 
     private Dimensions dimensions;
 
+    private String publisher;
+
     @JsonProperty("bookweight")
     private Weight bookWeight;
 

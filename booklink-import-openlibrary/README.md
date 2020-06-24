@@ -98,6 +98,16 @@ In order to properly parse each line into a JSON object, we must remove a prefix
 sed 's/^[^{]*//' authors.txt
 ```
 
+#### Parsing, Debugging, Troubleshooting
+Building a parser by trail-and-error requires sequential repetitive read. It's much easier to split the original file 
+into smaller chunks, say 1 million lines each and work on each piece separately until parser is built or whatever 
+problem resolved:
+```
+split -l 1000000 ol_dump_editions_latest.json
+``` 
+Above we are splitting editions dump file which is almost 27 milion lines long and over 27 GB in size. We create 
+smaller chunks, 1 million lines each.
+
 ## Importing Dumps
 Once data dumps are processed, run the import:
 ```
