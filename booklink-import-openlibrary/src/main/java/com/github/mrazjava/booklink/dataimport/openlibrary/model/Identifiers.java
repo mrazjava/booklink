@@ -81,6 +81,9 @@ public class Identifiers {
     @JsonProperty("número_de_incripción_de_la_obra")
     private List<String> numeroDeIncripcion;
 
+    @JsonProperty("numéro_de_dépôt_légal")
+    private List<String> numeroDeDepotLegal;
+
     @JsonProperty("university_library_of_the_ludwig-maximilian_university_of_munich")
     private List<String> munichUniversityLibrary;
 
@@ -92,8 +95,9 @@ public class Identifiers {
     @JsonProperty("depósito_legal_bolivia")
     private List<String> depositoLegalBolivia;
 
-    @JsonProperty("cornell_university_online_library")
-    private List<String> cornellUniversityOnlineLibrary;
+    @JsonAlias("cornell_university_online_library")
+    @JsonProperty("cornell_university_library")
+    private List<String> cornellUniversityLibrary;
 
     @JsonProperty("boston_public_library")
     private List<String> bostonPublicLibrary;
