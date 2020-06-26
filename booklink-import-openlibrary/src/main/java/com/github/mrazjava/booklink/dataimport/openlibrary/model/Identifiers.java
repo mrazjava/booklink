@@ -1,8 +1,6 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import java.util.List;
@@ -44,6 +42,8 @@ public class Identifiers {
 
     private List<String> freebase;
 
+    private List<String> alecso;
+
     @JsonProperty("dewey_decimal_classification_(ddc)")
     private List<String> deweyDecimalClass;
 
@@ -68,6 +68,9 @@ public class Identifiers {
 
     @JsonProperty("national_library_of_australia")
     private List<String> nationalLibraryOfAustralia;
+
+    @JsonProperty("dnb_(german_national_library)")
+    private List<String> germanNationalLibrary;
 
     @JsonProperty("bayerische_staatsbibliothek")
     private List<String> bayerischeBibliothek;
@@ -94,6 +97,12 @@ public class Identifiers {
     @JsonAlias("depósito_legal")
     @JsonProperty("depósito_legal_bolivia")
     private List<String> depositoLegalBolivia;
+
+    @JsonProperty("national_library_of_egypt")
+    private List<String> nationalLibraryOfEgypt;
+
+    @JsonProperty("bibliotheca_alexandrina")
+    private List<String> bibliothecaAlexandrina;
 
     @JsonAlias("cornell_university_online_library")
     @JsonProperty("cornell_university_library")

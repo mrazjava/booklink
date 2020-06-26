@@ -8,6 +8,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.LinkedList;
 import java.util.List;
 
+@JsonIgnoreProperties({"m", "type"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class EditionSchema extends BaseSchema {
@@ -219,9 +220,6 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("by_statements")
     private String byStatements;
-
-    @JsonIgnore
-    private Object type;
 
     private Integer revision;
 
