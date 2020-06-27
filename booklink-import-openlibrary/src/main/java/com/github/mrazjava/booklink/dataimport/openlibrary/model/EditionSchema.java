@@ -75,6 +75,11 @@ public class EditionSchema extends BaseSchema {
 
     private Object classifications;
 
+    @JsonProperty("lc_classification")
+    private List<String> lcClassification;
+
+    private TypeValue macro;
+
     private List<String> contributions;
 
     private List<String> collections;

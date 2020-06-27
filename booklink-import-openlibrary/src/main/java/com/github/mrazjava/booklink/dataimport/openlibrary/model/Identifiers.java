@@ -23,6 +23,7 @@ public class Identifiers {
 
     @JsonAlias({
             "library_of_congress",
+            "lccn_permalink:",
             "library_of_congress_classification_(lcc)",
             "library_of_congress_catalog_no.",
             "library_of_congress_catalog_card_no.",
@@ -81,6 +82,9 @@ public class Identifiers {
     @JsonProperty("staats-_und_universitätsbibliothek_hamburg")
     private List<String> universitatBibliothekHamburg;
 
+    @JsonProperty("universitätsbibliothek_heidelberg")
+    private List<String> universitatBibliothekHeidelberg;
+
     @JsonProperty("número_de_incripción_de_la_obra")
     private List<String> numeroDeIncripcion;
 
@@ -97,6 +101,9 @@ public class Identifiers {
     @JsonAlias("depósito_legal")
     @JsonProperty("depósito_legal_bolivia")
     private List<String> depositoLegalBolivia;
+
+    @JsonProperty("el_número_de_inscripción_de_la_obra")
+    private List<String> elNumeroDeInscripcionDeLaObra;
 
     @JsonProperty("national_library_of_egypt")
     private List<String> nationalLibraryOfEgypt;
