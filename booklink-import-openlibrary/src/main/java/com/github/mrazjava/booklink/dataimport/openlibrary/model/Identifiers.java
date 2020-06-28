@@ -17,6 +17,8 @@ public class Identifiers {
 
     private List<String> oclc;
 
+    private List<String> bca;
+
     private List<String> goodreads;
 
     private List<String> librarything;
@@ -41,7 +43,13 @@ public class Identifiers {
     @JsonProperty("judaica_savings")
     private List<String> judaicaSavings;
 
+    @JsonProperty("sadguru_sanga_diary")
+    private List<String> sadguruSangaDiary;
+
     private List<String> freebase;
+
+    @JsonProperty("booksonclick")
+    private List<String> bookSonClick;
 
     private List<String> alecso;
 

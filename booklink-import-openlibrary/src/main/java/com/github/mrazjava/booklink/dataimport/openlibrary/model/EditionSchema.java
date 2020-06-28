@@ -256,6 +256,23 @@ public class EditionSchema extends BaseSchema {
         }
     }
 
+    @JsonSetter("collections")
+    public void setCollections(JsonNode json) {
+        if(json != null) {
+            if(CollectionUtils.isEmpty(collections)) {
+                collections = new LinkedList<>();
+            }
+            if(!json.isArray()) {
+                collections.add(fetchKey(json));
+            }
+            else {
+                for(JsonNode jn : json) {
+                    collections.add(fetchKey(jn));
+                }
+            }
+        }
+    }
+
     @JsonSetter("authors")
     public void setAuthors(JsonNode json) {
         if(json != null) {
