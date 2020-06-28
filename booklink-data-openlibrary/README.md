@@ -24,7 +24,7 @@ cqlsh -u cassandra -p cassandra
 
 #### CQLSH>
 ```
-CREATE KEYSPACE IF NOT EXISTS cycling WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1 };
+CREATE KEYSPACE IF NOT EXISTS openlibrary WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1 };
 ```
 
 ## Notes
