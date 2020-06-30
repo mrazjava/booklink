@@ -58,6 +58,9 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("isbn_odd_length")
     private List<String> isbnOddLength;
 
+    @JsonProperty("library_of_congress_name")
+    private String libraryOfCongressName;
+
     @JsonProperty("purchase_url")
     private List<String> purchaseUrl;
 

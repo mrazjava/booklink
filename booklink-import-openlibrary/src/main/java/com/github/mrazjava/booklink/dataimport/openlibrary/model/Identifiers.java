@@ -129,6 +129,12 @@ public class Identifiers {
     @JsonProperty("abebooks,de")
     private List<String> abeBooksDe;
 
+    @JsonProperty("hakikat_kitabevi")
+    private List<String> hakikatKitabevi;
+
+    @JsonProperty("biodiversity_heritage_library")
+    private List<String> biodiversityHeritageLibrary;
+
     @JsonProperty("usaid/dec")
     private List<String> usAidDec;
 
@@ -139,6 +145,9 @@ public class Identifiers {
 
     @JsonProperty("bol.com")
     private List<String> bol;
+
+    @JsonProperty("hizmetbooks.org")
+    private List<String> hizmetBooks;
 
     private List<String> bibsys;
 
