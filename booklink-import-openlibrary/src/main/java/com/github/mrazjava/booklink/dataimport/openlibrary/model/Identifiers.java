@@ -53,7 +53,8 @@ public class Identifiers {
 
     private List<String> alecso;
 
-    @JsonProperty("dewey_decimal_classification_(ddc)")
+    @JsonAlias("dewey_decimal_classification_(ddc)")
+    @JsonProperty("universal_decimal_classification")
     private List<String> deweyDecimalClass;
 
     @JsonProperty("create_space")
@@ -115,6 +116,9 @@ public class Identifiers {
 
     @JsonProperty("national_library_of_egypt")
     private List<String> nationalLibraryOfEgypt;
+
+    @JsonProperty("national_book_chamber_of_moldova")
+    private List<String> nationalBookChamberOfMoldova;
 
     @JsonProperty("bibliotheca_alexandrina")
     private List<String> bibliothecaAlexandrina;
@@ -278,6 +282,9 @@ public class Identifiers {
     private List<String> bhl;
 
     private List<String> format;
+
+    @JsonProperty("format:_kindle_edition")
+    private List<String> kindleEditionFormat;
 
     @JsonProperty("choosebooks")
     private List<String> choseBooks;
