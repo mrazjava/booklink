@@ -19,18 +19,24 @@ public class Identifiers {
 
     private List<String> bca;
 
-    private List<String> goodreads;
+    @JsonProperty("goodreads")
+    private List<String> goodReads;
 
-    private List<String> librarything;
+    @JsonProperty("librarything")
+    private List<String> libraryThing;
 
     @JsonAlias({
             "library_of_congress",
             "lccn_permalink:",
+            "lc_classification",
             "library_of_congress_classification_(lcc)",
             "library_of_congress_catalog_no.",
             "library_of_congress_catalog_card_no.",
             "library_of_congress_catalogue_number"})
     private List<String> lccn;
+
+    @JsonProperty("l.n.")
+    private List<String> ln;
 
     private List<String> wikidata;
 
@@ -130,6 +136,9 @@ public class Identifiers {
     @JsonProperty("boston_public_library")
     private List<String> bostonPublicLibrary;
 
+    @JsonProperty("special_library_collections")
+    private List<String> specialLibraryCollections;
+
     @JsonProperty("abebooks,de")
     private List<String> abeBooksDe;
 
@@ -141,6 +150,9 @@ public class Identifiers {
 
     @JsonProperty("usaid/dec")
     private List<String> usAidDec;
+
+    @JsonProperty("bestellnummer")
+    private List<String> bestellNummer;
 
     @JsonProperty("kindle.com")
     private List<String> kindle;
