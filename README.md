@@ -18,3 +18,7 @@ Application sources live in their own repos.
 ## Documentation
 * [Branching](branching.md)
 * [Versioning](versioning.md)
+
+## Notes
+* Tools to consider for live monitoring: [kiali](https://kiali.io/), [grafana](https://grafana.com/)
+* TODO: enable prometheus metrics
