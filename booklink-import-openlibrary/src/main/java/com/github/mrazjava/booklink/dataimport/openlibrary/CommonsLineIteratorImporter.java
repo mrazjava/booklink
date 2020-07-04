@@ -1,10 +1,16 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mrazjava.booklink.dataimport.openlibrary.codegen.AuthorSchema;
+import com.github.mrazjava.booklink.dataimport.openlibrary.model.EditionSchema;
+import com.github.mrazjava.booklink.dataimport.openlibrary.model.WorkSchema;
+import com.github.mrazjava.booklink.dataimport.openlibrary.repository.EditionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang3.time.StopWatch;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -20,6 +26,9 @@ public class CommonsLineIteratorImporter implements FileImporter {
     private ObjectMapper objectMapper;
 
     private int frequencyCheck = 10000;
+
+    @Autowired
+    private EditionRepository editionRepository;
 
     public CommonsLineIteratorImporter() {
         objectMapper = new ObjectMapper();
@@ -43,6 +52,7 @@ public class CommonsLineIteratorImporter implements FileImporter {
                     //log.debug("raw JSON #{}:\n{}", counter, line);
                     log.info("JSON #{}:\n{}", counter, objectMapper.writeValueAsString(pojo));
                 }
+                processLine(line, schema);
                 //log.info("raw JSON #{}:\n{}", counter, line);
                 //log.info("raw JSON #{}:\n{}", counter, objectMapper.writeValueAsString(pojo));
             }
@@ -51,6 +61,37 @@ public class CommonsLineIteratorImporter implements FileImporter {
         } catch (IOException e) {
             log.error("JSON #{} failed:\n{}\n\nERROR: {}", counter, line, e.getMessage());
         }
+    }
+
+    private void processLine(String line, Class schema) throws JsonProcessingException {
+
+        Object pojo = objectMapper.readValue(line, schema);
+
+        if(AuthorSchema.class.equals(schema)) {
+            processAuthor((AuthorSchema)pojo);
+        }
+        else if(WorkSchema.class.equals(schema)) {
+            processWork((WorkSchema)pojo);
+        }
+        else if(EditionSchema.class.equals(schema)) {
+            processEdition((EditionSchema)pojo);
+        }
+        else {
+            log.warn("unsupported schema type: {}", schema);
+        }
+    }
+
+    private void processAuthor(AuthorSchema author) {
+        log.debug("TODO: save me\n{}", author);
+    }
+
+    private void processWork(WorkSchema work) {
+        log.debug("TODO: save me\n{}", work);
+    }
+
+    private void processEdition(EditionSchema edition) {
+        //log.debug("saving:\n{}", edition);
+        editionRepository.save(edition);
     }
 
     @Override

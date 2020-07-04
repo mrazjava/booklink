@@ -2,6 +2,7 @@ package com.github.mrazjava.booklink.dataimport.openlibrary.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 
 /**
  */
@@ -9,5 +10,5 @@ import lombok.Data;
 @Data
 public class Key {
 
-    String key;
+    private String key;
 }

@@ -1,0 +1,31 @@
+spring:
+  data:
+    cassandra:
+      keyspace: openlibrary
+      contactPoints: 127.0.0.1
+      username: cassandra
+      password: cassandra
+      port: 9042
+      schemaAction: CREATE_IF_NOT_EXISTS
+      connect-timeout-millis: 10000ms
+      read-timeout-millis: 10000ms
+      connect-timeout: 10000ms
+      read-timeout: 10000ms
+      pool:
+        pool-timeout: 10000ms
+
+#spring:
+#  data:
+#    cassandra:
+#      keyspace-name: openlibrary
+#      contact-points: 127.0.0.1
+#      username: cassandra
+#      password: cassandra
+#      port: 9042
+#      schemaAction: CREATE_IF_NOT_EXISTS
+#      connect-timeout-millis: 10000ms
+#      read-timeout-millis: 10000ms
+#      connect-timeout: 10000ms
+#      read-timeout: 10000ms
+#      pool:
+#        pool-timeout: 10000ms

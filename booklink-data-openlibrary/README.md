@@ -24,7 +24,12 @@ cqlsh -u cassandra -p cassandra
 
 #### CQLSH>
 ```
+DESCRIBE KEYSPACES;
 CREATE KEYSPACE IF NOT EXISTS openlibrary WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1 };
+USE openlibrary;
+DESCRIBE TABLES;
+SELECT * FROM edition;
+TRUNCATE edition;  -- delete all rows
 ```
 
 ## Notes
