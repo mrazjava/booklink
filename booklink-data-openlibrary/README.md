@@ -5,3 +5,12 @@ REST.
 ## Tech Stack
 * Spring Boot
 * MongoDb
+
+## Mongo
+Example queries:
+```
+db.getCollection('editions').find({ authors: ["OL1880710A"]})
+db.getCollection('editions').find({ authors: null})
+db.getCollection('editions').count()
+db.getCollection('editions').count({ authors: null})
+```
