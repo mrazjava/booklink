@@ -12,8 +12,8 @@ import java.util.List;
 abstract class BaseSchema {
 
     @PrimaryKey
-    @JsonProperty
-    private String key;
+    @JsonProperty("key")
+    private String id;
 
     @Transient
     @JsonAlias("lc_classification")
@@ -23,6 +23,6 @@ abstract class BaseSchema {
     @JsonSetter("key")
     public void setKey(JsonNode jsonNode) {
         String val = jsonNode.textValue();
-        this.key = val.substring(val.lastIndexOf("/")+1);
+        this.id = val.substring(val.lastIndexOf("/")+1);
     }
 }

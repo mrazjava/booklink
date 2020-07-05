@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.core.mapping.CassandraType;
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.Table;
 import org.springframework.util.CollectionUtils;
 
@@ -17,14 +18,40 @@ import java.util.List;
 @JsonIgnoreProperties({"m", "type"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-@Table("edition")
+@Table("editions")
 public class EditionSchema extends BaseSchema {
 
-    @Transient
     private List<String> authors; // IDs
 
-    @Transient
-    private List<Key> works; // IDs
+    private List<String> works; // IDs
+
+    private String title;
+
+    @JsonProperty("full_title")
+    private String fullTitle;
+
+    @JsonProperty("edition_name")
+    private String editionName;
+
+    private String publisher;
+
+    @JsonProperty("number_of_pages")
+    private Integer numberOfPages;
+
+    @JsonProperty("coverid")
+    private String coverId;
+
+    private String description;
+
+    private List<String> isbn;
+
+    @JsonProperty("original_isbn")
+    private String originalIsbn;
+
+    @JsonProperty("physical_format")
+    private String physicalFormat;
+
+    // =================================================================
 
     @Transient
     private String price;
@@ -53,21 +80,12 @@ public class EditionSchema extends BaseSchema {
     private Dimensions dimensions;
 
     @Transient
-    private String publisher;
-
-    @Transient
     private TypeValue body;
 
-    @CassandraType(type = DataType.Name.UDT, userTypeName = "bookweight")
+    //@CassandraType(type = DataType.Name.UDT, userTypeName = "bookweight")
+    @Transient
     @JsonProperty("bookweight")
     private Weight bookWeight;
-
-    @Transient
-    @JsonProperty("coverid")
-    private String coverId;
-
-    @Transient
-    private List<String> isbn;
 
     @Transient
     @JsonProperty("isbn_10")
@@ -76,10 +94,6 @@ public class EditionSchema extends BaseSchema {
     @Transient
     @JsonProperty("isbn_13")
     private List<String> isbn13;
-
-    @Transient
-    @JsonProperty("original_isbn")
-    private String originalIsbn;
 
     @Transient
     @JsonProperty("isbn_invalid")
@@ -96,14 +110,6 @@ public class EditionSchema extends BaseSchema {
     @Transient
     @JsonProperty("purchase_url")
     private List<String> purchaseUrl;
-
-    @Transient
-    @JsonProperty("number_of_pages")
-    private Integer numberOfPages;
-
-    @Transient
-    @JsonProperty("physical_format")
-    private String physicalFormat;
 
     @Transient
     @JsonProperty("last_modified")
@@ -139,15 +145,18 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("download_url")
     private List<String> downloadUrl;
 
+    @Transient
     private String name;
 
+    @Transient
     private String create;
 
+    @Transient
     private String ocaid;
 
+    @Transient
     private String pagination;
 
-    @Transient
     @JsonProperty("publish_date")
     private String publishDate;
 
@@ -155,9 +164,6 @@ public class EditionSchema extends BaseSchema {
     @JsonAlias("subject_time")
     @JsonProperty("subject_times")
     private List<String> subjectTimes;
-
-    @Transient
-    private String description;
 
     @Transient
     private String firstSentence;
@@ -229,13 +235,6 @@ public class EditionSchema extends BaseSchema {
     private List<Link> links;
 
     @Transient
-    private String title;
-
-    @Transient
-    @JsonProperty("full_title")
-    private String fullTitle;
-
-    @Transient
     @JsonAlias("work_title")
     @JsonProperty("work_titles")
     private List<String> workTitles;
@@ -269,10 +268,6 @@ public class EditionSchema extends BaseSchema {
     @Transient
     @JsonProperty("latest_revision")
     private Integer latestRevision;
-
-    @Transient
-    @JsonProperty("edition_name")
-    private String editionName;
 
     @Transient
     private List<Long> covers;
@@ -341,6 +336,23 @@ public class EditionSchema extends BaseSchema {
             else {
                 for(JsonNode jn : json) {
                     languages.add(fetchKey(jn));
+                }
+            }
+        }
+    }
+
+    @JsonSetter("works")
+    public void setWorks(JsonNode json) {
+        if(json != null) {
+            if(CollectionUtils.isEmpty(works)) {
+                works = new LinkedList<>();
+            }
+            if(!json.isArray()) {
+                works.add(fetchKey(json));
+            }
+            else {
+                for(JsonNode jn : json) {
+                    works.add(fetchKey(jn));
                 }
             }
         }
