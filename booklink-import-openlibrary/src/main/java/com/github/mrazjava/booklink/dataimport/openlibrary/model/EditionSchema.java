@@ -1,14 +1,12 @@
 package com.github.mrazjava.booklink.dataimport.openlibrary.model;
 
-import com.datastax.driver.core.DataType;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.cassandra.core.mapping.CassandraType;
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
@@ -18,11 +16,13 @@ import java.util.List;
 @JsonIgnoreProperties({"m", "type"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-@Table("editions")
+@Document(collection = "editions")
 public class EditionSchema extends BaseSchema {
 
+    @Indexed
     private List<String> authors; // IDs
 
+    @Indexed
     private List<String> works; // IDs
 
     private String title;
