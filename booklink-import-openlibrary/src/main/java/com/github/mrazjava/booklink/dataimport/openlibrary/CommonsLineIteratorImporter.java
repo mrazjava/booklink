@@ -91,7 +91,7 @@ public class CommonsLineIteratorImporter implements FileImporter {
 
     private void processEdition(EditionSchema edition) {
         //log.debug("saving:\n{}", edition);
-        editionRepository.save(edition);
+        //editionRepository.save(edition);
     }
 
     @Override

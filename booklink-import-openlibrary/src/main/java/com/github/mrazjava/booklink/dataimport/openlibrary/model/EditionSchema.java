@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.CollectionUtils;
@@ -63,6 +62,10 @@ public class EditionSchema extends BaseSchema {
     private List<String> publishers;
 
     private TypeValue created;
+
+    private TypeValue stats;
+
+    private TypeValue news;
 
     @JsonProperty("remote_ids")
     private RemoteIds remoteIds;
