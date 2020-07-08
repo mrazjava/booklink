@@ -56,6 +56,8 @@ public class EditionSchema extends BaseSchema {
 
     private String code;
 
+    private List<String> oclc;
+
     @JsonProperty("openlibrary")
     private String openLibrary;
 

@@ -22,6 +22,12 @@ public class Identifiers {
     @JsonProperty("goodreads")
     private List<String> goodReads;
 
+    @JsonProperty("e-books")
+    private List<String> eBooks;
+
+    @JsonProperty("ebook_family_friendly_store")
+    private List<String> eBookFamilyFriendlyStore;
+
     @JsonProperty("librarything")
     private List<String> libraryThing;
 
