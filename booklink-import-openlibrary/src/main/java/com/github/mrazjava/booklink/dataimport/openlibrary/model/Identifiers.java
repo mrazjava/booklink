@@ -28,6 +28,12 @@ public class Identifiers {
     @JsonProperty("ebook_family_friendly_store")
     private List<String> eBookFamilyFriendlyStore;
 
+    @JsonProperty("num._national_de_thèse")
+    private List<String> numNationalDeThese;
+
+    @JsonProperty("mathematic_subject_classification")
+    private List<String> mathematicSubjectClassification;
+
     @JsonProperty("librarything")
     private List<String> libraryThing;
 
