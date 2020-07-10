@@ -247,6 +247,7 @@ public class Identifiers {
 
     private List<String> lulu;
 
+    @JsonAlias("barnes_and_noble_-_bn.com")
     @JsonProperty("barnes_&_noble")
     private List<String> barnsAndNoble;
 
