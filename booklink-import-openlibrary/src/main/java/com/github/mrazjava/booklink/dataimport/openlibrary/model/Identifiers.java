@@ -154,6 +154,11 @@ public class Identifiers {
     @JsonProperty("abebooks,de")
     private List<String> abeBooksDe;
 
+    // Antiquarian Booksellers' Association of America: www.abaa.org
+    private List<String> abaa;
+
+    private List<String> almedina;
+
     @JsonProperty("hakikat_kitabevi")
     private List<String> hakikatKitabevi;
 
