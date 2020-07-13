@@ -1,4 +1,4 @@
-package com.github.mrazjava.booklink.dataimport.openlibrary.model;
+package com.github.mrazjava.booklink.schema;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

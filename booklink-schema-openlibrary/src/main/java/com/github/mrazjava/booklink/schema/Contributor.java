@@ -1,4 +1,4 @@
-package com.github.mrazjava.booklink.dataimport.openlibrary.model;
+package com.github.mrazjava.booklink.schema;
 
 import lombok.Data;
 

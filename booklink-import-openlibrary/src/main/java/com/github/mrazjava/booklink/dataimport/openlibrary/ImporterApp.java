@@ -37,7 +37,6 @@ public class ImporterApp implements ApplicationRunner {
 	private int frequencyCheck;
 
 
-
 	public static void main(String[] args) {
 
 		SpringApplication.run(ImporterApp.class, args);
@@ -51,7 +50,7 @@ public class ImporterApp implements ApplicationRunner {
 		Class schemaClass = Class.forName(
 				schemaClassName.contains(".") ?
 				schemaClassName :
-				String.format("com.github.mrazjava.booklink.dataimport.openlibrary.model.%s", schemaClassName)
+				String.format("com.github.mrazjava.booklink.schema.%s", schemaClassName)
 		);
 
 		File importFile = null;

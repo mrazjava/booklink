@@ -1,4 +1,4 @@
-package com.github.mrazjava.booklink.dataimport.openlibrary.model;
+package com.github.mrazjava.booklink.schema;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,10 +8,12 @@ import lombok.Data;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class TypeValue {
+public class Author {
 
     @JsonIgnore
-    private String type;
+    String type;
 
-    private String value;
+    String role;
+
+    Key author;
 }

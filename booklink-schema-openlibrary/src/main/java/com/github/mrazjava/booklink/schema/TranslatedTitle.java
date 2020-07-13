@@ -1,4 +1,4 @@
-package com.github.mrazjava.booklink.dataimport.openlibrary.model;
+package com.github.mrazjava.booklink.schema;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -7,9 +7,11 @@ import lombok.Data;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class RemoteIds {
+public class TranslatedTitle {
 
-    String viaf;
+    String text;
 
-    String wikidata;
+    Key type;
+
+    Key language;
 }
