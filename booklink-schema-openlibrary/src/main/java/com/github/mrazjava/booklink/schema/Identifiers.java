@@ -2,6 +2,7 @@ package com.github.mrazjava.booklink.schema;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -125,6 +126,7 @@ public class Identifiers {
     @JsonProperty("bibliothèque_nationale_de_france")
     private List<String> bibliothequeNationaleDeFrance;
 
+    @Field("deposito_legal")
     @JsonAlias("depósito_legal")
     @JsonProperty("depósito_legal_bolivia")
     private List<String> depositoLegalBolivia;
