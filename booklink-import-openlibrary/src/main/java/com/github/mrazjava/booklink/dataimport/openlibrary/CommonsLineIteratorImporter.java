@@ -58,7 +58,7 @@ public class CommonsLineIteratorImporter implements FileImporter {
             }
             stopWatch.stop();
             log.info("TOTAL RECORDS: {}, time: {}", counter, stopWatch.getTime());
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("JSON #{} failed:\n{}\n\nERROR: {}", counter, line, e.getMessage());
         }
     }
