@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-public class CommonsLineIteratorImporter implements FileImporter {
+public class CommonsLineIterator implements FileImporter {
 
     private ObjectMapper objectMapper;
 
@@ -30,7 +30,7 @@ public class CommonsLineIteratorImporter implements FileImporter {
     @Autowired
     private EditionRepository editionRepository;
 
-    public CommonsLineIteratorImporter() {
+    public CommonsLineIterator() {
         objectMapper = new ObjectMapper();
     }
 

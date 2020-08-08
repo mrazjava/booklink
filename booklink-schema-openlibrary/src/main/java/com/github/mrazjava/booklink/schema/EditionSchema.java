@@ -132,6 +132,9 @@ public class EditionSchema extends BaseSchema {
 
     private String pagination;
 
+    @JsonProperty("birth_date")
+    private String birthDate;
+
     @JsonProperty("publish_date")
     private String publishDate;
 
