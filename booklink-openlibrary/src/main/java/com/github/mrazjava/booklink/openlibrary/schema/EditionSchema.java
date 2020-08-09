@@ -36,6 +36,7 @@ public class EditionSchema extends BaseSchema {
     private String publisher;
 
     @JsonProperty("number_of_pages")
+    @JsonAlias("numer_of_pages")
     private Integer numberOfPages;
 
     @JsonProperty("coverid")

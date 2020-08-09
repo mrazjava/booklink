@@ -20,6 +20,8 @@ public class Identifiers {
 
     private List<String> bca;
 
+    private List<String> glossary;
+
     @JsonProperty("goodreads")
     private List<String> goodReads;
 
