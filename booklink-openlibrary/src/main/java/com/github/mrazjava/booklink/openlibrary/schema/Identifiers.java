@@ -28,6 +28,12 @@ public class Identifiers {
     @JsonProperty("e-books")
     private List<String> eBooks;
 
+    @JsonProperty("cihm_number")
+    private List<String> cihmNumber;
+
+    @JsonProperty("victoria_institutions")
+    private List<String> victoriaInstitutions;
+
     @JsonProperty("ebook_family_friendly_store")
     private List<String> eBookFamilyFriendlyStore;
 
@@ -39,6 +45,9 @@ public class Identifiers {
 
     @JsonProperty("librarything")
     private List<String> libraryThing;
+
+    @JsonProperty("system_number_of_the_research_library_olomouc")
+    private List<String> researchLibraryOlomouc;
 
     @JsonAlias({
             "library_of_congress",
