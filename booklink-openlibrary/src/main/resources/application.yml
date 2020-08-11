@@ -6,8 +6,7 @@ spring:
       username: ${MONGO_USER:root}
       password: ${MONGO_PASSWORD:pass123}
       authentication-database: ${MONGO_AUTH_DB:admin}
-
-#spring:
+      auto-index-creation: true
 #  data:
 #    cassandra:
 #      keyspace-name: openlibrary
