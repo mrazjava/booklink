@@ -13,6 +13,10 @@ public class Identifiers {
     @JsonProperty("barcode")
     private List<String> barCode;
 
+    private List<String> sudoc;
+
+    private List<String> edition;
+
     @JsonProperty("limited_edition_book_number")
     private List<String> limitedEditionBookNumber;
 
@@ -28,8 +32,13 @@ public class Identifiers {
     @JsonProperty("e-books")
     private List<String> eBooks;
 
+    private List<String> asin;
+
     @JsonProperty("cihm_number")
     private List<String> cihmNumber;
+
+    @JsonProperty("gpn_(taiwan)")
+    private List<String> gpnTaiwan;
 
     @JsonProperty("victoria_institutions")
     private List<String> victoriaInstitutions;
