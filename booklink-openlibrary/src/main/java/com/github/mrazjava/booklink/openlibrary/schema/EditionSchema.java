@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.CollectionUtils;
 
@@ -25,8 +26,10 @@ public class EditionSchema extends BaseSchema {
     @Indexed
     private List<String> works; // IDs
 
+    @TextIndexed(weight = 3)
     private String title;
 
+    @TextIndexed(weight = 3)
     @JsonProperty("full_title")
     private String fullTitle;
 
@@ -42,6 +45,7 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("coverid")
     private String coverId;
 
+    @TextIndexed(weight = 5)
     private String description;
 
     private List<String> isbn;
@@ -239,6 +243,7 @@ public class EditionSchema extends BaseSchema {
     @JsonProperty("language_code")
     private String languageCode;
 
+    @TextIndexed(weight = 1)
     private List<String> subjects;
 
     private Identifiers identifiers;

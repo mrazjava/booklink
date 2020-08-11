@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
@@ -14,19 +16,22 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
+@Document(collection = "works")
 public class WorkSchema extends BaseSchema {
 
     @Indexed
-    List<Author> authors;
+    private List<Author> authors;
 
-    TypeValue created;
+    private TypeValue created;
+
+    @TextIndexed(weight = 2)
+    private String title;
+
+    @TextIndexed(weight = 2)
+    private String subtitle;
 
     @Indexed
-    String title;
-
-    String subtitle;
-
-    List<Long> covers;
+    private List<Long> covers;
 
     @JsonProperty("number_of_editions")
     private Integer numberOfEditions;
@@ -34,73 +39,75 @@ public class WorkSchema extends BaseSchema {
     private Notifications notifications;
 
     @JsonProperty("last_modified")
-    TypeValue lastModified;
+    private TypeValue lastModified;
 
     @JsonProperty("latest_revision")
-    Integer latestRevision;
+    private Integer latestRevision;
 
     @JsonProperty("subject_places")
-    List<String> subjectPlaces;
+    private List<String> subjectPlaces;
 
     @JsonProperty("subject_people")
-    List<String> subjectPeople;
+    private List<String> subjectPeople;
 
     @JsonProperty("subject_times")
-    List<String> subjectTimes;
+    private List<String> subjectTimes;
 
-    @Indexed
-    List<String> subjects;
+    @TextIndexed(weight = 1)
+    private List<String> subjects;
 
     private Series series;
 
+    @TextIndexed(weight = 3)
     @JsonProperty("other_titles")
-    List<String> otherTitles;
+    private List<String> otherTitles;
 
-    List<String> genres;
+    private List<String> genres;
 
     @JsonProperty("original_languages")
-    List<Key> originalLanguages;
+    private List<Key> originalLanguages;
 
     @JsonProperty("first_publish_date")
-    String firstPublishDate;
+    private String firstPublishDate;
 
     @JsonProperty("cover_edition")
-    Key coverEdition;
+    private Key coverEdition;
 
-    String description;
+    @TextIndexed(weight = 5)
+    private String description;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    String firstSentence;
+    private String firstSentence;
 
     @JsonIgnore
-    Object type;
+    private Object type;
 
-    String ospid;
+    private String ospid;
 
-    TypeValue notes;
+    private TypeValue notes;
 
-    Integer revision;
+    private Integer revision;
 
-    List<Link> links;
+    private List<Link> links;
 
     @JsonProperty("dewey_number")
-    List<String> dweyNumbers;
+    private List<String> dweyNumbers;
 
-    List<Excerpt> excerpts;
+    private List<Excerpt> excerpts;
 
-    String location;
+    private String location;
 
-    Key permission;
+    private Key permission;
 
     @JsonProperty("remote_ids")
-    RemoteIds remoteIds;
+    private RemoteIds remoteIds;
 
     @JsonProperty("translated_titles")
-    List<TranslatedTitle> translatedTitles;
+    private List<TranslatedTitle> translatedTitles;
 
     @JsonProperty("table_of_contents")
-    List<TableOfContent> toc;
+    private List<TableOfContent> toc;
 
     @JsonSetter("description")
     public void setJsonDescription(JsonNode json) {

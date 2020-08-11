@@ -3,6 +3,7 @@ package com.github.mrazjava.booklink.openlibrary.dataimport;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mrazjava.booklink.openlibrary.repository.EditionRepository;
+import com.github.mrazjava.booklink.openlibrary.repository.WorkRepository;
 import com.github.mrazjava.booklink.openlibrary.schema.AuthorSchema;
 import com.github.mrazjava.booklink.openlibrary.schema.EditionSchema;
 import com.github.mrazjava.booklink.openlibrary.schema.WorkSchema;
@@ -28,6 +29,9 @@ public class CommonsLineIterator implements FileImporter {
 
     @Autowired
     private EditionRepository editionRepository;
+
+    @Autowired
+    private WorkRepository workRepository;
 
     public CommonsLineIterator() {
         objectMapper = new ObjectMapper();
@@ -85,6 +89,8 @@ public class CommonsLineIterator implements FileImporter {
     }
 
     private void processWork(WorkSchema work) {
+
+        workRepository.save(work);
     }
 
     private void processEdition(EditionSchema edition) {
