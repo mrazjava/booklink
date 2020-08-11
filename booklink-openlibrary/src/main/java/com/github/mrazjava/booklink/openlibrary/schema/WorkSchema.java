@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
@@ -15,21 +16,28 @@ import java.util.List;
 @Data
 public class WorkSchema extends BaseSchema {
 
+    @Indexed
+    List<Author> authors;
+
     TypeValue created;
 
+    @Indexed
     String title;
 
     String subtitle;
 
     List<Long> covers;
 
+    @JsonProperty("number_of_editions")
+    private Integer numberOfEditions;
+
+    private Notifications notifications;
+
     @JsonProperty("last_modified")
     TypeValue lastModified;
 
     @JsonProperty("latest_revision")
     Integer latestRevision;
-
-    List<Author> authors;
 
     @JsonProperty("subject_places")
     List<String> subjectPlaces;
@@ -40,7 +48,10 @@ public class WorkSchema extends BaseSchema {
     @JsonProperty("subject_times")
     List<String> subjectTimes;
 
+    @Indexed
     List<String> subjects;
+
+    private Series series;
 
     @JsonProperty("other_titles")
     List<String> otherTitles;

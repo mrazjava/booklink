@@ -85,7 +85,6 @@ public class CommonsLineIterator implements FileImporter {
     }
 
     private void processWork(WorkSchema work) {
-        log.debug("TODO: save me\n{}", work);
     }
 
     private void processEdition(EditionSchema edition) {

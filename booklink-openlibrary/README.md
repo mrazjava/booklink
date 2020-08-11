@@ -95,7 +95,7 @@ Line count is useful for final verification once data is imported into the datab
 #### Remove line metadata
 In order to properly parse each line into a JSON object, we must remove a prefix provided by OpenLibrary:
 ```
-sed 's/^[^{]*//' authors.txt
+sed 's/^[^{]*//'  ol_dump_works_latest.txt > works.txt
 ```
 
 #### Parsing, Debugging, Troubleshooting
