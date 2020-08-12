@@ -6,55 +6,13 @@ networks:
 
 services:
   mongodb:
-    image: mongo:4.2.8 # https://hub.docker.com/_/mongo
+    image: library/mongo:4.4.0-bionic # https://hub.docker.com/_/mongo
     ports:
       - "27017:27017"
+    restart: always
     environment:
       MONGO_INITDB_DATABASE: openlibrary
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: pass123
     volumes:
       - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-      - mongo-data:/data/db
-volumes:
-  mongo-data:
-
-#  cassandra:
-#    image: bitnami/cassandra:latest
-#    container_name: bl_cassandra
-#    networks:
-#      - booklink
-#    environment:
-#      CASSANDRA_TRANSPORT_PORT_NUMBER: 7000
-#      CASSANDRA_USER: cassandra
-#      CASSANDRA_PASSWORD: cassandra
-#      CASSANDRA_CLUSTER_NAME: booklink
-#    ports:
-#      - 127.0.0.1:9042:9042
-#  zookeeper:
-#    image: bitnami/zookeeper
-#    networks:
-#      - booklink
-#    ports:
-#      - '2181:2181'
-#    expose:
-#      - "2181"
-#    environment:
-#     ALLOW_ANONYMOUS_LOGIN: "yes"
-#  kafka:
-#    image: bitnami/kafka
-#    networks:
-#      - booklink
-#    depends_on:
-#      - zookeeper
-#    ports:
-#      - "29092:29092"
-#    expose:
-#      - "29093"
-#    environment:
-#      ALLOW_PLAINTEXT_LISTENER: "yes"
-#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-#      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:29093,OUTSIDE://localhost:29092
-#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-#      KAFKA_LISTENERS: INSIDE://0.0.0.0:29093,OUTSIDE://0.0.0.0:29092
-#      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
