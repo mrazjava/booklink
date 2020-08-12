@@ -311,6 +311,7 @@ public class Identifiers {
 
     private List<String> ilmiolibro;
 
+    @JsonAlias("isbn_10")
     private List<String> isbn;
 
     @JsonAlias("harvard_university_library")
