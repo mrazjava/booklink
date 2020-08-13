@@ -90,7 +90,13 @@ public class Identifiers {
     @JsonProperty("booksonclick")
     private List<String> bookSonClick;
 
+    @JsonProperty("learnawesome")
+    private List<String> learnAwesome;
+
     private List<String> alecso;
+
+    @JsonProperty("istc") // https://data.cerl.org/
+    private List<String> incunabulaShortTitleCatalogue;
 
     @JsonAlias("dewey_decimal_classification_(ddc)")
     @JsonProperty("universal_decimal_classification")
@@ -112,6 +118,7 @@ public class Identifiers {
     @JsonProperty("british_national_bibliography")
     private List<String> britishNationalBibliography;
 
+    @JsonAlias({"estc", "etsc"}) // english short title catalogue http://estc.bl.uk/
     @JsonProperty("british_library")
     private List<String> britishLibrary;
 
@@ -306,8 +313,6 @@ public class Identifiers {
     private List<String> doi;
 
     private List<String> issn;
-
-    private List<String> etsc;
 
     private List<String> ilmiolibro;
 
