@@ -1,4 +1,30 @@
 package com.github.mrazjava.booklink.openlibrary.schema;
 
-public class AuthorSchema {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+
+@Slf4j
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+@Document(collection = "authors")
+public class AuthorSchema extends BaseSchema {
+
+    private String name;
+
+    @JsonProperty("personal_name")
+    private String personalName;
+
+    @JsonProperty("alternate_names")
+    private List<String> alternateNames;
+
+    private String title;
+
+    private TypeValue bio;
+
+    private TypeValue created;
 }

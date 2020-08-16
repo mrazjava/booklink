@@ -38,12 +38,6 @@ public class WorkSchema extends BaseSchema {
 
     private Notifications notifications;
 
-    @JsonProperty("last_modified")
-    private TypeValue lastModified;
-
-    @JsonProperty("latest_revision")
-    private Integer latestRevision;
-
     @JsonProperty("subject_places")
     private List<String> subjectPlaces;
 
@@ -80,14 +74,9 @@ public class WorkSchema extends BaseSchema {
     @Setter(AccessLevel.NONE)
     private String firstSentence;
 
-    @JsonIgnore
-    private Object type;
-
     private String ospid;
 
     private TypeValue notes;
-
-    private Integer revision;
 
     private List<Link> links;
 

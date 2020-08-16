@@ -14,7 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
-@JsonIgnoreProperties({"m", "type"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @Document(collection = "editions")
@@ -102,9 +101,6 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("purchase_url")
     private List<String> purchaseUrl;
-
-    @JsonProperty("last_modified")
-    private TypeValue lastModified;
 
     @JsonProperty("copyright_date")
     private String copyrightDate;
@@ -220,9 +216,6 @@ public class EditionSchema extends BaseSchema {
 
     private String notes;
 
-    @JsonProperty("latest_revision")
-    private Integer latestRevision;
-
     private List<Long> covers;
 
     @JsonProperty("translated_from")
@@ -250,8 +243,6 @@ public class EditionSchema extends BaseSchema {
 
     @JsonProperty("by_statements")
     private String byStatements;
-
-    private Integer revision;
 
     private List<Contributor> contributors;
 
