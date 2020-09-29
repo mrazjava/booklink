@@ -1,10 +1,10 @@
 # Booklink Persistence w/ Docker
-Each booklink persistence store runs int he standbox as a standalone docker container. These docker images are 
+Each booklink persistence store runs in the sandbox as a standalone docker container. These docker images are 
 typically managed via docker compose.
 
 ## Postgres
-PostgreSQL is the main system database which powers the backend. Account data and all the system information is stored 
-in this database.
+PostgreSQL is the main system database which powers the backend. User data and all other system information is stored 
+in this database, including book references fetched from mongo.
 ```
 docker build -f Dockerfile.postgres -t mrazjava/booklink-postgres:202009-12.2 .
 ``` 
