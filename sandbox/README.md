@@ -10,18 +10,24 @@ Run booklink locally with ability to simulate any environment.
 Frontend will run on port `8090`, backend on `8080`, PostgreSQL on `5432` and pgAdmin4 on port `5500`.
 
 Sandbox is based on [docker compose](https://docs.docker.com/compose/) so everything that sandbox does, can be done 
-with docker directly at a cost of less automation. See docker-compose [section](https://github.com/mrazjava/booklink#docker-compose3) if you 
+with docker directly at a cost of less automation. See docker-compose [section](https://github.com/mrazjava/booklink#docker-compose) if you 
 prefer to work that way.
 
-As sandbox always attempts to pull from dockerhub every time, it may leave previously overridden image in the dangling 
+As sandbox always attempts to pull from dockerhub, it may leave previously overridden image in the dangling 
 state. This will happen frequently with pre-release and staging images as they run off fixed tags which are simply 
-overriden. You may want to clean dangling images after running sandbox:
+overridden. You may want to clean dangling images after running sandbox:
 ```
 docker image prune -f
 ```
-Perhaps the nicest feature of sandbox is the ability to easily run releases never officially deployed or even tested together before. Such are the archives<sup>1</sup>. While running archived combinations will often be impractical, it may be a lot of fun! On the other hand, `local` mode (for developers) is quite useful. In local mode it's possible to run experimental (cutting edge) branch of one component (say the backend) against a live, pre-release or staged version of another (eg: the frontend). 
+Perhaps the nicest feature of sandbox is the ability to easily run releases never officially deployed or even tested 
+together before. Such are the archives<sup>1</sup>. While running archived combinations will often be impractical, it 
+may be a lot of fun! On the other hand, `local` mode (for developers) is quite useful. In local mode it's possible to 
+run experimental (cutting edge) branch of one component (say the backend) against a live, pre-release or staged version 
+of another (eg: the frontend). 
 
-Regardless of environment chosen, sandbox will always start PostgreSQL persistence layer along with the pg4Admin. All PostgreSQL environment databases are always available regardless of which sandbox environment is launched.
+Regardless of environment chosen, sandbox will always start the full persistence layer. All PostgreSQL environment 
+databases are always available regardless of which sandbox environment is launched. Mongo on the other hand is shared 
+across all environemnts.
 
 <sup>1</sup> | Archived release is a version tagged docker image which at some point in the past was deployed live but it was displaced by newer version and no longer runs in any environment. Archived release could also be a version tagged release which for whatever reason was never deployed live (last minute skip, etc).
 
