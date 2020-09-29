@@ -91,3 +91,12 @@ docker inspect -f '{{ .Mounts }}' <CONTAINER_ID> # get volume id
 docker rm <CONTAINER_ID> # remove container otherwise rm volume fails
 docker volume rm <VOLUME_ID>
 ```
+
+## Notes
+A following error may occur if starting containers after long period of inactivity:
+```
+ERROR: for frontend  Cannot start service frontend: network 451b39b5d69daf2a76ecc50d1e0ed059229b55678a2ac8081cc6b82c643de26b not found
+ERROR: for backend  Cannot start service backend: network 451b39b5d69daf2a76ecc50d1e0ed059229b55678a2ac8081cc6b82c643de26b not found
+ERROR: Encountered errors while bringing up the project.
+```
+Clean up (`docker-compose down`) or re-create containers.

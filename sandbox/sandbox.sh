@@ -102,11 +102,11 @@ then
  echo "--------------------------------------------------"
  echo "+ validating *live* docker images"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/live.yml -f docker-compose/base-cfg.yml pull frontend backend
+ docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml pull frontend backend
  echo "--------------------------------------------------"
  echo "+ simulating LIVE environment (frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG)"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/live.yml -f docker-compose/base-cfg.yml up
+ docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml up
 fi
 
 if [ $RUNENV = "pre" ]
@@ -114,11 +114,11 @@ then
  echo "--------------------------------------------------"
  echo "+ validating *pre-release* docker images"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/pre.yml -f docker-compose/base-cfg.yml pull frontend backend
+ docker-compose -f docker-compose/pre.yml -f docker-compose/persistence.yml pull frontend backend
  echo "--------------------------------------------------"
  echo "+ simulating PRE-RELEASE environment"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/pre.yml -f docker-compose/base-cfg.yml up
+ docker-compose -f docker-compose/pre.yml -f docker-compose/persistence.yml up
 fi
 
 if [ $RUNENV = "stg" ]
@@ -126,11 +126,11 @@ then
  echo "--------------------------------------------------"
  echo "+ validating *staging* docker images"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/stg.yml -f docker-compose/base-cfg.yml pull frontend backend
+ docker-compose -f docker-compose/stg.yml -f docker-compose/persistence.yml pull frontend backend
  echo "--------------------------------------------------"
  echo "+ starting STAGING environment"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/stg.yml -f docker-compose/base-cfg.yml up
+ docker-compose -f docker-compose/stg.yml -f docker-compose/persistence.yml up
 fi
 
 if [ $RUNENV = "local" ]
@@ -142,17 +142,17 @@ then
  then
    echo "* w/ frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG"
    echo "--------------------------------------------------"
-   docker-compose -f docker-compose/local.yml -f docker-compose/base-cfg.yml up pg admin frontend backend
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo frontend backend
  elif [[ (! -z "$BE_IMG_TAG") && (-z "$FE_IMG_TAG") ]];
  then
    echo "* w/ backend=$BE_IMG_TAG (no frontend)"
    echo "--------------------------------------------------"
-   docker-compose -f docker-compose/local.yml -f docker-compose/base-cfg.yml up pg admin backend
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo backend
  else
    echo "* persistence only"
    echo "--------------------------------------------------"
    export FE_IMG_TAG=
    export BE_IMG_TAG=
-   docker-compose -f docker-compose/local.yml -f docker-compose/base-cfg.yml up pg admin mongodb
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo
  fi
 fi
