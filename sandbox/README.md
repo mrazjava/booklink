@@ -10,7 +10,7 @@ Run booklink locally with ability to simulate any environment.
 Frontend will run on port `8090`, backend on `8080`, PostgreSQL on `5432` and pgAdmin4 on port `5500`.
 
 Sandbox is based on [docker compose](https://docs.docker.com/compose/) so everything that sandbox does, can be done 
-with docker directly at a cost of less automation. See docker-compose [section](https://github.com/mrazjava/booklink#docker-compose) if you 
+with docker directly at a cost of less automation. See docker-compose [section](#docker-compose) if you 
 prefer to work that way.
 
 As sandbox always attempts to pull from dockerhub, it may leave previously overridden image in the dangling 
