@@ -7,7 +7,7 @@ Run booklink locally with ability to simulate any environment.
 ```
 ./sandbox.sh [live | pre | stg | local | help]
 ```
-Frontend will run on port `8090`, backend on `8080`, PostgreSQL on `5432` and pgAdmin4 on port `5500`.
+Frontend will run on port `8090`, backend on `8080`, PostgreSQL on `5432` and Mongo on port `21017`.
 
 Sandbox is based on [docker compose](https://docs.docker.com/compose/) so everything that sandbox does, can be done 
 with docker directly at a cost of less automation. See docker-compose [section](#docker-compose) if you 
