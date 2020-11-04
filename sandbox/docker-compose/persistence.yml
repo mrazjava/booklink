@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   mongo:
-    image: mrazjava/booklink-mongo:202008-4.4.0
+    image: mrazjava/booklink-mongo:202009-4.4.0
     ports:
       - 127.0.0.1:27017:27017/tcp
     environment:
