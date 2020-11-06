@@ -11,7 +11,7 @@ Application sources live in their own repos.
 
 ## Utilities
 * [Sandbox](https://github.com/mrazjava/booklink/tree/master/sandbox) - easiest way to try booklink locally
-* [booklink-import-openlibrary](https://github.com/mrazjava/booklink/tree/master/booklink-import-openlibrary): [openlibrary.org](https://openlibrary.org) integration
+* [booklink-import-openlibrary](https://github.com/mrazjava/booklink-import-openlibrary): [openlibrary.org](https://openlibrary.org) integration
 
 ## Documentation
 * [Branching](branching.md)

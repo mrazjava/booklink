@@ -10,9 +10,8 @@ docker build -f Dockerfile.postgres -t mrazjava/booklink-postgres:202009-12.2 .
 ``` 
 
 ## Mongo
-For technical details about the structure of mongo database see 
-[booklink-openlibrary](https://github.com/mrazjava/booklink-openlibrary) project. Raw book sources against which 
-backend lookups are issued.
+The mongo database provides raw book sources against which backend lookups are issued. For technical details about 
+the structure of mongo database see [booklink-openlibrary](https://github.com/mrazjava/booklink-openlibrary) project.
 
 Steps to prepare fresh mongo image:
 1) Run the import on the latest openlibrary.org data dumps
