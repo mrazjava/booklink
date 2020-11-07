@@ -1,4 +1,4 @@
-# Bootstraps entire app, frontend, backend and supporting artifacts (persistence, etc)
+# Bootstraps entire app, frontend, backend, depot and supporting artifacts (persistence, etc)
 # from images built for a production release
 #
 version: '3.3'
@@ -19,7 +19,9 @@ services:
   backend:
     image: docker.io/mrazjava/booklink-backend:${BE_IMG_TAG}
     ports:
-    - "8080:8080"
+      - "8080:8080"
+    depends_on:
+      - "pg"
     environment:
       CORS_ALLOW_ORIGINS: http://localhost:8090
       APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink_sndbx_live
@@ -27,3 +29,14 @@ services:
       APP_SPRING_DATA_INIT: never
       APP_FLYWAY_ENABLED: 'true'
       APP_ENV: live
+  depot: # there are no environmental depot differences (APP_ENV)
+    image: docker.io/mrazjava/booklink-openlibrary-depot:${OL_IMG_TAG}
+    ports:
+      - "8070:8080"
+    depends_on:
+      - "mongo"
+    environment:
+      SPRING_PROFILES_ACTIVE: DEPOT
+      SERVER_PORT: 8080
+      BOOKLINK_MONGO_HOST: mongo
+      BOOKLINK_MONGO_PORT: 27017

@@ -8,7 +8,8 @@ sandbox  --  simulate Booklink environment on a localhost
 
 Pulls most recent docker images from dockerhub for the desired environment,
 and starts them. To get a list of deployed live tags, run booklinktags.sh
-script.
+script. Depot environment is included if either -f or -b option is enabled
+(or both).
 
 FLAGS:
 
@@ -20,16 +21,19 @@ FLAGS:
   Required for live, ignored for pre and stg, optional for local.
   If provided to local without the -f, then frontend is skipped.
 
+-d --depot    : image tag for book source integration
+  Optional. If not provided, "latest" is used.
+
 EXAMPLE:
-  live -f v0.1.4 -b v0.2.8    : run tagged live (or archived) images (example:
-                                v0.1.4 frontend-vue, v0.2.8 backend)
-  pre                         : run pre-release candidate images (:master)
-  stg                         : run staging snapshot images (:develop)
-  local                       : enable all persistence environments, no backend, no frontend
-  local -b                    : run custom built backend only (:local), skip frontend
-  local -b foo -f             : run custom built backend (:foo), frontend (:local)
-  local -f                    : run custom built frontend (:local), staged backend (:develop)
-  help                        : show this message
+  live -f v0.1.4 -b v0.2.8      : run tagged live (or archived) images (example:
+                                  v0.1.4 frontend-vue, v0.2.8 backend) and latest depot
+  pre                           : run pre-release candidate images (:master)
+  stg                           : run staging snapshot images (:develop)
+  local                         : enable all persistence environments, no backend, no frontend, no depot
+  local -b                      : run custom built backend (:local), depot (:latest), skip frontend
+  local -b foo -d bar -f        : run custom built backend (:foo), custom depot (:bar), frontend (:local)
+  local -f                      : run custom built frontend (:local), staged backend (:develop)
+  help                          : show this message
 
 HELP
 exit
@@ -50,7 +54,6 @@ case $key in
       export FE_IMG_TAG="$2"
     fi
     shift # past argument
-#    shift # past value
     ;;
     -b|--backend)
     if [[ -z "$2" || ("$2" = "-f") ]];
@@ -60,7 +63,15 @@ case $key in
       export BE_IMG_TAG="$2"
     fi
     shift # past argument
-#    shift # past value
+    ;;
+    -d|--depot)
+    if [[ -z "$2" || ("$2" = "-d") ]];
+    then
+      export OL_IMG_TAG=latest
+    else
+      export OL_IMG_TAG="$2"
+    fi
+    shift # past argument
     ;;
     *)    # non-flagged option
     POSITIONAL+=("$1") # save it in an array for later
@@ -69,6 +80,11 @@ case $key in
 esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
+
+if [[ -z "$OL_IMG_TAG" ]];
+then
+  export OL_IMG_TAG=latest
+fi
 
 if [ "$1" = "live" ] || [ "$1" = "pre" ] || [ "$1" = "stg" ] || [ "$1" = "local" ]
 then
@@ -104,7 +120,7 @@ then
  echo "--------------------------------------------------"
  docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml pull frontend backend
  echo "--------------------------------------------------"
- echo "+ simulating LIVE environment (frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG)"
+ echo "+ simulating LIVE environment (frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG, depot=$OL_IMG_TAG)"
  echo "--------------------------------------------------"
  docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml up
 fi
@@ -153,6 +169,7 @@ then
    echo "--------------------------------------------------"
    export FE_IMG_TAG=
    export BE_IMG_TAG=
+   export OL_IMG_TAG=
    docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo
  fi
 fi
