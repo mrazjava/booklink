@@ -49,7 +49,7 @@ or even directly with docker. The included `env` file drives the config of an im
 override database URL to point at the postgres container service (`APP_BE_DB_URL=jdbc:postgresql://pg:5432/booklink`). 
 Here we run a `stg` image reachable on port `8888`:
 ```
-docker run --network booklinkbackend_default --env-file=/tmp/env mrazjava/booklink-backend:develop
+docker run -p 8888:8080 --network booklinkbackend_default --env-file=/tmp/env mrazjava/booklink-backend:develop
 ```
 
 ## docker-compose
