@@ -8,10 +8,10 @@ This project aggregates common documentation and high level utilities.
 Application sources live in their own repos.
 * Browser [frontend](https://github.com/mrazjava/booklink-frontend-vue) based on Vue.js 
 * Java [backend](https://github.com/mrazjava/booklink-backend)
+* Integration with [openlibrary.org](https://openlibrary.org): [booklink-openlibrary](https://github.com/mrazjava/booklink-openlibrary)
 
 ## Utilities
 * [Sandbox](https://github.com/mrazjava/booklink/tree/master/sandbox) - easiest way to try booklink locally
-* [booklink-openlibrary](https://github.com/mrazjava/booklink-openlibrary): [openlibrary.org](https://openlibrary.org) integration
 
 ## Documentation
 * [Branching](branching.md)
