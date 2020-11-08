@@ -45,10 +45,11 @@ to this one:
 
 ## No Sandbox
 More adventurous souls can run booklink images via [docker-compose](https://github.com/mrazjava/booklink#docker-compose) 
-or even directly with docker. The included `env` file drives the config of an image we spin. For example, here we run a 
-`pre` image reachable on port `8888`:
+or even directly with docker. The included `env` file drives the config of an image we spin; at minimum, it should 
+override database URL to point at the container service (`APP_BE_DB_URL=jdbc:postgresql://pg:5432/booklink`) since 
+postgres is hosted on another container. Here we run a `stg` image reachable on port `8888`:
 ```
-docker run -p8888:8080 --env-file=env mrazjava/booklink-backend:master
+docker run --network booklinkbackend_default --env-file=/tmp/env mrazjava/booklink-backend:develop
 ```
 
 ## docker-compose
