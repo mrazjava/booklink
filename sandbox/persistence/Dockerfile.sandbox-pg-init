@@ -1,0 +1,7 @@
+FROM alpine:3.3
+RUN apk add --no-cache bash && apk --no-cache add postgresql-client
+
+COPY wait-for-it.sh /usr/
+RUN chmod +x /usr/wait-for-it.sh
+
+CMD /usr/wait-for-it.sh --timeout=0 $BL_DB_HOST:$BL_DB_PORT && psql -h $BL_DB_HOST -d $BL_DB -U $BL_DB_USER -c "CREATE SCHEMA IF NOT EXISTS \"$BL_DB_SCHEMA\";"

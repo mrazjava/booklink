@@ -1,8 +1,16 @@
 version: '3.3'
 
+# FYI: comment out tmpfs section to retain database(s) between sandbox runs
+# by default databases are temporary for the lifecycle of a container since
+# different versions can be requested on each sandbox run
+
 services:
   mongo:
-    image: mrazjava/booklink-mongo:202009-4.4.0
+    image: mrazjava/booklink-mongo:${OL_MONGO_IMG_TAG}
+    container_name: BL_mongo
+    tmpfs:
+      - /data/db
+      - /data/configdb
     ports:
       - 127.0.0.1:27017:27017/tcp
     environment:
@@ -10,6 +18,23 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: pass123
   pg:
-    image: mrazjava/booklink-postgres:202009-12.2
+    image: mrazjava/booklink-postgres
+    container_name: BL_pg
     ports:
       - 127.0.0.1:5432:5432
+    environment:
+      POSTGRES_DB: booklink
+      POSTGRES_USER: bookworm
+      POSTGRES_PASSWORD: BL
+  pginit:
+    image: mrazjava/booklink-sandbox-pg-init
+    container_name: BL_pginit
+    depends_on:
+      - "pg"
+    environment:
+      BL_DB: booklink
+      BL_DB_SCHEMA: ${DB_SCHEMA}
+      BL_DB_HOST: pg
+      BL_DB_PORT: 5432
+      BL_DB_USER: bookworm
+      PGPASSWORD: BL

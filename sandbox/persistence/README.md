@@ -5,9 +5,18 @@ typically managed via docker compose.
 ## Postgres
 PostgreSQL is the main system database which powers the backend. User data and all other system information is stored 
 in this database, including book references fetched from mongo.
+
 ```
-docker build -f Dockerfile.postgres -t mrazjava/booklink-postgres:202009-12.2 .
+docker build -f Dockerfile.postgres -t mrazjava/booklink-postgres .
 ``` 
+FYI: postgres image is simply on a `latest` tag.
+
+In sandbox, environments are bound to a schema on a single `booklink` database. Schema initialzation is handled via 
+another small container:
+```
+docker build -f Dockerfile.sandbox-pg-init -t mrazjava/booklink-sandbox-pg-init .
+```
+FYI: like postgres image, sandbox schema initializer is also bound to a `latest` tag.
 
 ## Mongo
 The mongo database provides raw book sources against which backend lookups are issued. For technical details about 
@@ -20,10 +29,11 @@ Steps to prepare fresh mongo image:
 4) Execute docker build command below:
 ```
 docker build -f Dockerfile.mongo -t mrazjava/booklink-mongo:YYYYMM-4.4.0 .
-``` 
+```
+Dump is part of a docker image. When image is started for the first time, dump is imported and database created. 
 
-This docker image is updated at most on the monthly basis since openlibrary dumps are issued on the monthly basis as 
-well. The version schema is composed of a for digit year `YYYY` and a two digit month `MM`.
+This docker image is updated on the monthly to match openlibrary.org dump release cycle. The version schema is 
+composed of a for digit year `YYYY` and a two digit month `MM`.
 
 Spinning up mongo image directly:
 ```

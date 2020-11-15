@@ -5,6 +5,7 @@ version: '3.3'
 services:
   frontend:
     image: docker.io/mrazjava/booklink-frontend-vue:${FE_IMG_TAG}
+    container_name: BL_vue
     ports:
       - "8090:80"
     environment:
@@ -18,20 +19,23 @@ services:
       VUE_APP_ENV: live
   backend:
     image: docker.io/mrazjava/booklink-backend:${BE_IMG_TAG}
+    container_name: BL_backend
     ports:
       - "8080:8080"
     depends_on:
       - "pg"
     environment:
       CORS_ALLOW_ORIGINS: http://localhost:8090
-      APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink_sndbx_live
+      APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink?currentSchema=${DB_SCHEMA}
       DEPOT_URL: http://depot:8080/
       APP_BE_HIBERNATE_DDL_AUTO: validate
       APP_SPRING_DATA_INIT: never
       APP_FLYWAY_ENABLED: 'true'
+      FLYWAY_DEFAULT_SCHEMA: ${DB_SCHEMA}
       APP_ENV: live
   depot: # there are no environmental depot differences (APP_ENV)
     image: docker.io/mrazjava/booklink-openlibrary-depot:${OL_IMG_TAG}
+    container_name: BL_depot
     ports:
       - "8070:8080"
     depends_on:

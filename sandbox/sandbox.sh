@@ -84,6 +84,9 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 if [[ -z "$OL_IMG_TAG" ]];
 then
   export OL_IMG_TAG=latest
+  export OL_MONGO_IMG_TAG=latest
+else
+  export OL_MONGO_IMG_TAG=${OL_IMG_TAG}-4.4.0
 fi
 
 if [ "$1" = "live" ] || [ "$1" = "pre" ] || [ "$1" = "stg" ] || [ "$1" = "local" ]
@@ -115,6 +118,7 @@ fi
 
 if [ $RUNENV = "live" ]
 then
+ export DB_SCHEMA="$RUNENV-$BE_IMG_TAG"
  echo "--------------------------------------------------"
  echo "+ validating *live* docker images"
  echo "--------------------------------------------------"
@@ -127,6 +131,7 @@ fi
 
 if [ $RUNENV = "pre" ]
 then
+ export DB_SCHEMA=$RUNENV
  echo "--------------------------------------------------"
  echo "+ validating *pre-release* docker images"
  echo "--------------------------------------------------"
@@ -139,6 +144,7 @@ fi
 
 if [ $RUNENV = "stg" ]
 then
+ export DB_SCHEMA=$RUNENV
  echo "--------------------------------------------------"
  echo "+ validating *staging* docker images"
  echo "--------------------------------------------------"
@@ -151,6 +157,7 @@ fi
 
 if [ $RUNENV = "local" ]
 then
+ export DB_SCHEMA=$RUNENV
  echo "--------------------------------------------------"
  echo "+ starting LOCAL dev environment"
  echo "--------------------------------------------------"
@@ -170,6 +177,6 @@ then
    export FE_IMG_TAG=
    export BE_IMG_TAG=
    export OL_IMG_TAG=
-   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg pginit mongo
  fi
 fi
