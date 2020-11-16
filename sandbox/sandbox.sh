@@ -25,6 +25,7 @@ FLAGS:
   Optional. If not provided, "latest" is used.
 
 EXAMPLE:
+  live                          : run latest live releases
   live -f v0.1.4 -b v0.2.8      : run tagged live (or archived) images (example:
                                   v0.1.4 frontend-vue, v0.2.8 backend) and latest depot
   pre                           : run pre-release candidate images (:master)
@@ -94,8 +95,14 @@ then
  SOURCE=$1
  if [[ "$RUNENV" = "live" && (-z "$FE_IMG_TAG" || -z "$BE_IMG_TAG") ]];
  then
-   echo "[live] parameter requires frontend and backend tags - see help"
-   exit
+   if [[ -z "$FE_IMG_TAG" ]]
+   then
+     export FE_IMG_TAG=latest
+   fi
+   if [[ -z "$BE_IMG_TAG" ]]
+   then
+     export BE_IMG_TAG=latest
+   fi
  fi
  if [ "$RUNENV" = "local" ]
  then
