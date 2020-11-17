@@ -7,23 +7,26 @@ services:
     image: docker.io/mrazjava/booklink-frontend-vue:${FE_IMG_TAG}
     container_name: BL_vue
     ports:
-      - "8090:80"
+      - ${BL_F_PORT}:80
     environment:
       FE_DEPLOY_ENV: local
-      FE_DEPLOY_BE_HOST: http://localhost:8080
+      FE_DEPLOY_BE_HOST: http://localhost:${BL_B_PORT}
       FE_FB_APPID: 1662925783847528
       FE_GL_APPID: 1022797606973-5j5ppvnp01qbqcqhqn1p6umh6n84kvpf.apps.googleusercontent.com
       FE_SANDBOX: 1
       # backward-compatibility: <= v0.2.0
-      VUE_APP_BACKEND_HOST: http://localhost:8080
+      VUE_APP_BACKEND_HOST: http://localhost:${BL_B_PORT}
       VUE_APP_ENV: stg
   backend:
     image: docker.io/mrazjava/booklink-backend:${BE_IMG_TAG}
     container_name: BL_backend
     ports:
-    - "8080:8080"
+    - ${BL_B_PORT}:8080
+    depends_on:
+      - "pg"
+      - "depot"
     environment:
-      CORS_ALLOW_ORIGINS: http://localhost:8090
+      CORS_ALLOW_ORIGINS: http://localhost:${BL_F_PORT}
       APP_BE_DB_URL: jdbc:postgresql://pg:5432/booklink?currentSchema=${DB_SCHEMA}
       DEPOT_URL: http://depot:8080/
       APP_BE_HIBERNATE_DDL_AUTO: validate
@@ -35,7 +38,9 @@ services:
     image: docker.io/mrazjava/booklink-openlibrary-depot:${OL_IMG_TAG}
     container_name: BL_depot
     ports:
-      - "8070:8080"
+      - ${BL_D_PORT}:8080
+    depends_on:
+      - "mongo"
     environment:
       SPRING_PROFILES_ACTIVE: DEPOT
       BOOKLINK_MONGO_HOST: mongo

@@ -12,7 +12,7 @@ services:
       - /data/db
       - /data/configdb
     ports:
-      - 127.0.0.1:27017:27017/tcp
+      - 127.0.0.1:${BL_M_PORT}:27017/tcp
     environment:
       MONGO_INITDB_DATABASE: openlibrary
       MONGO_INITDB_ROOT_USERNAME: root
@@ -21,7 +21,7 @@ services:
     image: mrazjava/booklink-postgres
     container_name: BL_pg
     ports:
-      - 127.0.0.1:5432:5432
+      - 127.0.0.1:${BL_P_PORT}:5432
     environment:
       POSTGRES_DB: booklink
       POSTGRES_USER: bookworm
@@ -35,6 +35,6 @@ services:
       BL_DB: booklink
       BL_DB_SCHEMA: ${DB_SCHEMA}
       BL_DB_HOST: pg
-      BL_DB_PORT: 5432
+      BL_DB_PORT: ${BL_P_PORT}
       BL_DB_USER: bookworm
       PGPASSWORD: BL
