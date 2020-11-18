@@ -10,7 +10,6 @@ EXAMPLE:
   booklinktags frontend-vue      # list vue.js frontend images
   booklinktags backend           # list backend images
   booklinktags openlibrary-depot # list openlibrary.org integration images
-  booklinktags postgres          # list postgres (main db) images
   booklinktags mongo             # list mongo (book sources) images
 HELP
 fi

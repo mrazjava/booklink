@@ -178,7 +178,7 @@ then
    fi
  fi
 else
- echo "INVALID INPUT. Expecting: live [-f][-b] | pre | stg | local [-f][-b] | help"
+ echo "INVALID INPUT. Expecting: live [-f][-b][-d] | pre [-d] | stg [-d] | local [-f][-b][-d] | help"
  exit
 fi
 
