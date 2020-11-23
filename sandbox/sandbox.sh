@@ -209,7 +209,7 @@ then
  echo "--------------------------------------------------"
  echo "+ simulating LIVE environment (frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG, depot=$OL_IMG_TAG)"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml up
+ docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml up --remove-orphans
 fi
 
 if [ $RUNENV = "pre" ]
@@ -222,12 +222,13 @@ then
  echo "--------------------------------------------------"
  echo "+ simulating PRE-RELEASE environment"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/pre.yml -f docker-compose/persistence.yml up
+ docker-compose -f docker-compose/pre.yml -f docker-compose/persistence.yml up --remove-orphans
 fi
 
 if [ $RUNENV = "stg" ]
 then
  export DB_SCHEMA=$RUNENV
+ export OL_IMG_TAG=develop
  echo "--------------------------------------------------"
  echo "+ validating *staging* docker images"
  echo "--------------------------------------------------"
@@ -235,7 +236,7 @@ then
  echo "--------------------------------------------------"
  echo "+ starting STAGING environment"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/stg.yml -f docker-compose/persistence.yml up
+ docker-compose -f docker-compose/stg.yml -f docker-compose/persistence.yml up --remove-orphans
 fi
 
 if [ $RUNENV = "local" ]
@@ -260,6 +261,6 @@ then
    export FE_IMG_TAG=
    export BE_IMG_TAG=
    export OL_IMG_TAG=
-   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg pginit mongo
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up --remove-orphans pg pginit mongo
  fi
 fi
