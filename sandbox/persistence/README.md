@@ -23,9 +23,9 @@ The mongo database provides raw book sources against which backend lookups are i
 the structure of mongo database see [booklink-openlibrary](https://github.com/mrazjava/booklink-openlibrary) project.
 
 Steps to prepare fresh mongo image:
-1) Download latest [ol_dump](https://archive.org/details/ol_exports?sort=-publicdate) files. After clicking latest 
-month, under the "Download Options" expand GZIP and download authors, works and editions archives.
-2) Run the import on the latest openlibrary.org data dumps
+1) Download [ol_dump](https://archive.org/details/ol_exports?sort=-publicdate) files. Select latest 
+month, then, under the "Download Options" expand GZIP to download authors, works and editions archives.
+2) Reformat the dumps and run the import on them.
 3) Dump mongo image created from step 1 (see openlibrary integration README)
 4) Copy `openlibrary-mongo.artchive` dump file to this directory
 5) Execute docker build command below:
