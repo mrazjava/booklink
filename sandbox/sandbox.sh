@@ -256,7 +256,7 @@ then
    echo "--------------------------------------------------"
    docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo backend depot
  else
-   echo "* persistence only"
+   echo "* persistence only (postgres=latest, mongo=$OL_MONGO_IMG_TAG)"
    echo "--------------------------------------------------"
    export FE_IMG_TAG=
    export BE_IMG_TAG=
