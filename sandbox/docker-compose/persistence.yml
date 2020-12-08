@@ -6,7 +6,7 @@ version: '3.3'
 
 services:
   mongo:
-    image: mrazjava/booklink-mongo:${OL_MONGO_IMG_TAG}
+    image: docker.io/${OL_MONGO_IMG}:${OL_MONGO_IMG_TAG}
     container_name: BL_mongo
     tmpfs:
       - /data/db
@@ -18,7 +18,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: pass123
   pg:
-    image: mrazjava/booklink-postgres
+    image: docker.io/${BE_PG_IMG}:${BE_PG_IMG_TAG}
     container_name: BL_pg
     ports:
       - ${BL_P_PORT}:5432
@@ -27,7 +27,7 @@ services:
       POSTGRES_USER: bookworm
       POSTGRES_PASSWORD: BL
   pginit:
-    image: mrazjava/booklink-sandbox-pg-init
+    image: docker.io/mrazjava/booklink-sandbox-pg-init
     container_name: BL_pginit
     depends_on:
       - "pg"

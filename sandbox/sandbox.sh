@@ -1,5 +1,32 @@
 #!/bin/bash
 
+export FE_IMG=mrazjava/booklink-frontend-vue
+export BE_IMG=mrazjava/booklink-backend
+export OL_IMG=mrazjava/booklink-openlibrary-depot
+export BE_PG_IMG=mrazjava/booklink-postgres
+export OL_MONGO_IMG=mrazjava/booklink-mongo
+
+function print_ports() {
+  echo "--------------------------------------------------"
+  echo "+ Booklink PORT usage on host system:"
+  echo "--------------------------------------------------"
+
+  if [[ ! "$RUNENV" = "local" ]] || [[ ! -z "$FE_IMG_TAG" ]];
+  then
+    echo "* Frontend @ $BL_F_PORT ... $FE_IMG:$FE_IMG_TAG"
+  fi
+  if [[ ! "$RUNENV" = "local" ]] || [[ ! -z "$BE_IMG_TAG" ]];
+  then
+    echo "* Backend @ $BL_B_PORT ... $BE_IMG:$BE_IMG_TAG"
+  fi
+  if [[ ! "$RUNENV" = "local" ]] || [[ -z "$BL_NODEPOT" ]];
+  then
+    echo "* Depot @ $BL_D_PORT ... $OL_IMG:$OL_IMG_TAG"
+  fi
+  echo "* Backend DB @ $BL_P_PORT ... $BE_PG_IMG:$BE_PG_IMG_TAG"
+  echo "* Depot DB @ $BL_M_PORT ... $OL_MONGO_IMG:$OL_MONGO_IMG_TAG"
+}
+
 if [ $# -eq 0 ] || [ "$1" == "help" ]
 then
 cat << HELP
@@ -23,6 +50,9 @@ FLAGS:
 
 -d --depot    : image tag for book source integration
   Optional. If not provided, "latest" is used.
+
+-m --mongo    : image tag for mongo image (YYYYMM). Optional. If not provided 
+  tag is derived from the depot, otherwise "latest" is used.
 
 --portP       : port on which to run PostgreSQL; defaults to 5432
 --portM       : port on which to run MongoDB; defaults to 27017
@@ -80,6 +110,15 @@ case $key in
     fi
     shift # past argument
     ;;
+    -m|--mongo)
+    if [[ -z "$2" || ("$2" =~ ^-.*) ]];
+    then
+      export OL_MONGO_IMG_TAG=latest
+    else
+      export OL_MONGO_IMG_TAG="$2-4.4.0"
+    fi
+    shift # past argument
+    ;;
     --portF)
     if [[ ! -z "$2" ]] && [[ ! "$2" =~ ^-.* ]];
     then
@@ -119,9 +158,15 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 if [[ -z "$OL_IMG_TAG" ]];
 then
   export OL_IMG_TAG=latest
-  export OL_MONGO_IMG_TAG=latest
+  if [[ -z "$OL_MONGO_IMG_TAG" ]];
+  then
+  	export OL_MONGO_IMG_TAG=latest
+  fi
 else
-  export OL_MONGO_IMG_TAG=${OL_IMG_TAG}-4.4.0
+  if [[ -z "$OL_MONGO_IMG_TAG" ]];
+  then
+	export OL_MONGO_IMG_TAG=${OL_IMG_TAG}-4.4.0
+  fi
 fi
 
 if [[ -z "$BL_F_PORT" ]]
@@ -182,32 +227,18 @@ else
  exit
 fi
 
-echo "Booklink PORT usage on host system:"
-
-if [[ ! "$RUNENV" = "local" ]] || [[ ! -z "$FE_IMG_TAG" ]];
-then
-  echo "* Frontend: $BL_F_PORT"
-fi
-if [[ ! "$RUNENV" = "local" ]] || [[ ! -z "$BE_IMG_TAG" ]];
-then
-  echo "* Backend: $BL_B_PORT"
-fi
-if [[ ! "$RUNENV" = "local" ]] || [[ -z "$BL_NODEPOT" ]];
-then
-  echo "* Depot: $BL_D_PORT"
-fi
-echo "* PostgreSQL: $BL_P_PORT"
-echo "* MongoDB: $BL_M_PORT"
+export BE_PG_IMG_TAG="latest"
 
 if [ $RUNENV = "live" ]
 then
  export DB_SCHEMA="$RUNENV-$BE_IMG_TAG"
+ print_ports
  echo "--------------------------------------------------"
  echo "+ validating *live* docker images"
  echo "--------------------------------------------------"
  docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml pull frontend backend depot
  echo "--------------------------------------------------"
- echo "+ simulating LIVE environment (frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG, depot=$OL_IMG_TAG)"
+ echo "+ simulating LIVE environment"
  echo "--------------------------------------------------"
  docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml up --remove-orphans
 fi
@@ -215,6 +246,9 @@ fi
 if [ $RUNENV = "pre" ]
 then
  export DB_SCHEMA=$RUNENV
+ export FE_IMG_TAG=master
+ export BE_IMG_TAG=master
+ print_ports 
  echo "--------------------------------------------------"
  echo "+ validating *pre-release* docker images"
  echo "--------------------------------------------------"
@@ -229,6 +263,9 @@ if [ $RUNENV = "stg" ]
 then
  export DB_SCHEMA=$RUNENV
  export OL_IMG_TAG=develop
+ export FE_IMG_TAG=develop
+ export BE_IMG_TAG=develop
+ print_ports 
  echo "--------------------------------------------------"
  echo "+ validating *staging* docker images"
  echo "--------------------------------------------------"
@@ -242,21 +279,20 @@ fi
 if [ $RUNENV = "local" ]
 then
  export DB_SCHEMA=$RUNENV
+ print_ports
  echo "--------------------------------------------------"
  echo "+ starting LOCAL dev environment"
  echo "--------------------------------------------------"
  if [[ (! -z "$BE_IMG_TAG") && (! -z "$FE_IMG_TAG") ]];
  then
-   echo "* w/ frontend=$FE_IMG_TAG, backend=$BE_IMG_TAG, depot=$OL_IMG_TAG)"
-   echo "--------------------------------------------------"
    docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo frontend backend depot
  elif [[ (! -z "$BE_IMG_TAG") && (-z "$FE_IMG_TAG") ]];
  then
-   echo "* w/ backend=$BE_IMG_TAG, depot=$OL_IMG_TAG) (no frontend)"
+   echo "* (no frontend)"
    echo "--------------------------------------------------"
    docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up pg mongo backend depot
  else
-   echo "* persistence only (postgres=latest, mongo=$OL_MONGO_IMG_TAG)"
+   echo "* persistence only"
    echo "--------------------------------------------------"
    export FE_IMG_TAG=
    export BE_IMG_TAG=
