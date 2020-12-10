@@ -51,7 +51,7 @@ FLAGS:
 -d --depot    : image tag for book source integration
   Optional. If not provided, "latest" is used.
 
--m --mongo    : image tag for mongo image (YYYYMM). Optional. If not provided 
+-m --mongo    : image tag for mongo database (YYYYMM). Optional. If not provided 
   tag is derived from the depot, otherwise "latest" is used.
 
 --portP       : port on which to run PostgreSQL; defaults to 5432
