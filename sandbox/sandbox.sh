@@ -236,7 +236,7 @@ then
  echo "--------------------------------------------------"
  echo "+ validating *live* docker images"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml pull frontend backend depot
+ docker-compose -f docker-compose/live.yml -f docker-compose/persistence.yml pull frontend backend depot mongo
  echo "--------------------------------------------------"
  echo "+ simulating LIVE environment"
  echo "--------------------------------------------------"
@@ -252,7 +252,7 @@ then
  echo "--------------------------------------------------"
  echo "+ validating *pre-release* docker images"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/pre.yml -f docker-compose/persistence.yml pull frontend backend depot
+ docker-compose -f docker-compose/pre.yml -f docker-compose/persistence.yml pull frontend backend depot mongo
  echo "--------------------------------------------------"
  echo "+ simulating PRE-RELEASE environment"
  echo "--------------------------------------------------"
@@ -269,7 +269,7 @@ then
  echo "--------------------------------------------------"
  echo "+ validating *staging* docker images"
  echo "--------------------------------------------------"
- docker-compose -f docker-compose/stg.yml -f docker-compose/persistence.yml pull frontend backend depot
+ docker-compose -f docker-compose/stg.yml -f docker-compose/persistence.yml pull frontend backend depot mongo
  echo "--------------------------------------------------"
  echo "+ starting STAGING environment"
  echo "--------------------------------------------------"
