@@ -95,7 +95,7 @@ case $key in
     -b|--backend)
     if [[ -z "$2" || ("$2" =~ ^-.*) ]];
     then
-      export BE_IMG_TAG=local
+      export BE_IMG_TAG=develop
     else
       export BE_IMG_TAG="$2"
     fi
@@ -212,6 +212,8 @@ then
    fi
    if [[ -z "$BE_IMG_TAG" && (! -z "$FE_IMG_TAG") ]];
    then
+     # sandbox local and only -f passed (assumed :local tag)
+     # 
      # FE developer that builds a local image will probably not be interested in running off a
      # local backend image (which implies building one) - so a sensible default here is staging
      # backend image
