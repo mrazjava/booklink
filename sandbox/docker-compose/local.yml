@@ -44,5 +44,6 @@ services:
       - "mongo"
     environment:
       SPRING_PROFILES_ACTIVE: DEPOT
+      SERVER_PORT: 8080
       BOOKLINK_MONGO_HOST: mongo
       BOOKLINK_MONGO_PORT: 27017
