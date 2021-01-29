@@ -43,6 +43,29 @@ to this one:
 2020-04-06T10:26:57.476218502+02:00 container health_status: unhealthy 9c8c59523f46d583e1043b460590b4c407fb1c829874af04d56a1b23e98ae816 (com.docker.compose.config-hash=696c78526debb2cfe9011743066e99f6d35c8e28374abe13258e5627791487ee, com.docker.compose.container-number=1, com.docker.compose.oneoff=False, com.docker.compose.project=dockercompose, com.docker.compose.service=backend, com.docker.compose.version=1.15.0, image=docker.io/mrazjava/booklink-backend:develop, name=dockercompose_backend_1)
 ```
 
+### Examples
+\# 1
+Try the entire solution using latest released version:
+
+```
+./sandbox.sh live
+```
+
+\# 2
+
+Typical for frontend development, we would start everything except frontend. Specifically:
+- backend app (staging - current release under dev)
+- backend db (postgres; latest stable release)
+- depot app (latest stable release)
+- depot db (mongo; specific version from december 2020)
+
+Mongo selection is optional. If omitted, latest will be used.
+
+```
+./sandbox.sh local -b -m 202012
+```
+
+
 ## No Sandbox
 More adventurous souls can run booklink images via [docker-compose](https://github.com/mrazjava/booklink#docker-compose) 
 or even directly with docker. The included `env` file drives the config of an image we spin; at minimum, it should 
