@@ -69,7 +69,8 @@ EXAMPLE:
   local                         : enable all persistence environments, no backend, no frontend, no depot
   local -b                      : run custom built backend (:local), depot (:latest), skip frontend
   local -b foo -d bar -f        : run custom built backend (:foo), custom depot (:bar), frontend (:local)
-  local -f                      : run custom built frontend (:local), staged backend (:develop)
+  local -f                      : run custom built frontend (:local), staged backend (:develop) and stable depot (:latest)
+  local -b -d develop -m 202012 : run staging backend and depot (:develop) with specific mongo version (:202012)
   help                          : show this message
 
 HELP
@@ -283,6 +284,21 @@ then
  export DB_SCHEMA=$RUNENV
  print_ports
  echo "--------------------------------------------------"
+ echo "+ validating docker images"
+ echo "--------------------------------------------------"
+ if [[ (! -z "$BE_IMG_TAG") && (! -z "$FE_IMG_TAG") ]];
+ then
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml pull pg mongo frontend backend depot
+ elif [[ (! -z "$BE_IMG_TAG") && (-z "$FE_IMG_TAG") ]];
+ then
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml pull pg mongo backend depot
+ else
+   export FE_IMG_TAG=
+   export BE_IMG_TAG=
+   export OL_IMG_TAG=
+   docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml pull pg pginit mongo
+ fi
+ echo "--------------------------------------------------"
  echo "+ starting LOCAL dev environment"
  echo "--------------------------------------------------"
  if [[ (! -z "$BE_IMG_TAG") && (! -z "$FE_IMG_TAG") ]];
@@ -296,9 +312,6 @@ then
  else
    echo "* persistence only"
    echo "--------------------------------------------------"
-   export FE_IMG_TAG=
-   export BE_IMG_TAG=
-   export OL_IMG_TAG=
    docker-compose -f docker-compose/local.yml -f docker-compose/persistence.yml up --remove-orphans pg pginit mongo
  fi
 fi
