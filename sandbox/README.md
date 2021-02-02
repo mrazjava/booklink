@@ -65,6 +65,15 @@ Mongo selection is optional. If omitted, latest will be used.
 ./sandbox.sh local -b -m 202012
 ```
 
+\# 3
+
+Similar to #2, but if there are staged depot changes affecting the backend, we need to 
+use snapshot depot as well:
+
+```
+./sandbox.sh local -b -d develop -m 202012
+```
+
 
 ## No Sandbox
 More adventurous souls can run booklink images via [docker-compose](https://github.com/mrazjava/booklink#docker-compose) 
