@@ -55,7 +55,7 @@ Try the entire solution using latest released version:
 
 Typical for frontend development, we would start everything except frontend. Specifically:
 - backend app (staging - current release under dev)
-- backend db (postgres; latest stable release)
+- backend db infostructure (postgres; latest stable release - each env has its own schema)
 - depot app (latest stable release)
 - depot db (mongo; specific version from december 2020)
 
