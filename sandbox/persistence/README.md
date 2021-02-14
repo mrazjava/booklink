@@ -8,7 +8,7 @@ in this database, including book references fetched from mongo.
 
 ```
 docker build -f Dockerfile.postgres -t mrazjava/booklink-postgres .
-``` 
+```
 FYI: postgres image is simply on a `latest` tag.
 
 In sandbox, environments are bound to a schema on a single `booklink` database. Schema initialzation is handled via 
@@ -23,14 +23,16 @@ The mongo database provides raw book sources against which backend lookups are i
 the structure of mongo database see [booklink-openlibrary](https://github.com/mrazjava/booklink-openlibrary) project.
 
 Steps to prepare fresh mongo image:
-1) Download [ol_dump](https://archive.org/details/ol_exports?sort=-publicdate) files. Select latest 
+
+1. Download [ol_dump](https://archive.org/details/ol_exports?sort=-publicdate) files. Select latest 
 month, then, under the "Download Options" expand GZIP to download authors, works and editions archives.
-2) Reformat the dumps and run the import on them.
-3) Dump mongo image created from step 1 (see openlibrary integration README)
-4) Copy `openlibrary-mongo.artchive` dump file to this directory
-5) Execute docker build command below:
+2. Reformat the dumps and run the import on them.
+3. Dump mongo image created from step 1 (see openlibrary integration README)
+4. Copy `openlibrary-mongo.artchive` dump file to this directory
+5. Execute docker build command below:
+
 ```
-docker build -f Dockerfile.mongo -t mrazjava/booklink-mongo:YYYYMM-4.4.0 .
+docker build -f Dockerfile.mongo -t mrazjava/booklink-mongo:YYYYMM-4.4.0 --label "DUMP_SOURCE=https://archive.org/download/ol_dump_YYYY-MM-DD" --label "COMMENT=" .
 ```
 Dump is part of a docker image. When image is started for the first time, dump is imported and database created. 
 

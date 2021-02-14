@@ -41,18 +41,19 @@ script. Depot environment is included if either -f or -b option is enabled
 FLAGS:
 
 -f --frontend : image tag for frontend-vue
-  Required for live, ignored for pre and stg, optional for local.
-  If provided to local without the -b, then -b is forced with :develop tag.
+  Optional. If omitted, sandbox will use best image for the chosen environment. 
+  Tag may be required depending on environment.
 
 -b --backend  : image tag for the backend
-  Required for live, ignored for pre and stg, optional for local.
-  If provided to local without the -f, then frontend is skipped.
+  Optional. If omitted, sandbox will use best image for the chosen environment. 
+  Tag may be required depending on environment.
 
 -d --depot    : image tag for book source integration
   Optional. If not provided, "latest" is used.
 
--m --mongo    : image tag for mongo database (YYYYMM). Optional. If not provided 
-  tag is derived from the depot, otherwise "latest" is used.
+-m --mongo    : image tag for mongo database (without the -X.X.X suffix). Optional. 
+  If not provided tag is derived from the depot, otherwise "latest" is used. 
+  Run 'booklinktags.sh mongo' to get available versions.
 
 --portP       : port on which to run PostgreSQL; defaults to 5432
 --portM       : port on which to run MongoDB; defaults to 27017
@@ -62,8 +63,7 @@ FLAGS:
 
 EXAMPLE:
   live                          : run latest live releases
-  live -f v0.1.4 -b v0.2.8      : run tagged live (or archived) images (example:
-                                  v0.1.4 frontend-vue, v0.2.8 backend) and latest depot
+  live -f v0.1.4 -b v0.2.8      : run older (tagged) live FE and BE releases, and everything else latest
   pre                           : run pre-release candidate images (:master)
   stg                           : run staging snapshot images (:develop)
   local                         : enable all persistence environments, no backend, no frontend, no depot
