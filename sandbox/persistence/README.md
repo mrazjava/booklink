@@ -43,3 +43,9 @@ Spinning up mongo image directly:
 ```
 docker run -p 27117:27017/tcp mrazjava/booklink-mongo:YYYYMM-4.4.0
 ```
+
+### Full Text Search
+Each collection is text indexed to support mongo's native full text search. However, as mongo does not yet support 
+fuzzy search, partial word searches do not yield results.
+
+- [partial search in mongo](https://stackoverflow.com/questions/44833817/mongodb-full-and-partial-text-search)
