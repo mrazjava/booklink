@@ -67,7 +67,7 @@ EXAMPLE:
   pre                           : run pre-release candidate images (:master)
   stg                           : run staging snapshot images (:develop)
   local                         : enable all persistence environments, no backend, no frontend, no depot
-  local -b                      : run custom built backend (:local), depot (:latest), skip frontend
+  local -b foo                  : run custom built backend (:foo), depot (:latest), skip frontend
   local -b foo -d bar -f        : run custom built backend (:foo), custom depot (:bar), frontend (:local)
   local -f                      : run custom built frontend (:local), staged backend (:develop) and stable depot (:latest)
   local -b -d develop -m 202012 : run staging backend and depot (:develop) with specific mongo version (:202012)
@@ -166,7 +166,12 @@ then
 else
   if [[ -z "$OL_MONGO_IMG_TAG" ]];
   then
-	export OL_MONGO_IMG_TAG=${OL_IMG_TAG}-4.4.0
+    if [[ ! "${OL_IMG_TAG}" = "develop" ]]
+    then
+      export OL_MONGO_IMG_TAG=${OL_IMG_TAG}
+    else
+      export OL_MONGO_IMG_TAG=latest
+    fi
   fi
 fi
 
@@ -282,6 +287,7 @@ fi
 if [ $RUNENV = "local" ]
 then
  export DB_SCHEMA=$RUNENV
+ export OL_IMG_TAG=develop
  print_ports
  echo "--------------------------------------------------"
  echo "+ validating docker images"
